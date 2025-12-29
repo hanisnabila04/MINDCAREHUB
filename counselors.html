@@ -145,8 +145,9 @@
   .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
 
   /* Star Rating in Modal */
-  .star-rating { font-size: 1.5rem; color: #ddd; cursor: pointer; }
-  .star-rating.active { color: #ffc107; }
+  .star-rating { font-size: 2rem; color: #e0e0e0; cursor: pointer; transition: color 0.2s; }
+  .star-rating.active { color: #ffc107; } /* Gold color */
+  .star-rating:hover { color: #ffdb58; }
 
 </style>
 
@@ -323,7 +324,7 @@
         <div class="modal-body">
           <form id="counselorForm">
             <input type="hidden" id="editId">
-            <div class="mb-3"><label class="fw-bold small">Name</label><input type="text" class="form-control" id="cName" required></div>
+            <div class="mb-3"><label class="fw-bold small">Name (Prefix with Dr/Mr/Ms)</label><input type="text" class="form-control" id="cName" required placeholder="e.g. Ms. Sarah Lee"></div>
             <div class="mb-3"><label class="fw-bold small">Specialization</label><input type="text" class="form-control" id="cSpec" required></div>
             <div class="row">
                <div class="col-6 mb-3"><label class="fw-bold small">Experience (Years)</label><input type="number" class="form-control" id="cExp" required></div>
@@ -346,15 +347,15 @@
         </div>
         <div class="modal-body text-center">
            <p class="text-muted">How was your experience?</p>
-           <div class="mb-3">
-             <i class="bi bi-star-fill star-rating active"></i>
-             <i class="bi bi-star-fill star-rating active"></i>
-             <i class="bi bi-star-fill star-rating active"></i>
-             <i class="bi bi-star-fill star-rating active"></i>
-             <i class="bi bi-star-fill star-rating"></i>
+           <div class="mb-3" id="starContainer">
+             <i class="bi bi-star-fill star-rating" onclick="selectStar(1)"></i>
+             <i class="bi bi-star-fill star-rating" onclick="selectStar(2)"></i>
+             <i class="bi bi-star-fill star-rating" onclick="selectStar(3)"></i>
+             <i class="bi bi-star-fill star-rating" onclick="selectStar(4)"></i>
+             <i class="bi bi-star-fill star-rating" onclick="selectStar(5)"></i>
            </div>
            <textarea class="form-control mb-3" rows="3" placeholder="Leave a review..."></textarea>
-           <button class="btn btn-green w-100" data-bs-dismiss="modal">Submit Rating</button>
+           <button class="btn btn-green w-100" onclick="submitReview()">Submit Rating</button>
         </div>
       </div>
     </div>
@@ -376,7 +377,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const STORAGE_KEY = 'mindcare_counselors_data';
-    let counselorsData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || generateData();
+    // Load data or Generate if missing
+    let counselorsData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+    // Force regeneration if data is old/broken (missing 'exp')
+    if (!counselorsData || counselorsData.length > 0 && !counselorsData[0].exp) {
+       counselorsData = generateData();
+    }
 
     function generateData() {
         // Base 5 WITH DEFINED EXP (FIXED)
@@ -403,7 +410,7 @@
                 status: Math.random() > 0.2 ? "Active" : "Inactive",
                 rating: (4.2 + Math.random() * 0.8).toFixed(1),
                 sessions: Math.floor(Math.random() * 100),
-                exp: Math.floor(Math.random() * 15) + 2
+                exp: Math.floor(Math.random() * 15) + 3 // Random exp between 3 and 18
             });
         });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -518,9 +525,24 @@
         new bootstrap.Modal(document.getElementById('counselorModal')).show();
     }
 
+    // --- RATING LOGIC ---
     function openRateModal(name) {
         document.getElementById('rateName').innerText = name;
+        selectStar(0); // Reset stars
         new bootstrap.Modal(document.getElementById('rateModal')).show();
+    }
+
+    function selectStar(n) {
+        const stars = document.querySelectorAll('.star-rating');
+        stars.forEach((star, index) => {
+            if (index < n) star.classList.add('active');
+            else star.classList.remove('active');
+        });
+    }
+
+    function submitReview() {
+        alert("Thank you for leaving a rate and review!");
+        bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
     }
 
     document.getElementById('counselorForm').addEventListener('submit', (e) => {
