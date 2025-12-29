@@ -252,7 +252,7 @@ body {
 
 /* Welcome banner */
 .welcome-card {
-  background: linear-gradient(90deg, #3a5cf5, #5d2fd5);
+  background: linear-gradient(90deg, #3a5cf5, #326d1b);
   padding: 55px;
   border-radius: 25px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
