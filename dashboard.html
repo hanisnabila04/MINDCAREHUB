@@ -16,7 +16,7 @@
 <style>
   /* ========================= GENERAL STYLES ========================= */
   body {
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: #f8f9fa;
     font-family: 'Roboto', sans-serif;
     color: #333333;
   }
@@ -45,7 +45,6 @@
     cursor: pointer; z-index: 20;
   }
 
-  /* Sidebar Links */
   .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; }
   .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
   .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
@@ -57,13 +56,11 @@
     font-size: 2rem; color: white; margin: 0 auto;
   }
 
-  /* ========================= CONTENT AREA ========================= */
+  /* ========================= CONTENT & NAVBAR ========================= */
   .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
-
-  /* Navbar */
   .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
   
-  /* Brand RGB Text */
+  /* Brand RGB */
   .brand-rgb {
     font-weight: 800;
     background: linear-gradient(90deg, rgb(34, 197, 94), rgb(16, 185, 129), rgb(59, 130, 246), rgb(245, 158, 11), rgb(244, 63, 94), rgb(34, 197, 94));
@@ -72,9 +69,7 @@
   }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-  /* ========================= DASHBOARD SPECIFIC STYLES ========================= */
-  
-  /* Welcome Banner */
+  /* ========================= DASHBOARD WIDGETS ========================= */
   .welcome-card {
     background-color: #102e35;
     padding: 30px;
@@ -84,16 +79,10 @@
     background-image: linear-gradient(45deg, #102e35 0%, #17424d 100%);
   }
 
-  /* Stat Cards */
   .stat-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    border: 1px solid #f0f0f0;
+    background: white; border-radius: 12px; padding: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
     transition: transform 0.2s;
   }
   .stat-card:hover { transform: translateY(-5px); }
@@ -106,14 +95,13 @@
   .bg-soft-green { background-color: #d1e7dd; color: #198754; }
   .bg-soft-orange { background-color: #ffecb5; color: #ffc107; }
 
-  /* Chart Card - Fixed Height Issue */
+  /* Chart & Availability Cards */
   .chart-card {
     background: white; border-radius: 12px; padding: 24px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
-    /* height: 100%;  <-- REMOVED THIS to keep graph small/compact */
+    /* IMPORTANT: No fixed height here, handled by internal wrapper */
   }
 
-  /* Progress Circle */
   .progress-circle {
     width: 150px; height: 150px; border-radius: 50%;
     background: conic-gradient(#bddeb1 0% 72%, #f0f0f0 72% 100%);
@@ -125,61 +113,26 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
   }
 
-  /* ========================= PROFILE SECTION ========================= */
+  /* ========================= PROFILE ========================= */
   .hidden-section { display: none !important; }
-  
-  .profile-grid {
-    display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px;
-  }
+  .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
   @media (max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
-
-  .profile-card {
-    background: #FFFFFF; border-radius: 12px; padding: 30px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; height: 100%;
-  }
-
+  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; height: 100%; }
   .profile-left-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  
-  .avatar-large {
-    width: 100px; height: 100px; border-radius: 50%;
-    background-color: #eef2ff; color: #102e35;
-    font-size: 2rem; font-weight: bold;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff;
-  }
-
-  .role-badge {
-    background-color: #e0f2f1; color: #00897b;
-    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
-    margin-top: 5px; display: inline-block;
-  }
-
-  .form-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-  .form-control, .form-select { border: 1px solid #dee2e6; border-radius: 6px; padding: 10px 12px; font-size: 14px; }
+  .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
+  .role-badge { background-color: #e0f2f1; color: #00897b; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: 5px; display: inline-block; }
   .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
   .btn-green:hover { background-color: #146c43; color: white; }
   .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
   .btn-outline-custom:hover { background: #f8f9fa; border-color: #ccc; color: #333; }
 
-  /* ========================= FOOTER (WHITE VERSION) ========================= */
-  footer {
-    background-color: #FFFFFF; color: #333;
-    padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0;
-  }
-
+  /* ========================= FOOTER ========================= */
+  footer { background-color: #FFFFFF; color: #333; padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; }
   footer h2.brand-rgb { font-size: 1.8rem; margin-bottom: 0; }
   footer a { text-decoration: none; color: #555; transition: color 0.2s; font-size: 0.9rem; }
   footer a:hover { color: #198754; }
-  .footer-links a { margin: 0 10px; font-weight: 500; }
-  
-  .social-icon-btn {
-    font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block;
-  }
-  .social-icon-btn:hover {
-    transform: translateY(-4px);
-    background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
+  .social-icon-btn { font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block; }
+  .social-icon-btn:hover { transform: translateY(-4px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 </style>
 
 <body onload="initDashboard()">
@@ -187,19 +140,9 @@
   <div class="d-flex">
     
     <div id="sidebarWrapper" class="sidebar p-3">
-      <button id="sidebarToggleBtn" class="sidebar-toggle-btn">
-        <i id="sidebarToggleIcon" class="bi bi-list"></i>
-      </button>
-
-      <div class="profile-icons d-flex justify-content-center mb-3">
-        <div class="profile-icon"><i class="bi bi-person-circle"></i></div>
-      </div>
-
-      <div class="text-center mb-4">
-        <h6 class="text-white-50 mb-0 small">WELCOME</h6>
-        <h5 class="text-white fw-bold">ADMIN</h5>
-      </div>
-
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn"><i id="sidebarToggleIcon" class="bi bi-list"></i></button>
+      <div class="profile-icons d-flex justify-content-center mb-3"><div class="profile-icon"><i class="bi bi-person-circle"></i></div></div>
+      <div class="text-center mb-4"><h6 class="text-white-50 mb-0 small">WELCOME</h6><h5 class="text-white fw-bold">ADMIN</h5></div>
       <p class="text-secondary small mt-3 fw-bold" style="color: #6c757d !important; padding-left: 10px;">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
         <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
@@ -237,37 +180,26 @@
         <div id="dashboardContent">
           
           <div class="welcome-card mb-4">
-            <h1 class="fw-bold mb-2">Welcome to <span class="brand-rgb">MindCareHub</span> Dashboard</h1>
+            <h1 class="fw-bold mb-2">Welcome to <span class="brand-rgb" style="background-image: linear-gradient(90deg, #34c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MindCareHub</span> Dashboard</h1>
             <p class="mb-0 text-white-50">Manage appointments, clients, counselors and session activities.</p>
           </div>
 
           <div class="row g-4 mb-4">
             <div class="col-md-4">
               <div class="stat-card">
-                <div>
-                  <p class="text-secondary small fw-bold mb-1">TOTAL CLIENTS</p>
-                  <h2 class="fw-bold mb-0">128</h2>
-                </div>
+                <div><p class="text-secondary small fw-bold mb-1">TOTAL CLIENTS</p><h2 class="fw-bold mb-0">128</h2></div>
                 <div class="icon-box bg-soft-blue"><i class="bi bi-people-fill"></i></div>
               </div>
             </div>
-
             <div class="col-md-4">
               <div class="stat-card">
-                <div>
-                  <p class="text-secondary small fw-bold mb-1">TODAY'S APPOINTMENTS</p>
-                  <h2 class="fw-bold mb-0">12</h2>
-                </div>
+                <div><p class="text-secondary small fw-bold mb-1">TODAY'S APPOINTMENTS</p><h2 class="fw-bold mb-0">12</h2></div>
                 <div class="icon-box bg-soft-green"><i class="bi bi-calendar-check-fill"></i></div>
               </div>
             </div>
-
             <div class="col-md-4">
               <div class="stat-card">
-                <div>
-                  <p class="text-secondary small fw-bold mb-1">PENDING REQUESTS</p>
-                  <h2 class="fw-bold mb-0">6</h2>
-                </div>
+                <div><p class="text-secondary small fw-bold mb-1">PENDING REQUESTS</p><h2 class="fw-bold mb-0">6</h2></div>
                 <div class="icon-box bg-soft-orange"><i class="bi bi-clock-history"></i></div>
               </div>
             </div>
@@ -278,17 +210,16 @@
               <div class="chart-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <h5 class="fw-bold mb-0">Monthly Appointments</h5>
-                  <select class="form-select w-auto form-select-sm">
-                    <option>Year 2025</option>
-                    <option>Year 2024</option>
-                  </select>
+                  <select class="form-select w-auto form-select-sm"><option>Year 2025</option><option>Year 2024</option></select>
                 </div>
-                <canvas id="appointmentsChart" height="120"></canvas>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="appointmentsChart"></canvas>
+                </div>
               </div>
             </div>
 
             <div class="col-lg-4">
-              <div class="chart-card text-center" style="height: 100%;">
+              <div class="chart-card text-center" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
                 <h5 class="fw-bold mb-4">Counselor Availability</h5>
                 <div class="progress-circle mx-auto mb-4">
                   <div class="circle-text">
@@ -303,25 +234,21 @@
           </div>
 
         </div>
+
         <section id="profileSection" class="hidden-section mb-5">
           <h2 class="fw-bold text-dark">User Profile</h2>
           <p class="text-secondary">Update your personal information and account details.</p>
-
           <div class="profile-grid">
             <div class="profile-card profile-left-content">
               <div class="d-flex align-items-center w-100 mb-4">
                  <div class="avatar-large" id="profileAvatarFallback">HH</div>
-                 <div class="ms-3 text-start">
-                    <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
-                    <span class="role-badge" id="profileDisplayRole">Super Admin</span>
-                 </div>
+                 <div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="role-badge" id="profileDisplayRole">Super Admin</span></div>
               </div>
               <div class="d-flex gap-2 w-100">
                 <label class="btn btn-green flex-grow-1">Change Avatar <input type="file" id="avatarInput" hidden></label>
                 <button class="btn btn-outline-custom flex-grow-1" id="resetPassBtn">Reset Password</button>
               </div>
             </div>
-
             <div class="profile-card form-card">
               <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
@@ -344,7 +271,9 @@
           </div>
         </section>
 
-      </div> <footer>
+      </div>
+
+      <footer>
         <div class="container-fluid px-5">
           <div class="row align-items-center text-center text-md-start">
             <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
@@ -388,19 +317,16 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
-    // Init Page
     function initDashboard() {
         document.getElementById('yearSpan').textContent = new Date().getFullYear();
         renderChart();
     }
 
-    // Sidebar Logic
     const sidebar = document.getElementById("sidebarWrapper");
     function toggleSidebar() { sidebar.classList.toggle("collapsed"); }
     document.getElementById("sidebarToggleBtn").addEventListener("click", toggleSidebar);
     document.getElementById("toggleSidebar").addEventListener("click", toggleSidebar);
 
-    // Profile Toggle Logic
     const profileSection = document.getElementById("profileSection");
     const dashboardContent = document.getElementById("dashboardContent");
     
@@ -411,7 +337,6 @@
        profileSection.classList.add("hidden-section"); dashboardContent.classList.remove("hidden-section");
     });
 
-    // Profile Form Logic
     function getInitials(name) {
         const names = name.split(' ');
         let initials = names[0].substring(0, 1).toUpperCase();
@@ -433,7 +358,6 @@
 
     function logout() { window.location.href = "login.html"; }
 
-    // Chart Render
     function renderChart() {
         const ctx = document.getElementById('appointmentsChart').getContext('2d');
         new Chart(ctx, {
@@ -451,7 +375,7 @@
             },
             options: { 
                 responsive: true, 
-                maintainAspectRatio: false, // Ensures it respects height=120
+                maintainAspectRatio: false 
             }
         });
     }
