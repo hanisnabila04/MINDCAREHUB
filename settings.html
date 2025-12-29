@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindCareHub Settings</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<style>
+  /* ========================= SETTINGS THEME SUPPORT ========================= */
+  :root {
+    --accent: #bddeb1;
+    --base-font-size: 16px;
+  }
+
+  /* Apply accent color to text/font elements only */
+  .sidebar .nav-link:hover,
+  .nav-link:hover,
+  .profile-icons .profile-icon:focus {
+    color: var(--accent) !important;
+  }
+
+  .profile-icons .profile-icon:focus {
+    outline-color: var(--accent) !important;
+  }
+
+  body {
+    font-size: var(--base-font-size);
+  }
+
+  /* General Page Styles */
+  body {
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+  }
+
+  /* Navigation Bar */
+  .navbar {
+    background-color: #FFFFFF;
+  }
+
+  .navbar-nav .nav-link {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .navbar-nav .nav-link.active {
+    background-color: #bddeb1;
+    color: #FFFFFF;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .nav-link:hover {
+    color: var(--accent);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background-color: #FFFFFF;
+    border-right: 1px solid #f1f1f1;
+    width: 250px;
+    transition: width 0.25s ease, padding 0.25s ease;
+    position: relative;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    text-align: center;
+  }
+
+  .sidebar .label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  .sidebar.collapsed .label {
+    display: none;
+  }
+
+  .sidebar-toggle-btn {
+    position: absolute;
+    right: -18px;
+    top: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    z-index: 20;
+  }
+
+  .profile-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-icons .profile-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: #333;
+    font-size: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    line-height: 0;
+  }
+
+  .profile-icons .profile-icon:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .sidebar.collapsed .profile-icons {
+    display: none;
+  }
+
+  .sidebar .nav-link i {
+    font-size: 1.1rem;
+    width: 28px;
+    text-align: center;
+  }
+
+  .sidebar.collapsed .text-center h6,
+  .sidebar.collapsed .text-center h5,
+  .sidebar.collapsed .text-secondary,
+  .sidebar.collapsed .avatar {
+    display: none;
+  }
+
+  .sidebar.collapsed .nav {
+    align-items: center;
+  }
+
+  .sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  .sidebar.collapsed .sidebar-toggle-btn {
+    top: 12px;
+    transform: none;
+    right: -18px;
+  }
+
+  .sidebar .nav-link {
+    font-weight: bold;
+    color: #f9f8f8;
+  }
+
+  .sidebar .nav-link:hover {
+    color: var(--accent);
+  }
+
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  th {
+    background-color: #bddeb1;
+    color: white;
+  }
+
+  td {
+    background-color: #FFFFFF;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+
+  footer {
+    background-color: #bddeb1;
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+  }
+
+  footer h5 {
+    font-weight: bold;
+  }
+
+  footer p {
+    font-weight: 300;
+    font-size: 14px;
+  }
+
+  footer .social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+  }
+
+  footer .social-icons a:hover {
+    color: #333333;
+  }
+
+  .modal-content {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+
+  .modal-header {
+    background-color: #bddeb1;
+    color: white;
+    font-weight: bold;
+  }
+
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+
+  .client-section {
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .progress-notes-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .progress-notes-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  /* ========================= PROFILE SECTION STYLES ========================= */
+  .hidden-section {
+    display: none !important;
+  }
+
+  #profileSection {
+    margin-top: 20px;
+  }
+
+  .profile-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .profile-header p {
+    margin-top: 6px;
+    color: #6b7280;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .profile-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+  }
+
+  .profile-avatar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    background: #eef2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid #dbeafe;
+  }
+
+  .avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .role-tag {
+    margin-top: 6px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #ecfeff;
+    color: #155e75;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .profile-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .profile-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .form-card h3 {
+    margin: 0 0 14px 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .form-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* ========================= THEME FIX ========================= */
+  body.theme-light {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  body.theme-dark {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .navbar,
+  body.theme-dark .sidebar,
+  body.theme-dark .profile-card,
+  body.theme-dark .card {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+
+  body.theme-dark .text-black,
+  body.theme-dark .text-dark,
+  body.theme-dark .text-body {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .text-black-50,
+  body.theme-dark .text-muted,
+  body.theme-dark .text-secondary {
+    color: #cbd5e1 !important;
+  }
+
+  body.theme-dark input,
+  body.theme-dark select,
+  body.theme-dark textarea {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* ========================= REDUCED MOTION ========================= */
+  body.reduce-motion * {
+    transition: none !important;
+    animation: none !important;
+  }
+</style>
+</head>
+
+<body onload="requireLogin()">
+
+  <!-- Sidebar -->
+  <div class="d-flex">
+    <div id="sidebarWrapper" class="sidebar p-3">
+      <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
+        <i id="sidebarToggleIcon" class="bi bi-list"></i>
+      </button>
+
+      <div class="profile-icons d-flex justify-content-center mb-3">
+        <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
+          <i class="bi bi-person-circle"></i>
+        </button>
+      </div>
+
+      <div class="text-center mb-4">
+        <h6 class="text-white mb-0">WELCOME</h6>
+        <h5 class="text-white fw-bold">ADMIN</h5>
+      </div>
+
+      <p class="text-secondary small mt-4">NAVIGATION</p>
+      <ul class="nav flex-column gap-1">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-speedometer2"></i>
+            <span class="label">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="appointments.html">
+            <i class="bi bi-calendar-check"></i>
+            <span class="label">Appointments</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="clients.html">
+            <i class="bi bi-people"></i>
+            <span class="label">Clients</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="counselors.html">
+            <i class="bi bi-person-badge"></i>
+            <span class="label">Counselors</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="session_notes.html">
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="label">Session Notes</span>
+          </a>
+        </li>
+
+        <li class="nav-item mt-4">
+          <a class="nav-link text-danger d-flex align-items-center" href="#" onclick="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="label">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content flex-grow-1">
+
+      <!-- Top Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
+        <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
+
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <span class="text-black small d-none d-md-block"></span>
+
+          <div class="dropdown">
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
+              data-bs-toggle="dropdown">
+              <span class="user-badge" id="topUserBadge">HH</span>
+              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="#" id="menuSettings"><i class="bi bi-gear me-2"></i> Settings</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid p-4">
+
+        <!-- ✅ DASHBOARD CONTENT REMOVED -->
+        <div id="dashboardContent" class="hidden-section"></div>
+
+        <!-- ✅ PROFILE SECTION (KEEP SAME) -->
+        <section id="profileSection" class="hidden-section">
+          <div class="profile-header">
+            <h2>User Profile</h2>
+            <p>Update your personal information and account details.</p>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card">
+              <div class="profile-avatar-wrap">
+                <div class="avatar-circle">
+                  <img id="avatarPreview" src="" alt="Avatar" class="hidden-section">
+                  <span id="avatarFallback">HH</span>
+                </div>
+
+                <div class="avatar-info">
+                  <h3 id="displayName">Hanis Heidi</h3>
+                  <span class="role-tag" id="displayRole">Super Admin</span>
+                </div>
+              </div>
+
+              <div class="profile-actions">
+                <label class="btn btn-primary">
+                  Change Avatar
+                  <input type="file" id="avatarInput" accept="image/*" hidden>
+                </label>
+                <button class="btn btn-outline-secondary" type="button" id="resetPassBtn">Reset Password</button>
+              </div>
+            </div>
+
+            <div class="profile-card form-card">
+              <h3>Account Details</h3>
+
+              <form id="profileForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="firstName" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lastName" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="email" required>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Role</label>
+                    <select id="role">
+                      <option value="Super Admin">Super Admin</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="phone">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Bio</label>
+                  <textarea id="bio" rows="4"></textarea>
+                </div>
+
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-success">Save Changes</button>
+                  <button type="button" class="btn btn-outline-secondary ms-2" id="backToDashboardBtn">
+                    Back
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ SETTINGS SECTION -->
+        <section id="settingsSection">
+          <div class="profile-header">
+            <h2>Settings</h2>
+            <p>Customize your MindCareHub admin panel appearance.</p>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card form-card">
+              <h3><i class="bi bi-brush me-2"></i>Appearance (Admin Panel)</h3>
+
+              <form id="settingsForm">
+                <div class="form-group">
+                  <label>Theme Preference</label>
+                  <select id="themePreference">
+                    <option value="auto">Auto (System)</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Compact Sidebar</label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="compactSidebar">
+                    <label class="form-check-label" for="compactSidebar">Enable compact sidebar</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Accent Color</label>
+                  <select id="accentColor">
+                    <option value="#bddeb1" selected>Light Green (Default)</option>
+                    <option value="#22c55e">Bright Green</option>
+                    <option value="#059669">Forest Green</option>
+                    <option value="#0d6efd">Blue</option>
+                    <option value="#6f42c1">Purple</option>
+                    <option value="#dc3545">Red</option>
+                    <option value="#fd7e14">Orange</option>
+                    <option value="#ffc107">Yellow</option>
+                    <option value="#20c997">Teal</option>
+                    <option value="#6c757d">Gray</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Font Size</label>
+                  <select id="fontSize">
+                    <option value="small">Small</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="large">Large</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Reduced Motion</label>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="reducedMotion">
+                    <label class="form-check-label" for="reducedMotion">Reduce animations</label>
+                  </div>
+                </div>
+
+                <div class="form-footer">
+                  <button type="button" class="btn btn-outline-secondary ms-auto" id="backFromSettingsBtn">
+                    Back
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/app.js"></script>
+
+  <!-- ✅ Profile Script -->
+  <script>
+    const menuProfile = document.getElementById("menuProfile");
+    const menuSettings = document.getElementById("menuSettings");
+
+    const profileSection = document.getElementById("profileSection");
+    const settingsSection = document.getElementById("settingsSection");
+    const dashboardContent = document.getElementById("dashboardContent");
+
+    const backToDashboardBtn = document.getElementById("backToDashboardBtn");
+    const backFromSettingsBtn = document.getElementById("backFromSettingsBtn");
+
+    const topUserName = document.getElementById("topUserName");
+    const topUserBadge = document.getElementById("topUserBadge");
+
+    const displayName = document.getElementById("displayName");
+    const displayRole = document.getElementById("displayRole");
+
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+    const email = document.getElementById("email");
+    const role = document.getElementById("role");
+    const phone = document.getElementById("phone");
+    const bio = document.getElementById("bio");
+
+    const profileForm = document.getElementById("profileForm");
+
+    const avatarInput = document.getElementById("avatarInput");
+    const avatarPreview = document.getElementById("avatarPreview");
+    const avatarFallback = document.getElementById("avatarFallback");
+
+    const resetPassBtn = document.getElementById("resetPassBtn");
+
+    const currentUser = {
+      firstName: "Hanis",
+      lastName: "Heidi",
+      email: "hanisheidi@mindcarehub.com",
+      role: "Super Admin",
+      phone: "+60 12-345 6789",
+      bio: "Managing appointments and counselor schedules."
+    };
+
+    function getInitials(fn, ln) {
+      return (fn?.charAt(0) || "H").toUpperCase() + (ln?.charAt(0) || "H").toUpperCase();
+    }
+
+    function loadProfileData() {
+      firstName.value = currentUser.firstName;
+      lastName.value = currentUser.lastName;
+      email.value = currentUser.email;
+      role.value = currentUser.role;
+      phone.value = currentUser.phone;
+      bio.value = currentUser.bio;
+
+      displayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      displayRole.textContent = currentUser.role;
+
+      topUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      topUserBadge.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+
+      avatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+    }
+
+    function showProfile() {
+      dashboardContent.classList.add("hidden-section");
+      settingsSection.classList.add("hidden-section");
+      profileSection.classList.remove("hidden-section");
+      loadProfileData();
+    }
+
+    function showSettings() {
+      profileSection.classList.add("hidden-section");
+      dashboardContent.classList.add("hidden-section");
+      settingsSection.classList.remove("hidden-section");
+    }
+
+    menuProfile.addEventListener("click", function (e) {
+      e.preventDefault();
+      showProfile();
+    });
+
+    menuSettings.addEventListener("click", function (e) {
+      e.preventDefault();
+      showSettings();
+    });
+
+    backToDashboardBtn.addEventListener("click", function () {
+      showSettings();
+    });
+
+    backFromSettingsBtn.addEventListener("click", function () {
+      window.location.href = "dashboard.html";
+    });
+
+    profileForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      currentUser.firstName = firstName.value.trim();
+      currentUser.lastName = lastName.value.trim();
+      currentUser.email = email.value.trim();
+      currentUser.role = role.value;
+      currentUser.phone = phone.value.trim();
+      currentUser.bio = bio.value.trim();
+
+      loadProfileData();
+      alert("Profile updated successfully ✅");
+    });
+
+    avatarInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+      avatarPreview.src = url;
+      avatarPreview.classList.remove("hidden-section");
+      avatarFallback.classList.add("hidden-section");
+    });
+
+    resetPassBtn.addEventListener("click", function () {
+      alert("Reset password clicked ✅ (demo)");
+    });
+  </script>
+
+  <!-- ✅ SETTINGS SCRIPT -->
+  <script>
+    const themePreference = document.getElementById("themePreference");
+    const compactSidebar = document.getElementById("compactSidebar");
+    const accentColor = document.getElementById("accentColor");
+    const fontSize = document.getElementById("fontSize");
+    const reducedMotion = document.getElementById("reducedMotion");
+
+    const sidebarWrapper = document.getElementById("sidebarWrapper");
+
+    // Load saved settings from localStorage
+    function loadSettings() {
+      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      
+      themePreference.value = savedSettings.theme || "light";
+      compactSidebar.checked = savedSettings.compactSidebar || false;
+      accentColor.value = savedSettings.accentColor || "#bddeb1";
+      fontSize.value = savedSettings.fontSize || "medium";
+      reducedMotion.checked = savedSettings.reducedMotion || false;
+
+      // Apply loaded settings
+      applyTheme(themePreference.value);
+      applyCompactSidebar(compactSidebar.checked);
+      applyAccent(accentColor.value);
+      applyFontSize(fontSize.value);
+      applyReducedMotion(reducedMotion.checked);
+    }
+
+    // Save settings to localStorage
+    function saveSettings() {
+      const settings = {
+        theme: themePreference.value,
+        compactSidebar: compactSidebar.checked,
+        accentColor: accentColor.value,
+        fontSize: fontSize.value,
+        reducedMotion: reducedMotion.checked
+      };
+      localStorage.setItem("mindcarehub_settings", JSON.stringify(settings));
+    }
+
+    function applyTheme(mode) {
+      document.body.classList.remove("theme-dark", "theme-light");
+
+      if (mode === "dark") {
+        document.body.classList.add("theme-dark");
+      } else if (mode === "light") {
+        document.body.classList.add("theme-light");
+      } else if (mode === "auto") {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.body.classList.add(prefersDark ? "theme-dark" : "theme-light");
+      }
+      saveSettings();
+    }
+
+    function applyAccent(color) {
+      document.documentElement.style.setProperty("--accent", color);
+      
+      // Update only font/text colors that use the accent color
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .sidebar .nav-link:hover { color: ${color} !important; }
+        .nav-link:hover { color: ${color} !important; }
+        .profile-icons .profile-icon:focus { outline-color: ${color} !important; }
+      `;
+      
+      // Remove old dynamic styles
+      const oldStyle = document.querySelector('#dynamic-accent-styles');
+      if (oldStyle) oldStyle.remove();
+      
+      style.id = 'dynamic-accent-styles';
+      document.head.appendChild(style);
+      
+      saveSettings();
+    }
+
+    function applyFontSize(size) {
+      let px = "16px";
+      if (size === "small") px = "14px";
+      if (size === "large") px = "18px";
+      document.documentElement.style.setProperty("--base-font-size", px);
+      saveSettings();
+    }
+
+    function applyReducedMotion(isOn) {
+      document.body.classList.toggle("reduce-motion", isOn);
+      saveSettings();
+    }
+
+    function applyCompactSidebar(isOn) {
+      sidebarWrapper.classList.toggle("collapsed", isOn);
+      saveSettings();
+    }
+
+    // Event listeners
+    themePreference.addEventListener("change", () => applyTheme(themePreference.value));
+    compactSidebar.addEventListener("change", () => applyCompactSidebar(compactSidebar.checked));
+    accentColor.addEventListener("change", () => applyAccent(accentColor.value));
+    fontSize.addEventListener("change", () => applyFontSize(fontSize.value));
+    reducedMotion.addEventListener("change", () => applyReducedMotion(reducedMotion.checked));
+
+    // Initialize settings on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      loadSettings();
+    });
+
+    // Update theme when system preference changes (for auto mode)
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      if (themePreference.value === "auto") applyTheme("auto");
+    });
+  </script>
+
+  <!-- ✅ LOGOUT MODAL FIX -->
+  <script>
+    function logout() {
+      const logoutModalEl = document.getElementById("logoutConfirmModal");
+      if (logoutModalEl) {
+        const logoutModal = new bootstrap.Modal(logoutModalEl);
+        logoutModal.show();
+      } else {
+        window.location.href = "login.html";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
+      if (confirmLogoutBtn) {
+        confirmLogoutBtn.addEventListener("click", function () {
+          sessionStorage.clear();
+          localStorage.removeItem("loggedInUser");
+          window.location.href = "login.html";
+        });
+      }
+    });
+  </script>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:var(--accent);">
+          <h5 class="modal-title text-black" id="logoutConfirmLabel">Confirm Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout and return to the login page?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="confirmLogoutBtn" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
