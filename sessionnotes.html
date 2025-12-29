@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Session Notes - MindCareHub</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<style>
+  /* ========================= GENERAL ========================= */
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+
+  /* ========================= SIDEBAR ========================= */
+  .sidebar {
+    background-color: #102e35;
+    width: 250px;
+    min-height: 100vh;
+    transition: width 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    position: relative;
+  }
+
+  .sidebar.collapsed { width: 60px; padding: 0 10px; text-align: center; }
+  
+  .sidebar.collapsed .label, 
+  .sidebar.collapsed .text-center, 
+  .sidebar.collapsed .profile-icons,
+  .sidebar.collapsed .nav-header { 
+    display: none !important;
+  }
+  
+  .sidebar-toggle-btn {
+    position: absolute; right: -15px; top: 20px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: white; border: 1px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 101;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
+  .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+  .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
+  
+  .profile-icon {
+    width: 60px; height: 60px; background: rgba(255,255,255,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: white; margin: 0 auto;
+  }
+
+  /* ========================= CONTENT & NAVBAR ========================= */
+  .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
+  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
+  
+  .brand-rgb {
+    font-weight: 800;
+    background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e);
+    background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: rgbMove 4s ease-in-out infinite;
+  }
+  @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+  /* ========================= STATS CARDS ========================= */
+  .stat-card-mini {
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .icon-square { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+  /* ========================= TABLE STYLES ========================= */
+  .table-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; }
+  th { background-color: #bddeb1; color: #102e35; padding: 15px; font-weight: 800; border:none; }
+  td { background-color: #FFFFFF; padding: 15px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; }
+  
+  /* Tags */
+  .tag-badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-right: 4px; display: inline-block; }
+  .tag-blue { background: #e0f2fe; color: #0284c7; }
+  .tag-purple { background: #f3e8ff; color: #7e22ce; }
+  .tag-orange { background: #ffedd5; color: #c2410c; }
+
+  /* Progress Bar */
+  .progress-thin { height: 6px; border-radius: 3px; background-color: #e9ecef; width: 100px; }
+  .progress-bar-custom { background-color: #10b981; border-radius: 3px; }
+
+  /* Buttons */
+  .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
+  .btn-green:hover { background-color: #a8d697; color: #000; }
+  .view-btn { border: 1px solid #dee2e6; background: white; color: #555; }
+  .view-btn:hover { background: #f8f9fa; color: #333; }
+
+  /* ========================= FOOTER ========================= */
+  footer { background-color: #FFFFFF; color: #333; padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; }
+  footer a:hover { color: #198754; }
+  .social-icon-btn { font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block; }
+  .social-icon-btn:hover { transform: translateY(-4px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* Utils */
+  .hidden-section { display: none !important; }
+  
+  /* Modal Attachment Style */
+  .attachment-box {
+    border: 1px dashed #ccc; padding: 15px; border-radius: 8px; background: #f9f9f9;
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+  }
+</style>
+
+<body onload="initPage()">
+
+  <div class="d-flex">
+    
+    <div id="sidebarWrapper" class="sidebar p-3">
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn"><i id="sidebarToggleIcon" class="bi bi-list"></i></button>
+      <div class="profile-icons d-flex justify-content-center mb-3"><div class="profile-icon"><i class="bi bi-person-circle"></i></div></div>
+      <div class="text-center mb-4"><h6 class="text-white-50 mb-0 small">WELCOME</h6><h5 class="text-white fw-bold">ADMIN</h5></div>
+      <p class="text-secondary small mt-3 fw-bold nav-header" style="color: #6c757d !important; padding-left: 10px;">NAVIGATION</p>
+      <ul class="nav flex-column gap-1">
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check me-2"></i><span class="label">Appointments</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="clients.html"><i class="bi bi-people me-2"></i><span class="label">Clients</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge me-2"></i><span class="label">Counselors</span></a></li>
+        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text me-2"></i><span class="label">Session Notes</span></a></li>
+        <li class="nav-item mt-4"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i><span class="label">Logout</span></a></li>
+      </ul>
+    </div>
+
+    <div class="content flex-grow-1">
+
+      <nav class="navbar navbar-expand-lg">
+        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
+        <a class="navbar-brand brand-rgb" href="#">MINDCAREHUB</a>
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <div class="dropdown">
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
+              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
+              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+              <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid p-4 flex-grow-1">
+
+        <div id="mainContent">
+          
+          <div class="mb-4">
+              <h1 class="fw-bold mb-0 brand-rgb">Session Notes</h1>
+              <p class="text-secondary">Track client progress, documentation, and follow-ups.</p>
+          </div>
+
+          <div class="row g-3 mb-4">
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">TOTAL NOTES</p><h2 class="fw-bold mb-0 text-dark" id="statTotal">0</h2></div><div class="icon-square bg-primary bg-opacity-10 text-primary"><i class="bi bi-journal-text"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">PENDING REVIEW</p><h2 class="fw-bold mb-0 text-dark">4</h2></div><div class="icon-square bg-danger bg-opacity-10 text-danger"><i class="bi bi-exclamation-circle"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">AVG RATING</p><h2 class="fw-bold mb-0 text-dark">4.9</h2></div><div class="icon-square bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">GOALS MET</p><h2 class="fw-bold mb-0 text-dark">85%</h2></div><div class="icon-square bg-success bg-opacity-10 text-success"><i class="bi bi-graph-up-arrow"></i></div></div></div>
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+             <div class="d-flex gap-2 flex-grow-1 align-items-center">
+                 <div class="input-group shadow-sm" style="max-width: 300px;">
+                     <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-secondary"></i></span>
+                     <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search client or counselor...">
+                 </div>
+                 <input type="date" class="form-control shadow-sm" style="max-width: 150px;">
+                 <select class="form-select shadow-sm" style="max-width: 150px;" id="statusFilter">
+                     <option value="All">All Status</option>
+                     <option value="Completed">Completed</option>
+                     <option value="Pending">Pending</option>
+                     <option value="Cancelled">Cancelled</option>
+                 </select>
+             </div>
+             
+             <button class="btn btn-green shadow-sm" onclick="openAddModal()">
+                 <i class="bi bi-plus-lg me-1"></i> Add Note
+             </button>
+          </div>
+
+          <div class="table-card mb-5">
+             <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Client Name</th>
+                      <th>Counselor</th>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Tags</th>
+                      <th>Progress</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody"></tbody>
+                </table>
+             </div>
+             <div class="d-flex justify-content-between align-items-center p-3 bg-white border-top">
+                <span class="small text-secondary" id="showingText">Showing 1 to 10 entries</span>
+                <nav><ul class="pagination mb-0" id="paginationControls"></ul></nav>
+             </div>
+          </div>
+
+        </div>
+
+        <section id="profileSection" class="hidden-section mb-5">
+          <h2 class="fw-bold text-dark">User Profile</h2>
+          <div class="alert alert-info">Profile management is centralized on the Dashboard. <a href="#" id="backToMainBtn">Go Back</a></div>
+        </section>
+
+      </div>
+
+      <footer>
+        <div class="container-fluid px-5">
+          <div class="row align-items-center text-center text-md-start">
+            <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
+            <div class="col-md-4 mb-3 mb-md-0 text-center">
+              <div class="d-flex justify-content-center mb-2">
+                <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
+                <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
+              </div>
+              <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted">mindcarehub@gmail.com</a>
+            </div>
+            <div class="col-md-4 text-center text-md-end">
+              <div class="footer-links mb-2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
+              <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="sessionModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #bddeb1;">
+          <h5 class="modal-title fw-bold" style="color: #102e35;">Add Session Note</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="sessionForm">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="fw-bold small">Client</label>
+                    <select class="form-select" id="sClient" required>
+                        </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold small">Counselor</label>
+                    <select class="form-select" id="sCounselor">
+                        <option>Dr. Farah Ahmad</option>
+                        <option>Mr. Hafiz Rahman</option>
+                        <option>Ms. Priya Nair</option>
+                        <option>Ms. Sarah Lee</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6"><label class="fw-bold small">Date</label><input type="date" class="form-control" id="sDate" required></div>
+                <div class="col-md-6">
+                    <label class="fw-bold small">Type</label>
+                    <select class="form-select" id="sType">
+                        <option>Initial Consultation</option>
+                        <option>Follow-up</option>
+                        <option>Crisis Intervention</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold small">Summary & Key Takeaways</label>
+                <textarea class="form-control" rows="3" id="sNotes"></textarea>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="fw-bold small">Tags (Keywords)</label>
+                    <input type="text" class="form-control" id="sTags" placeholder="e.g. Anxiety, Career">
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold small">Progress (%)</label>
+                    <input type="number" class="form-control" id="sProgress" value="50" min="0" max="100">
+                </div>
+            </div>
+            <div class="text-end"><button type="submit" class="btn btn-green shadow-sm">Save Note</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">Session Details: <span id="viewId"></span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+           <ul class="nav nav-tabs mb-3">
+              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-overview">Overview</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-notes">Detailed Notes</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-attach">Attachments</a></li>
+           </ul>
+
+           <div class="tab-content">
+              <div class="tab-pane fade show active" id="tab-overview">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <p><strong>Client:</strong> <span id="vClient"></span></p>
+                          <p><strong>Counselor:</strong> <span id="vCounselor"></span></p>
+                          <p><strong>Date:</strong> <span id="vDate"></span></p>
+                      </div>
+                      <div class="col-md-6">
+                          <p><strong>Status:</strong> <span id="vStatus"></span></p>
+                          <p><strong>Progress:</strong> <div class="progress" style="height:10px;"><div class="progress-bar bg-success" id="vProgBar" style="width:0%"></div></div></p>
+                          <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="tab-notes">
+                  <h6 class="fw-bold">Summary</h6>
+                  <p class="text-muted" id="vNotesText">Client discussed recent stress triggers...</p>
+                  <h6 class="fw-bold mt-3">Next Steps</h6>
+                  <ul class="text-muted small">
+                      <li>Complete mindfulness worksheet.</li>
+                      <li>Schedule follow-up in 2 weeks.</li>
+                  </ul>
+              </div>
+              <div class="tab-pane fade" id="tab-attach">
+                  <div class="attachment-box">
+                      <div class="d-flex align-items-center"><i class="bi bi-file-earmark-pdf fs-3 text-danger me-3"></i> <span>Session_Worksheet.pdf</span></div>
+                      <button class="btn btn-sm btn-outline-primary">Download</button>
+                  </div>
+                  <div class="attachment-box">
+                      <div class="d-flex align-items-center"><i class="bi bi-file-music fs-3 text-info me-3"></i> <span>Session_Recording.mp3</span></div>
+                      <button class="btn btn-sm btn-outline-primary">Play</button>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer bg-light">
+            <button class="btn btn-outline-secondary" onclick="alert('Downloading PDF report...')"><i class="bi bi-download me-1"></i> Export Report</button>
+            <button class="btn btn-green" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-light"><h5 class="modal-title fw-bold">Confirm Logout</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">Are you sure you want to logout?</div>
+        <div class="modal-footer">
+          <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="logout()" class="btn btn-danger">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const STORAGE_KEY_SESSIONS = 'mindcare_sessions_data';
+    const STORAGE_KEY_CLIENTS = 'mindcare_clients_data'; // Reading from Clients page
+
+    let sessionData = JSON.parse(localStorage.getItem(STORAGE_KEY_SESSIONS)) || [];
+    let clientList = JSON.parse(localStorage.getItem(STORAGE_KEY_CLIENTS)) || [];
+
+    // Initialize with dummy data if empty, ensuring it matches actual clients
+    if(sessionData.length === 0 && clientList.length > 0) {
+        const types = ["Initial", "Follow-up", "Crisis"];
+        const statuses = ["Completed", "Pending", "Cancelled"];
+        const tags = ["Anxiety", "Career", "Family", "Trauma"];
+        
+        // Create 15 dummy notes linked to real clients
+        for(let i=0; i<15; i++) {
+            const client = clientList[i % clientList.length];
+            sessionData.push({
+                id: `S${(i+1001)}`,
+                clientName: client.name,
+                counselor: "Dr. Farah Ahmad",
+                date: "2025-01-" + (10 + i),
+                type: types[i % 3],
+                status: statuses[i % 3],
+                progress: Math.floor(Math.random() * 100),
+                notes: "Client reported improvements in sleep. Discussed coping mechanisms.",
+                tags: [tags[i % 4]]
+            });
+        }
+        localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
+    }
+
+    function initPage() {
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+        populateClientDropdown();
+        renderTable();
+        updateStats();
+
+        document.getElementById('searchInput').addEventListener('input', renderTable);
+        document.getElementById('statusFilter').addEventListener('change', renderTable);
+    }
+
+    // Populate "Client" dropdown in Add Modal from Client Data
+    function populateClientDropdown() {
+        const select = document.getElementById('sClient');
+        select.innerHTML = "";
+        if(clientList.length === 0) {
+            select.innerHTML = "<option>No clients found</option>";
+            return;
+        }
+        clientList.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.name;
+            opt.innerText = c.name;
+            select.appendChild(opt);
+        });
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = "";
+        
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        const s = document.getElementById('statusFilter').value;
+
+        const filtered = sessionData.filter(item => 
+            (item.clientName.toLowerCase().includes(q) || item.counselor.toLowerCase().includes(q)) &&
+            (s === 'All' || item.status === s)
+        );
+
+        filtered.forEach(item => {
+            const badgeClass = item.status === 'Completed' ? 'bg-success' : item.status === 'Pending' ? 'bg-warning text-dark' : 'bg-danger';
+            
+            // Generate Tag Badges
+            let tagsHtml = item.tags.map(t => {
+                let color = t === 'Anxiety' ? 'tag-purple' : t === 'Career' ? 'tag-blue' : 'tag-orange';
+                return `<span class="tag-badge ${color}">${t}</span>`;
+            }).join('');
+
+            tbody.innerHTML += `
+            <tr>
+                <td class="fw-bold text-secondary small">${item.id}</td>
+                <td class="fw-bold">${item.clientName}</td>
+                <td>${item.counselor}</td>
+                <td>${item.date}</td>
+                <td>${item.type}</td>
+                <td>${tagsHtml}</td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="progress progress-thin"><div class="progress-bar progress-bar-custom" style="width: ${item.progress}%"></div></div>
+                        <small class="text-muted">${item.progress}%</small>
+                    </div>
+                </td>
+                <td class="text-center"><span class="badge ${badgeClass} rounded-pill">${item.status}</span></td>
+                <td class="text-center">
+                    <button class="btn btn-sm view-btn me-1" onclick="viewSession('${item.id}')"><i class="bi bi-eye"></i></button>
+                    <button class="btn btn-sm view-btn" onclick="deleteSession('${item.id}')"><i class="bi bi-trash text-danger"></i></button>
+                </td>
+            </tr>`;
+        });
+        document.getElementById('statTotal').innerText = sessionData.length;
+    }
+
+    function updateStats() {
+        // Simple logic for demo
+        document.getElementById('statTotal').innerText = sessionData.length;
+    }
+
+    // CRUD
+    function openAddModal() {
+        document.getElementById('sessionForm').reset();
+        new bootstrap.Modal(document.getElementById('sessionModal')).show();
+    }
+
+    document.getElementById('sessionForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newSession = {
+            id: `S${Date.now().toString().slice(-4)}`,
+            clientName: document.getElementById('sClient').value,
+            counselor: document.getElementById('sCounselor').value,
+            date: document.getElementById('sDate').value,
+            type: document.getElementById('sType').value,
+            notes: document.getElementById('sNotes').value,
+            tags: document.getElementById('sTags').value ? [document.getElementById('sTags').value] : ["General"],
+            progress: document.getElementById('sProgress').value,
+            status: "Pending" // Default new
+        };
+        sessionData.unshift(newSession);
+        localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
+        renderTable();
+        bootstrap.Modal.getInstance(document.getElementById('sessionModal')).hide();
+    });
+
+    function deleteSession(id) {
+        if(confirm("Delete this note?")) {
+            sessionData = sessionData.filter(s => s.id !== id);
+            localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
+            renderTable();
+        }
+    }
+
+    function viewSession(id) {
+        const s = sessionData.find(x => x.id === id);
+        if(!s) return;
+        document.getElementById('viewId').innerText = s.id;
+        document.getElementById('vClient').innerText = s.clientName;
+        document.getElementById('vCounselor').innerText = s.counselor;
+        document.getElementById('vDate').innerText = s.date;
+        document.getElementById('vStatus').innerText = s.status;
+        document.getElementById('vProgBar').style.width = s.progress + "%";
+        document.getElementById('vNotesText').innerText = s.notes || "No additional notes.";
+        new bootstrap.Modal(document.getElementById('viewModal')).show();
+    }
+
+    // Sidebar & Profile Logic (Standard)
+    const sidebar = document.getElementById("sidebarWrapper");
+    document.getElementById("sidebarToggleBtn").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
+    document.getElementById("toggleSidebar").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
+    
+    document.getElementById("menuProfile").addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("mainContent").classList.add("hidden-section");
+        document.getElementById("profileSection").classList.remove("hidden-section");
+    });
+    document.getElementById("backToMainBtn").addEventListener("click", () => {
+        document.getElementById("profileSection").classList.add("hidden-section");
+        document.getElementById("mainContent").classList.remove("hidden-section");
+    });
+
+    function logout() { window.location.href = "login.html"; }
+  </script>
+</body>
+</html>
