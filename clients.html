@@ -2,492 +2,1020 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clients - MindCareHub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Management - MindCareHub</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <style>
-        /* General Page Styles */
-        body {
-            background-color: #FFFFFF;
-            font-family: 'Roboto', sans-serif;
-            color: #333333;
-        }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-        /* Navigation Bar */
-        .navbar {
-            background-color: #1A2A44; /* Dark blue for navbar */
-        }
-
-        .navbar-nav .nav-link {
-            font-weight: bold;
-            color: white;
-        }
-
-        .navbar-nav .nav-link.active {
-            background-color: #bddeb1;
-            color: #FFFFFF;
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: white;
-        }
-
-        .nav-link:hover {
-            color: #bddeb1;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background-color: #1A2A44; /* Dark blue color for sidebar */
-            border-right: 1px solid #f1f1f1;
-            width: 250px;
-            transition: width 0.25s ease, padding 0.25s ease;
-            position: relative;
-        }
-
-        .sidebar .label {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 8px;
-            color: white;
-        }
-
-        .sidebar .nav-link {
-            font-weight: bold;
-            color: white;
-        }
-
-        .sidebar .nav-link.active {
-            background-color: #bddeb1;
-            color: #FFFFFF;
-        }
-
-        .sidebar .nav-link:hover {
-            color: #bddeb1;
-        }
-
-        /* Client Table Section */
-        table {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        th {
-            background-color: #bddeb1;
-            color: white;
-        }
-
-        td {
-            background-color: #FFFFFF;
-        }
-
-        tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1A2A44; /* Dark blue color for footer */
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-        }
-
-        footer .social-icons a {
-            color: white;
-            margin: 0 10px;
-            font-size: 20px;
-        }
-
-        footer .social-icons a:hover {
-            color: #bddeb1;
-        }
-
-        footer p {
-            font-weight: 300;
-            font-size: 14px;
-        }
-
-        /* Brand RGB gradient */
-        .brand-rgb {
-            font-weight: 800;
-            background: linear-gradient(
-                90deg,
-                rgb(34, 197, 94),    /* green */
-                rgb(16, 185, 129),   /* teal */
-                rgb(59, 130, 246),   /* soft blue */
-                rgb(245, 158, 11),   /* warm amber */
-                rgb(244, 63, 94),    /* warm pink/red */
-                rgb(34, 197, 94)     /* green again */
-            );
-
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-            animation: rgbMove 4s ease-in-out infinite;
-        }
-
-        /* Gradient movement animation */
-        @keyframes rgbMove {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-    </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
-    <!-- Sidebar -->
-    <div class="d-flex">
-        <div id="sidebarWrapper" class="sidebar p-3">
-            <!-- Collapse/Expand toggle button -->
-            <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
-                <i id="sidebarToggleIcon" class="bi bi-list"></i>
-            </button>
+<style>
+  /* ========================= EXACT PROVIDED STYLES ========================= */
+  /* General Page Styles */
+  body {
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+  }
 
-            <!-- User Profile Icon -->
-            <div class="profile-icons d-flex justify-content-center mb-3">
-                <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
-                    <i class="bi bi-person-circle"></i>
-                </button>
-            </div>
+  /* Navigation Bar */
+  .navbar {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #f1f1f1; 
+  }
 
-            <div class="text-center mb-4">
-                <h6 class="text-white mb-0">WELCOME</h6>
-                <h5 class="text-white fw-bold">ADMIN</h5>
-            </div>
+  .navbar-nav .nav-link {
+    font-weight: bold;
+    color: #333333;
+  }
 
-            <p class="text-secondary small mt-4">NAVIGATION</p>
-            <ul class="nav flex-column gap-1">
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center" href="dashboard.html">
-                        <i class="bi bi-speedometer2"></i>
-                        <span class="label">Dashboard</span>
-                    </a>
-                </li>
+  .navbar-nav .nav-link.active {
+    background-color: #bddeb1;
+    color: #FFFFFF;
+  }
 
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center" href="appointments.html">
-                        <i class="bi bi-calendar-check"></i>
-                        <span class="label">Appointments</span>
-                    </a>
-                </li>
+  .navbar-brand {
+    font-weight: bold;
+    color: #333333;
+  }
 
-                <li class="nav-item">
-                    <a class="nav-link active d-flex align-items-center" href="clients.html">
-                        <i class="bi bi-people"></i>
-                        <span class="label">Clients</span>
-                    </a>
-                </li>
+  .nav-link:hover {
+    color: #bddeb1;
+  }
 
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center" href="counselors.html">
-                        <i class="bi bi-person-badge"></i>
-                        <span class="label">Counselors</span>
-                    </a>
-                </li>
+  /* Sidebar */
+  .sidebar {
+    background-color: #2d5016; 
+    border-right: 1px solid #f1f1f1;
+    width: 250px;
+    transition: width 0.25s ease, padding 0.25s ease;
+    position: relative;
+    min-height: 100vh;
+  }
 
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center" href="session_notes.html">
-                        <i class="bi bi-file-earmark-text"></i>
-                        <span class="label">Session Notes</span>
-                    </a>
-                </li>
+  .sidebar.collapsed {
+    width: 60px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    text-align: center;
+  }
 
-                <li class="nav-item mt-4">
-                    <a class="nav-link text-danger d-flex align-items-center" href="#" onclick="logout()">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span class="label">Logout</span>
-                    </a>
-                </li>
+  .sidebar .label {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  .sidebar.collapsed .label {
+    display: none;
+  }
+
+  .sidebar-toggle-btn {
+    position: absolute;
+    right: -18px;
+    top: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    z-index: 20;
+  }
+
+  .profile-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-icons .profile-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: #333;
+    font-size: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    line-height: 0;
+  }
+
+  .profile-icons .profile-icon:focus {
+    outline: 2px solid #bddeb1;
+    outline-offset: 2px;
+  }
+
+  .sidebar.collapsed .profile-icons {
+    display: none;
+  }
+
+  .sidebar .nav-link i {
+    font-size: 1.1rem;
+    width: 28px;
+    text-align: center;
+  }
+
+  .sidebar.collapsed .text-center h6,
+  .sidebar.collapsed .text-center h5,
+  .sidebar.collapsed .text-secondary,
+  .sidebar.collapsed .avatar {
+    display: none;
+  }
+
+  .sidebar.collapsed .nav {
+    align-items: center;
+  }
+
+  .sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+
+  .sidebar.collapsed .sidebar-toggle-btn {
+    top: 12px;
+    transform: none;
+    right: -18px;
+  }
+
+  .sidebar .nav-link {
+    font-weight: bold;
+    color: #f9f8f8;
+  }
+
+  .sidebar .nav-link.active {
+      background-color: #bddeb1;
+      color: #FFFFFF;
+      border-radius: 6px;
+  }
+
+  .sidebar .nav-link:hover {
+    color: #bddeb1;
+  }
+
+  /* Table Styling */
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  th {
+    background-color: #bddeb1;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+  }
+  
+  th:first-child { border-top-left-radius: 10px; }
+  th:last-child { border-top-right-radius: 10px; }
+
+  td {
+    background-color: #FFFFFF;
+    padding: 12px;
+    border-bottom: 1px solid #f1f1f1;
+    vertical-align: middle;
+  }
+
+  tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+
+  /* ========================= PROFILE SECTION STYLES ========================= */
+  .hidden-section {
+    display: none !important;
+  }
+
+  #profileSection {
+    margin-top: 20px;
+  }
+
+  .profile-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .profile-header p {
+    margin-top: 6px;
+    color: #6b7280;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .profile-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+  }
+
+  .profile-avatar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    background: #eef2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid #dbeafe;
+  }
+
+  .avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .role-tag {
+    margin-top: 6px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #ecfeff;
+    color: #155e75;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .profile-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .form-card h3 {
+    margin: 0 0 14px 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .form-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* Brand RGB gradient */
+  .brand-rgb {
+    font-weight: 800;
+    background: linear-gradient(
+      90deg,
+      rgb(34, 197, 94),    
+      rgb(16, 185, 129),   
+      rgb(59, 130, 246),   
+      rgb(245, 158, 11),   
+      rgb(244, 63, 94),    
+      rgb(34, 197, 94)     
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgbMove 4s ease-in-out infinite;
+    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
+  }
+
+  @keyframes rgbMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Pagination */
+  .page-link {
+      color: #2d5016;
+      border: none;
+      margin: 0 3px;
+      border-radius: 5px;
+      font-weight: bold;
+  }
+  .page-item.active .page-link {
+      background-color: #bddeb1;
+      color: white;
+  }
+  .page-item.disabled .page-link {
+      color: #ccc;
+      background-color: transparent;
+  }
+</style>
+
+<body onload="initPage()">
+
+  <div class="d-flex">
+    <div id="sidebarWrapper" class="sidebar p-3">
+      <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
+        <i id="sidebarToggleIcon" class="bi bi-list"></i>
+      </button>
+
+      <div class="profile-icons d-flex justify-content-center mb-3">
+        <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
+          <i class="bi bi-person-circle"></i>
+        </button>
+      </div>
+
+      <div class="text-center mb-4">
+        <h6 class="text-white mb-0">WELCOME</h6>
+        <h5 class="text-white fw-bold">ADMIN</h5>
+      </div>
+
+      <p class="text-secondary small mt-4" style="color: #b0cba4 !important;">NAVIGATION</p>
+      <ul class="nav flex-column gap-1">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-speedometer2"></i>
+            <span class="label">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="appointments.html">
+            <i class="bi bi-calendar-check"></i>
+            <span class="label">Appointments</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active d-flex align-items-center" href="clients.html">
+            <i class="bi bi-people"></i>
+            <span class="label">Clients</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="counselors.html">
+            <i class="bi bi-person-badge"></i>
+            <span class="label">Counselors</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="session_notes.html">
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="label">Session Notes</span>
+          </a>
+        </li>
+
+        <li class="nav-item mt-4">
+          <a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="label">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content flex-grow-1">
+
+      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
+        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
+
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <span class="text-black small d-none d-md-block"></span>
+
+          <div class="dropdown">
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
+              data-bs-toggle="dropdown">
+              <span class="user-badge fw-bold" id="topUserBadge" style="color:#2d5016">HH</span>
+              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
+          </div>
         </div>
+      </nav>
 
-        <!-- Main Content -->
-        <div class="content flex-grow-1">
-            <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
-                <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
-                    <i class="bi bi-list"></i>
-                </button>
+      <div class="container-fluid p-4">
 
-                <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
+        <div id="clientContent">
+          
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+            <div>
+              <h1 class="fw-bold mb-0 text-black">Client <span class="brand-rgb">Management</span></h1>
+              <p class="text-black-50 mb-0">View and manage all registered clients</p>
+            </div>
+            
+            <div class="d-flex gap-2 mt-3 mt-md-0">
+               <div class="input-group">
+                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                 <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search ID or Name...">
+               </div>
+               <button class="btn text-white fw-bold" style="background-color: #bddeb1;" onclick="openAddModal()">+ Add</button>
+            </div>
+          </div>
 
-                <div class="ms-auto d-flex align-items-center gap-3">
-                    <span class="text-black small d-none d-md-block">
-                        <i class="bi bi-bell"></i> Notifications
-                    </span>
+          <div class="card shadow-sm border-0 rounded-4 p-3">
+             <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Client ID</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                      <th class="text-center">Appointment Count</th>
+                      <th class="text-center">Status</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                     </tbody>
+                </table>
+             </div>
 
-                    <div class="dropdown">
-                        <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
-                            data-bs-toggle="dropdown">
-                            <span class="user-badge" id="topUserBadge">HH</span>
-                            <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
-                        </a>
+             <div class="d-flex justify-content-between align-items-center mt-3 px-2">
+                <span class="small text-muted" id="showingText">Showing 1 to 10 of 128 entries</span>
+                <nav>
+                  <ul class="pagination mb-0" id="paginationControls">
+                    </ul>
+                </nav>
+             </div>
+          </div>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-                        </ul>
-                    </div>
+        </div>
+        <section id="profileSection" class="hidden-section">
+          <div class="profile-header">
+            <h2>User Profile</h2>
+            <p>Update your personal information and account details.</p>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card">
+              <div class="profile-avatar-wrap">
+                <div class="avatar-circle">
+                  <img id="avatarPreview" src="" alt="Avatar" class="hidden-section">
+                  <span id="avatarFallback">AU</span>
                 </div>
-            </nav>
-
-            <div class="container-fluid p-4">
-                <div class="welcome-card mb-4">
-                    <h1 class="fw-bold mb-2 text-black">Clients of <span class="brand-rgb">MindCareHub</span></h1>
-                    <p class="text-black-50 mb-0">Manage your client details, appointments, and more.</p>
+                <div class="avatar-info">
+                  <h3 id="displayName">Admin User</h3>
+                  <span class="role-tag" id="displayRole">Super Admin</span>
                 </div>
-
-                <!-- Client Data Table -->
-                <div class="client-section">
-                    <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addClientModal">
-                        <i class="bi bi-plus-circle"></i> Add Client
-                    </button>
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Client ID</th>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>Appointment Count</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>CL001</td>
-                                <td>Nur Aina</td>
-                                <td><a href="mailto:aina@gmail.com">aina@gmail.com</a></td>
-                                <td>2</td>
-                                <td>Active</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL001')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL001')">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CL002</td>
-                                <td>Jason Lim</td>
-                                <td><a href="mailto:jasonlim@gmail.com">jasonlim@gmail.com</a></td>
-                                <td>1</td>
-                                <td>Active</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL002')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL002')">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CL003</td>
-                                <td>Siti Mariam</td>
-                                <td><a href="mailto:siti.mariam@gmail.com">siti.mariam@gmail.com</a></td>
-                                <td>4</td>
-                                <td>Inactive</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL003')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL003')">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CL004</td>
-                                <td>Daniel Wong</td>
-                                <td><a href="mailto:danielwong@gmail.com">danielwong@gmail.com</a></td>
-                                <td>3</td>
-                                <td>Active</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL004')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL004')">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CL005</td>
-                                <td>Amira Sofea</td>
-                                <td><a href="mailto:amirasofea@gmail.com">amirasofea@gmail.com</a></td>
-                                <td>1</td>
-                                <td>Active</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL005')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL005')">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CL006</td>
-                                <td>Kelvin Tan</td>
-                                <td><a href="mailto:kelvintan@gmail.com">kelvintan@gmail.com</a></td>
-                                <td>2</td>
-                                <td>Inactive</td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editClient('CL006')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteClient('CL006')">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+              </div>
+              <div class="profile-actions">
+                <label class="btn btn-primary">
+                  Change Avatar
+                  <input type="file" id="avatarInput" accept="image/*" hidden>
+                </label>
+                <button class="btn btn-outline-secondary" type="button" id="resetPassBtn">Reset Password</button>
+              </div>
             </div>
 
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="d-flex justify-content-between align-items-center px-4 py-3" style="background-color: #1A2A44; color: white;">
-        <!-- Left side: "MindCareHub" RGB gradient -->
-        <div>
-            <span class="brand-rgb" style="font-size: 14px;">MindCareHub</span>
-        </div>
-
-        <!-- Right side: Social Icons -->
-        <div class="social-icons d-flex align-items-center">
-            <a href="https://www.instagram.com/MindCareHub" class="text-white me-3" style="font-size: 20px;">
-                <i class="bi bi-instagram"></i>
-            </a>
-            <a href="https://twitter.com/MindCareHub" class="text-white me-3" style="font-size: 20px;">
-                <i class="bi bi-x-twitter"></i>
-            </a>
-            <a href="https://www.facebook.com/MindCareHub" class="text-white me-3" style="font-size: 20px;">
-                <i class="bi bi-facebook"></i>
-            </a>
-            <span class="text-white" style="font-size: 14px;">@MindCareHub</span>
-        </div>
-
-        <!-- Below Social Icons: Email -->
-        <div class="mt-2">
-            <p class="text-white mb-0" style="font-size: 14px;">mindcarehub@gmail.com</p>
-        </div>
-    </footer>
-
-    <!-- Add Client Modal -->
-    <div class="modal fade" id="addClientModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#bddeb1;">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="profile-card form-card">
+              <h3>Account Details</h3>
+              <form id="profileForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="firstName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lastName" required>
+                  </div>
                 </div>
-                <div class="modal-body">
-                    <form id="addClientForm">
-                        <div class="mb-3">
-                            <label for="clientName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="clientName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="clientEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="clientEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="clientPhone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="clientPhone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="clientStatus" class="form-label">Status</label>
-                            <select class="form-select" id="clientStatus">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </div>
-                    </form>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" id="email" required>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="saveClient()">Save Client</button>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Role</label>
+                    <select id="role">
+                      <option value="Super Admin">Super Admin</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="phone">
+                  </div>
                 </div>
+                <div class="form-group">
+                  <label>Bio</label>
+                  <textarea id="bio" rows="4"></textarea>
+                </div>
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-success">Save Changes</button>
+                  <button type="button" class="btn btn-outline-secondary ms-2" id="backToClientsBtn">Back</button>
+                </div>
+              </form>
             </div>
+          </div>
+        </section>
         </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <div class="modal fade" id="clientModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #bddeb1;">
+          <h5 class="modal-title fw-bold" id="clientModalTitle">Add New Client</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="clientForm">
+            <input type="hidden" id="editClientId">
+            <div class="mb-3">
+              <label for="cName" class="form-label fw-bold">Full Name</label>
+              <input type="text" class="form-control" id="cName" required>
+            </div>
+            <div class="mb-3">
+              <label for="cEmail" class="form-label fw-bold">Email (Contact)</label>
+              <input type="email" class="form-control" id="cEmail" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="cCount" class="form-label fw-bold">Appointments</label>
+                <input type="number" class="form-control" id="cCount" value="0" min="0">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="cStatus" class="form-label fw-bold">Status</label>
+                <select class="form-select" id="cStatus">
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn text-white fw-bold" style="background-color: #2d5016;">Save Client</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // CRUD operations for clients
-        const clients = [
-            { id: 'CL001', name: 'Nur Aina', email: 'aina@gmail.com', appointmentCount: 2, status: 'Active' },
-            { id: 'CL002', name: 'Jason Lim', email: 'jasonlim@gmail.com', appointmentCount: 1, status: 'Active' },
-            { id: 'CL003', name: 'Siti Mariam', email: 'siti.mariam@gmail.com', appointmentCount: 4, status: 'Inactive' },
-            { id: 'CL004', name: 'Daniel Wong', email: 'danielwong@gmail.com', appointmentCount: 3, status: 'Active' },
-            { id: 'CL005', name: 'Amira Sofea', email: 'amirasofea@gmail.com', appointmentCount: 1, status: 'Active' },
-            { id: 'CL006', name: 'Kelvin Tan', email: 'kelvintan@gmail.com', appointmentCount: 2, status: 'Inactive' }
-        ];
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:#bddeb1;">
+          <h5 class="modal-title text-black">Confirm Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout and return to the login page?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" onclick="logout()" class="btn" style="background-color:#bddeb1; color:#0b0b0b;">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        function renderClients() {
-            const tbody = document.querySelector('tbody');
-            tbody.innerHTML = '';
-            clients.forEach(client => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${client.id}</td>
-                    <td>${client.name}</td>
-                    <td><a href="mailto:${client.email}">${client.email}</a></td>
-                    <td>${client.appointmentCount}</td>
-                    <td>${client.status}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editClient('${client.id}')">Edit</button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteClient('${client.id}')">Delete</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ================= 1. DATA GENERATION & STORAGE =================
+    
+    // Key for LocalStorage
+    const STORAGE_KEY = 'mindcare_clients_data';
+
+    // Helper to get data
+    function getStoredData() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : null;
+    }
+
+    // Helper to save data
+    function saveStoredData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Generate 128 clients if storage is empty
+    function generateInitialData() {
+      const firstNames = ["Nur", "Jason", "Siti", "Daniel", "Amira", "Kelvin", "Ali", "Rachel", "Amirul", "Hana", "John", "Wei", "Cindy", "Khairul", "Zainab", "Aisha", "Ibrahim", "Nurul", "Sofie", "Rina", "Faridah", "Alice", "Tony", "Liana", "Hamza", "Johan", "Jasmin", "Rafiq", "Lina", "Azman", "Elina", "Kamarul", "Esha", "Nadia", "Ayman", "Nurin", "Sami", "Sabrina", "Alia", "Amir", "Yasmin", "Naqibullah", "Rafeeq", "Sarah", "Raja", "Zain", "Hafiz", "Radhi", "Salina", "Muzaffar", "Khairul", "Nadira", "Sofia", "Hafizul", "Anwar", "Farah", "Shafiq", "Fariz", "Marwan", "Kamilah"];
+      const lastNames = ["Aina", "Lim", "Mariam", "Wong", "Sofea", "Tan", "Khairul", "Hakim", "Rafiq", "Li", "Raziq", "Shah", "Zulkifli", "Fadhil", "Hidayah", "Dizon", "Mohd", "Hasan", "Kamaruddin", "Fadilah", "Zakariya", "Sanusi", "Sabri", "Zaidan", "Hafizah", "Azizan", "Faris", "Rahim", "Azmi", "Yasmin", "Iman", "Fikri", "Zubair", "Rashid", "Rahman", "Zulaika", "Zainab", "Hisham", "Salim", "Ibrahim", "Alfi", "Khairani", "Imran", "Hizam", "Aini", "Iqbal", "Hidayat", "Zulkarnain", "Khairun", "Jamil", "Sufian", "Ashraf", "Noor", "Farhan", "Akmal", "Abdullah"];
+      
+      let generated = [];
+      
+      for(let i = 1; i <= 128; i++) {
+        const id = `CL${String(i).padStart(3, '0')}`;
+        const fname = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const lname = lastNames[Math.floor(Math.random() * lastNames.length)];
+        const fullName = `${fname} ${lname}`;
+        const email = `${fname.toLowerCase()}.${lname.toLowerCase()}@gmail.com`;
+        // 80% chance of Active
+        const status = Math.random() < 0.8 ? "Active" : "Inactive"; 
+        const count = Math.floor(Math.random() * 8); // Random count 0-7
+
+        generated.push({
+          id: id,
+          name: fullName,
+          contact: email,
+          count: count,
+          status: status
+        });
+      }
+      return generated;
+    }
+
+    // Load data into variable
+    let clientsData = getStoredData();
+
+    // If first time load (null), generate and save
+    if (!clientsData) {
+      clientsData = generateInitialData();
+      saveStoredData(clientsData);
+    }
+
+    // ================= 2. VARIABLES & DOM ELEMENTS =================
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let filteredData = [...clientsData];
+
+    const tableBody = document.getElementById("tableBody");
+    const paginationControls = document.getElementById("paginationControls");
+    const searchInput = document.getElementById("searchInput");
+    const showingText = document.getElementById("showingText");
+    
+    // Modal Elements
+    const clientModal = new bootstrap.Modal(document.getElementById('clientModal'));
+    const clientForm = document.getElementById('clientForm');
+    const clientModalTitle = document.getElementById('clientModalTitle');
+    const editClientId = document.getElementById('editClientId');
+    const cName = document.getElementById('cName');
+    const cEmail = document.getElementById('cEmail');
+    const cCount = document.getElementById('cCount');
+    const cStatus = document.getElementById('cStatus');
+
+
+    // ================= 3. INITIALIZATION & SEARCH =================
+    function initPage() {
+      // Sort by ID descending (newest first) usually looks better for CRUD
+      clientsData.sort((a, b) => parseInt(b.id.substring(2)) - parseInt(a.id.substring(2)));
+      handleSearch(); // Initial render
+      searchInput.addEventListener("input", handleSearch);
+    }
+
+    function handleSearch() {
+        const query = searchInput.value.toLowerCase();
+        filteredData = clientsData.filter(client => 
+            client.name.toLowerCase().includes(query) || 
+            client.id.toLowerCase().includes(query)
+        );
+        currentPage = 1;
+        renderTable();
+    }
+
+    // ================= 4. RENDER TABLE & PAGINATION =================
+    function renderTable() {
+        tableBody.innerHTML = "";
+        
+        const totalItems = filteredData.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+        const currentItems = filteredData.slice(startIndex, endIndex);
+
+        if(totalItems === 0) {
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No clients found.</td></tr>`;
+            showingText.textContent = "Showing 0 entries";
+            paginationControls.innerHTML = "";
+            return;
+        }
+
+        currentItems.forEach(client => {
+            const statusBadge = client.status === "Active" 
+                ? `<span class="badge bg-success bg-opacity-75">Active</span>` 
+                : `<span class="badge bg-secondary">Inactive</span>`;
+
+            // Note: passing ID as string to functions needs escaping
+            const row = `
+                <tr>
+                    <td class="fw-bold">${client.id}</td>
+                    <td class="fw-semibold">${client.name}</td>
+                    <td><a href="mailto:${client.contact}" class="text-decoration-none text-secondary"><i class="bi bi-envelope me-1"></i> ${client.contact}</a></td>
+                    <td class="text-center">${client.count}</td>
+                    <td class="text-center">${statusBadge}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openEditModal('${client.id}')" title="Edit">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteClient('${client.id}')" title="Delete">
+                          <i class="bi bi-trash"></i>
+                        </button>
                     </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
 
-        function saveClient() {
-            const name = document.getElementById('clientName').value;
-            const email = document.getElementById('clientEmail').value;
-            const phone = document.getElementById('clientPhone').value;
-            const status = document.getElementById('clientStatus').value;
+        showingText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalItems} entries`;
+        renderPagination(totalPages);
+    }
 
-            const newClient = {
-                id: `CL00${clients.length + 1}`,
-                name,
-                email,
-                appointmentCount: 0,
-                status
-            };
+    function renderPagination(totalPages) {
+        paginationControls.innerHTML = "";
+        
+        // Prev
+        const prevClass = currentPage === 1 ? "disabled" : "";
+        paginationControls.innerHTML += `<li class="page-item ${prevClass}"><button class="page-link" onclick="changePage(${currentPage - 1})">Prev</button></li>`;
 
-            clients.push(newClient);
-            renderClients();
-
-            document.getElementById('addClientForm').reset();
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addClientModal'));
-            modal.hide();
-        }
-
-        function editClient(id) {
-            const client = clients.find(client => client.id === id);
-            document.getElementById('clientName').value = client.name;
-            document.getElementById('clientEmail').value = client.email;
-            document.getElementById('clientPhone').value = client.phone || '';
-            document.getElementById('clientStatus').value = client.status;
-            const modal = new bootstrap.Modal(document.getElementById('addClientModal'));
-            modal.show();
-        }
-
-        function deleteClient(id) {
-            const index = clients.findIndex(client => client.id === id);
-            if (index > -1) {
-                clients.splice(index, 1);
-                renderClients();
+        // Logic to show limited page numbers (1... 4 5 6 ... 13)
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                 const activeClass = i === currentPage ? "active" : "";
+                 paginationControls.innerHTML += `<li class="page-item ${activeClass}"><button class="page-link" onclick="changePage(${i})">${i}</button></li>`;
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                 paginationControls.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
             }
         }
 
-        // Initial render of clients
-        renderClients();
-    </script>
-</body>
+        // Next
+        const nextClass = currentPage === totalPages ? "disabled" : "";
+        paginationControls.innerHTML += `<li class="page-item ${nextClass}"><button class="page-link" onclick="changePage(${currentPage + 1})">Next</button></li>`;
+    }
 
+    function changePage(page) {
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+    }
+
+    // ================= 5. CRUD FUNCTIONS =================
+
+    // --- CREATE (ADD) ---
+    function openAddModal() {
+      clientModalTitle.innerText = "Add New Client";
+      editClientId.value = ""; // Clear ID indicates new mode
+      clientForm.reset();
+      cCount.value = 0; // Default
+      clientModal.show();
+    }
+
+    // --- UPDATE (EDIT) ---
+    function openEditModal(id) {
+      const client = clientsData.find(c => c.id === id);
+      if(!client) return;
+
+      clientModalTitle.innerText = "Edit Client Details";
+      editClientId.value = client.id;
+      cName.value = client.name;
+      cEmail.value = client.contact;
+      cCount.value = client.count;
+      cStatus.value = client.status;
+      
+      clientModal.show();
+    }
+
+    // --- SAVE (HANDLE FORM SUBMIT) ---
+    clientForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const id = editClientId.value;
+      const name = cName.value.trim();
+      const email = cEmail.value.trim();
+      const count = parseInt(cCount.value);
+      const status = cStatus.value;
+
+      if(id) {
+        // === EDIT MODE ===
+        const index = clientsData.findIndex(c => c.id === id);
+        if(index !== -1) {
+          clientsData[index] = { id, name, contact: email, count, status };
+        }
+      } else {
+        // === ADD MODE ===
+        // Generate new ID (Find max ID and add 1)
+        // Extract numbers from IDs (e.g. CL005 -> 5)
+        const maxIdNum = clientsData.reduce((max, client) => {
+          const num = parseInt(client.id.replace('CL', ''));
+          return num > max ? num : max;
+        }, 0);
+        
+        const newId = `CL${String(maxIdNum + 1).padStart(3, '0')}`;
+        
+        const newClient = {
+          id: newId,
+          name: name,
+          contact: email,
+          count: count,
+          status: status
+        };
+        
+        // Add to beginning of array
+        clientsData.unshift(newClient);
+      }
+
+      // 1. Save to LocalStorage
+      saveStoredData(clientsData);
+      
+      // 2. Refresh UI
+      handleSearch(); // Re-runs filtering and rendering
+      
+      // 3. Close Modal
+      clientModal.hide();
+      alert(id ? "Client updated successfully!" : "New client added successfully!");
+    });
+
+    // --- DELETE ---
+    function deleteClient(id) {
+      if(confirm(`Are you sure you want to delete client ${id}? This cannot be undone.`)) {
+        // Filter out the client
+        clientsData = clientsData.filter(c => c.id !== id);
+        
+        // Save and Render
+        saveStoredData(clientsData);
+        handleSearch();
+      }
+    }
+
+    function logout() {
+      window.location.href = "login.html";
+    }
+
+    // ================= SIDEBAR & PROFILE LOGIC (Preserved) =================
+    const sidebar = document.getElementById("sidebarWrapper");
+    const toggleBtn = document.getElementById("sidebarToggleBtn");
+    const toggleBtnMobile = document.getElementById("toggleSidebar");
+    const toggleIcon = document.getElementById("sidebarToggleIcon");
+
+    function toggleSidebar() {
+      sidebar.classList.toggle("collapsed");
+      if (sidebar.classList.contains("collapsed")) {
+        toggleIcon.classList.remove("bi-list");
+        toggleIcon.classList.add("bi-arrow-right");
+      } else {
+        toggleIcon.classList.remove("bi-arrow-right");
+        toggleIcon.classList.add("bi-list");
+      }
+    }
+
+    if(toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
+    if(toggleBtnMobile) toggleBtnMobile.addEventListener("click", toggleSidebar);
+
+
+    // Profile Logic
+    const menuProfile = document.getElementById("menuProfile");
+    const profileSection = document.getElementById("profileSection");
+    const clientContent = document.getElementById("clientContent");
+    const backToClientsBtn = document.getElementById("backToClientsBtn");
+    const topUserName = document.getElementById("topUserName");
+    const topUserBadge = document.getElementById("topUserBadge");
+    const displayName = document.getElementById("displayName");
+    const displayRole = document.getElementById("displayRole");
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+    const email = document.getElementById("email");
+    const role = document.getElementById("role");
+    const phone = document.getElementById("phone");
+    const bio = document.getElementById("bio");
+    const profileForm = document.getElementById("profileForm");
+    const avatarInput = document.getElementById("avatarInput");
+    const avatarPreview = document.getElementById("avatarPreview");
+    const avatarFallback = document.getElementById("avatarFallback");
+
+    const currentUser = {
+      firstName: "Hanis",
+      lastName: "Heidi",
+      email: "hanisheidi@mindcarehub.com",
+      role: "Super Admin",
+      phone: "+60 12-345 6789",
+      bio: "Managing appointments and counselor schedules."
+    };
+
+    function getInitials(fn, ln) {
+      return (fn?.charAt(0) || "A").toUpperCase() + (ln?.charAt(0) || "U").toUpperCase();
+    }
+
+    function loadProfileData() {
+      firstName.value = currentUser.firstName;
+      lastName.value = currentUser.lastName;
+      email.value = currentUser.email;
+      role.value = currentUser.role;
+      phone.value = currentUser.phone;
+      bio.value = currentUser.bio;
+
+      displayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      displayRole.textContent = currentUser.role;
+      topUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      topUserBadge.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+      avatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+    }
+
+    function showProfile() {
+      clientContent.classList.add("hidden-section");
+      profileSection.classList.remove("hidden-section");
+      loadProfileData();
+    }
+
+    function showClients() {
+      profileSection.classList.add("hidden-section");
+      clientContent.classList.remove("hidden-section");
+    }
+
+    menuProfile.addEventListener("click", function (e) {
+      e.preventDefault();
+      showProfile();
+    });
+
+    backToClientsBtn.addEventListener("click", function () {
+      showClients();
+    });
+
+    profileForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      currentUser.firstName = firstName.value.trim();
+      currentUser.lastName = lastName.value.trim();
+      currentUser.email = email.value.trim();
+      currentUser.role = role.value;
+      currentUser.phone = phone.value.trim();
+      currentUser.bio = bio.value.trim();
+      loadProfileData();
+      alert("Profile updated successfully ✅");
+    });
+
+    avatarInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      avatarPreview.src = url;
+      avatarPreview.classList.remove("hidden-section");
+      avatarFallback.classList.add("hidden-section");
+    });
+  </script>
+</body>
 </html>
