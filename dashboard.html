@@ -4,847 +4,454 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Counseling Appointment Dashboard</title>
+  <title>Dashboard - MindCareHub</title>
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <style>
-  /* General Page Styles */
+  /* ========================= GENERAL STYLES ========================= */
   body {
-    background-color: #FFFFFF;
+    background-color: #f8f9fa; /* Light gray background */
     font-family: 'Roboto', sans-serif;
     color: #333333;
   }
 
-  /* Navigation Bar */
-  .navbar {
-    background-color: #FFFFFF;
-  }
-
-  .navbar-nav .nav-link {
-    font-weight: bold;
-    color: #333333;
-  }
-
-  .navbar-nav .nav-link.active {
-    background-color: #bddeb1;
-    color: #FFFFFF;
-  }
-
-  .navbar-brand {
-    font-weight: bold;
-    color: #333333;
-  }
-
-  .nav-link:hover {
-    color: #bddeb1;
-  }
-
-  /* Sidebar */
+  /* ========================= SIDEBAR (Dark Teal) ========================= */
   .sidebar {
-    background-color: #FFFFFF;
-    border-right: 1px solid #f1f1f1;
+    background-color: #102e35;
     width: 250px;
-    transition: width 0.25s ease, padding 0.25s ease;
+    transition: width 0.25s ease;
     position: relative;
-  }
-
-  .sidebar.collapsed {
-    width: 60px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    text-align: center;
-  }
-
-  .sidebar .label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 8px;
-  }
-
-  .sidebar.collapsed .label {
-    display: none;
-  }
-
-  .sidebar-toggle-btn {
-    position: absolute;
-    right: -18px;
-    top: 20px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    z-index: 20;
-  }
-
-  .profile-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .profile-icons .profile-icon {
-    width: 64px;
-    height: 64px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #f1f1f1;
-    color: #333;
-    font-size: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    line-height: 0;
-  }
-
-  .profile-icons .profile-icon:focus {
-    outline: 2px solid #bddeb1;
-    outline-offset: 2px;
-  }
-
-  .sidebar.collapsed .profile-icons {
-    display: none;
-  }
-
-  .sidebar .nav-link i {
-    font-size: 1.1rem;
-    width: 28px;
-    text-align: center;
-  }
-
-  .sidebar.collapsed .text-center h6,
-  .sidebar.collapsed .text-center h5,
-  .sidebar.collapsed .text-secondary,
-  .sidebar.collapsed .avatar {
-    display: none;
-  }
-
-  .sidebar.collapsed .nav {
-    align-items: center;
-  }
-
-  .sidebar.collapsed .nav-link {
-    justify-content: center;
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-  }
-
-  .sidebar.collapsed .sidebar-toggle-btn {
-    top: 12px;
-    transform: none;
-    right: -18px;
-  }
-
-  .sidebar .nav-link {
-    font-weight: bold;
-    color: #f9f8f8;
-  }
-
-  .sidebar .nav-link:hover {
-    color: #bddeb1;
-  }
-
-  table {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  th {
-    background-color: #bddeb1;
-    color: white;
-  }
-
-  td {
-    background-color: #FFFFFF;
-  }
-
-  tr:nth-child(even) td {
-    background-color: #f9f9f9;
-  }
-
-  footer {
-    background-color: #bddeb1;
-    color: white;
-    padding: 30px 0;
-    text-align: center;
-  }
-
-  footer h5 {
-    font-weight: bold;
-  }
-
-  footer p {
-    font-weight: 300;
-    font-size: 14px;
-  }
-
-  footer .social-icons a {
-    color: white;
-    margin: 0 10px;
-    font-size: 20px;
-  }
-
-  footer .social-icons a:hover {
-    color: #333333;
-  }
-
-  .modal-content {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-  }
-
-  .modal-header {
-    background-color: #bddeb1;
-    color: white;
-    font-weight: bold;
-  }
-
-  .modal-footer {
-    background-color: #f9f9f9;
-  }
-
-  .client-section {
-    background-color: #f7f7f7;
-    padding: 20px;
-    margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .progress-notes-section {
-    background-color: #fff;
-    padding: 20px;
-    margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .progress-notes-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-  }
-
-  /* ========================= PROFILE SECTION STYLES ========================= */
-  .hidden-section {
-    display: none !important;
-  }
-
-  #profileSection {
-    margin-top: 20px;
-  }
-
-  .profile-header h2 {
-    font-size: 26px;
-    font-weight: 800;
-    margin: 0;
-  }
-
-  .profile-header p {
-    margin-top: 6px;
-    color: #6b7280;
-  }
-
-  .profile-grid {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 16px;
-    margin-top: 16px;
-  }
-
-  @media (max-width: 900px) {
-    .profile-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .profile-card {
-    background: white;
-    border-radius: 14px;
-    padding: 18px;
-    box-shadow: 0 10px 18px rgba(0,0,0,0.05);
-  }
-
-  .profile-avatar-wrap {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .avatar-circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 999px;
-    background: #eef2ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 2px solid #dbeafe;
-  }
-
-  .avatar-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .avatar-info h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .role-tag {
-    margin-top: 6px;
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: #ecfeff;
-    color: #155e75;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .profile-actions {
-    margin-top: 16px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .profile-note {
-    margin-top: 14px;
-    font-size: 12px;
-    color: #6b7280;
-  }
-
-  .form-card h3 {
-    margin: 0 0 14px 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  @media (max-width: 600px) {
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .form-group {
+    min-height: 100vh;
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
   }
 
-  .form-group label {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 6px;
+  .sidebar.collapsed { width: 60px; padding: 0 10px; text-align: center; }
+  .sidebar .label { display: inline-block; margin-left: 10px; }
+  .sidebar.collapsed .label { display: none; }
+  
+  .sidebar-toggle-btn {
+    position: absolute; right: -15px; top: 20px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: white; border: 1px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 20;
   }
 
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 10px 12px;
-    outline: none;
-    font-size: 14px;
+  /* Sidebar Links */
+  .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; }
+  .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+  .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
+  
+  .sidebar.collapsed .text-center, .sidebar.collapsed .profile-icons { display: none; }
+  .profile-icon {
+    width: 60px; height: 60px; background: rgba(255,255,255,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: white; margin: 0 auto;
   }
 
-  .form-footer {
-    margin-top: 12px;
-    display: flex;
-    justify-content: flex-end;
-  }
+  /* ========================= CONTENT AREA ========================= */
+  .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
 
-  /* Brand RGB gradient (copied from index.html) */
+  /* Navbar */
+  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
+  
+  /* Brand RGB Text */
   .brand-rgb {
     font-weight: 800;
-    background: linear-gradient(
-      90deg,
-      rgb(34, 197, 94),    /* green */
-      rgb(16, 185, 129),   /* teal */
-      rgb(59, 130, 246),   /* soft blue */
-      rgb(245, 158, 11),   /* warm amber */
-      rgb(244, 63, 94),    /* warm pink/red */
-      rgb(34, 197, 94)     /* green again */
-    );
-
-    background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+    background: linear-gradient(90deg, rgb(34, 197, 94), rgb(16, 185, 129), rgb(59, 130, 246), rgb(245, 158, 11), rgb(244, 63, 94), rgb(34, 197, 94));
+    background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     animation: rgbMove 4s ease-in-out infinite;
-    /* soft glow */
-    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
   }
+  @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-  @keyframes rgbMove {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Welcome Banner Styling */
+  /* ========================= DASHBOARD SPECIFIC STYLES ========================= */
+  
+  /* Welcome Banner */
   .welcome-card {
-    background-color: #2d5016;
+    background-color: #102e35; /* Matched to sidebar for cohesion */
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: white;
+    background-image: linear-gradient(45deg, #102e35 0%, #17424d 100%);
   }
 
-  .welcome-card h1 {
-    color: #ffffff !important;
+  /* Stat Cards */
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-5px); }
+
+  .icon-box {
+    width: 50px; height: 50px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  }
+  .bg-soft-blue { background-color: #e3f2fd; color: #0d6efd; }
+  .bg-soft-green { background-color: #d1e7dd; color: #198754; }
+  .bg-soft-orange { background-color: #ffecb5; color: #ffc107; }
+
+  /* Chart Card */
+  .chart-card {
+    background: white; border-radius: 12px; padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
+    height: 100%;
   }
 
-  .welcome-card p {
-    color: #e8f5e8 !important;
+  /* Progress Circle */
+  .progress-circle {
+    width: 150px; height: 150px; border-radius: 50%;
+    background: conic-gradient(#bddeb1 0% 72%, #f0f0f0 72% 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto;
+  }
+  .circle-text {
+    width: 120px; height: 120px; background: white; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+
+  /* ========================= PROFILE SECTION (MATCHING CLIENTS PAGE) ========================= */
+  .hidden-section { display: none !important; }
+  
+  .profile-grid {
+    display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px;
+  }
+  @media (max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
+
+  .profile-card {
+    background: #FFFFFF; border-radius: 12px; padding: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; height: 100%;
+  }
+
+  .profile-left-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  
+  .avatar-large {
+    width: 100px; height: 100px; border-radius: 50%;
+    background-color: #eef2ff; color: #102e35;
+    font-size: 2rem; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff;
+  }
+
+  .role-badge {
+    background-color: #e0f2f1; color: #00897b;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    margin-top: 5px; display: inline-block;
+  }
+
+  .form-label { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .form-control, .form-select { border: 1px solid #dee2e6; border-radius: 6px; padding: 10px 12px; font-size: 14px; }
+  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
+  .btn-green:hover { background-color: #146c43; color: white; }
+  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
+  .btn-outline-custom:hover { background: #f8f9fa; border-color: #ccc; color: #333; }
+
+  /* ========================= FOOTER (WHITE VERSION) ========================= */
+  footer {
+    background-color: #FFFFFF; color: #333;
+    padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0;
+  }
+
+  footer h2.brand-rgb { font-size: 1.8rem; margin-bottom: 0; }
+  footer a { text-decoration: none; color: #555; transition: color 0.2s; font-size: 0.9rem; }
+  footer a:hover { color: #198754; }
+  .footer-links a { margin: 0 10px; font-weight: 500; }
+  
+  .social-icon-btn {
+    font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block;
+  }
+  .social-icon-btn:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
 </style>
-</head>
 
-<body onload="requireLogin()">
+<body onload="initDashboard()">
 
-  <!-- Sidebar -->
   <div class="d-flex">
+    
     <div id="sidebarWrapper" class="sidebar p-3">
-      <!-- Collapse/Expand toggle button -->
-      <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn">
         <i id="sidebarToggleIcon" class="bi bi-list"></i>
       </button>
 
-      <!-- Single large user profile icon -->
       <div class="profile-icons d-flex justify-content-center mb-3">
-        <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
-          <i class="bi bi-person-circle"></i>
-        </button>
+        <div class="profile-icon"><i class="bi bi-person-circle"></i></div>
       </div>
 
       <div class="text-center mb-4">
-        <h6 class="text-white mb-0">WELCOME</h6>
+        <h6 class="text-white-50 mb-0 small">WELCOME</h6>
         <h5 class="text-white fw-bold">ADMIN</h5>
       </div>
 
-      <p class="text-secondary small mt-4">NAVIGATION</p>
+      <p class="text-secondary small mt-3 fw-bold" style="color: #6c757d !important; padding-left: 10px;">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
-        <li class="nav-item">
-    <a class="nav-link active d-flex align-items-center" href="dashboard.html">
-            <i class="bi bi-speedometer2"></i>
-            <span class="label">Dashboard</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="appointments.html">
-            <i class="bi bi-calendar-check"></i>
-            <span class="label">Appointments</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="clients.html">
-            <i class="bi bi-people"></i>
-            <span class="label">Clients</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="counselors.html">
-            <i class="bi bi-person-badge"></i>
-            <span class="label">Counselors</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="session_notes.html">
-            <i class="bi bi-file-earmark-text"></i>
-            <span class="label">Session Notes</span>
-          </a>
-        </li>
-
-        <li class="nav-item mt-4">
-          <a class="nav-link text-danger d-flex align-items-center" href="#" onclick="logout()">
-            <i class="bi bi-box-arrow-right"></i>
-            <span class="label">Logout</span>
-          </a>
-        </li>
+        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check me-2"></i><span class="label">Appointments</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="clients.html"><i class="bi bi-people me-2"></i><span class="label">Clients</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge me-2"></i><span class="label">Counselors</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text me-2"></i><span class="label">Session Notes</span></a></li>
+        <li class="nav-item mt-4"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i><span class="label">Logout</span></a></li>
       </ul>
     </div>
 
-    <!-- Main Content -->
     <div class="content flex-grow-1">
 
-      <!-- Top Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
-        <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
-          <i class="bi bi-list"></i>
-        </button>
-
-        <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
-
+      <nav class="navbar navbar-expand-lg">
+        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
+        <a class="navbar-brand brand-rgb" href="#">MINDCAREHUB</a>
         <div class="ms-auto d-flex align-items-center gap-3">
-          <span class="text-black small d-none d-md-block">
-          </span>
-
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
-              data-bs-toggle="dropdown">
-              <span class="user-badge" id="topUserBadge">HH</span>
-              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
+              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
+              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
             </a>
-
-            <ul class="dropdown-menu dropdown-menu-end">
-              <!-- ✅ Added id="menuProfile" ONLY -->
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <div class="container-fluid p-4">
+      <div class="container-fluid p-4 flex-grow-1">
 
-        <!-- ================= DASHBOARD CONTENT (THIS WILL BE HIDDEN WHEN PROFILE OPENED) ================= -->
         <div id="dashboardContent">
-          <!-- Welcome Banner -->
+          
           <div class="welcome-card mb-4">
-            <h1 class="fw-bold mb-2 text-black">Welcome to <span class="brand-rgb">MindCareHub</span> Dashboard</h1>
-            <p class="text-black-50 mb-0">Manage appointments, clients, counselors and session activities.</p>
+            <h1 class="fw-bold mb-2">Welcome to <span style="color:#bddeb1;">MindCareHub</span> Dashboard</h1>
+            <p class="mb-0 text-white-50">Manage appointments, clients, counselors and session activities.</p>
           </div>
 
-          <!-- Stats Row -->
           <div class="row g-4 mb-4">
             <div class="col-md-4">
               <div class="stat-card">
                 <div>
-                  <p class="text-muted mb-1">TOTAL CLIENTS</p>
+                  <p class="text-secondary small fw-bold mb-1">TOTAL CLIENTS</p>
                   <h2 class="fw-bold mb-0">128</h2>
                 </div>
-                <div class="icon-box bg-soft-blue">
-                  <i class="bi bi-people-fill"></i>
-                </div>
+                <div class="icon-box bg-soft-blue"><i class="bi bi-people-fill"></i></div>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="stat-card">
                 <div>
-                  <p class="text-muted mb-1">TODAY'S APPOINTMENTS</p>
+                  <p class="text-secondary small fw-bold mb-1">TODAY'S APPOINTMENTS</p>
                   <h2 class="fw-bold mb-0">12</h2>
                 </div>
-                <div class="icon-box bg-soft-green">
-                  <i class="bi bi-calendar-check-fill"></i>
-                </div>
+                <div class="icon-box bg-soft-green"><i class="bi bi-calendar-check-fill"></i></div>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="stat-card">
                 <div>
-                  <p class="text-muted mb-1">PENDING REQUESTS</p>
+                  <p class="text-secondary small fw-bold mb-1">PENDING REQUESTS</p>
                   <h2 class="fw-bold mb-0">6</h2>
                 </div>
-                <div class="icon-box bg-soft-orange">
-                  <i class="bi bi-clock-history"></i>
-                </div>
+                <div class="icon-box bg-soft-orange"><i class="bi bi-clock-history"></i></div>
               </div>
             </div>
           </div>
 
-          <!-- Chart + Progress -->
           <div class="row g-4">
             <div class="col-lg-8">
-              <div class="card shadow-sm border-0 rounded-4 p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="chart-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
                   <h5 class="fw-bold mb-0">Monthly Appointments</h5>
-                  <select class="form-select w-auto">
+                  <select class="form-select w-auto form-select-sm">
                     <option>Year 2025</option>
                     <option>Year 2024</option>
                   </select>
                 </div>
-
                 <canvas id="appointmentsChart" height="120"></canvas>
               </div>
             </div>
 
             <div class="col-lg-4">
-              <div class="card shadow-sm border-0 rounded-4 p-4 text-center">
-                <h5 class="fw-bold mb-3">Counselor Availability</h5>
-                <div class="progress-circle mx-auto mb-3">
+              <div class="chart-card text-center">
+                <h5 class="fw-bold mb-4">Counselor Availability</h5>
+                <div class="progress-circle mx-auto mb-4">
                   <div class="circle-text">
-                    <h3 class="fw-bold mb-0">72%</h3>
-                    <p class="text-muted small mb-0">Availability</p>
+                    <h3 class="fw-bold mb-0 text-success">72%</h3>
+                    <p class="text-muted small mb-0">Available</p>
                   </div>
                 </div>
-
-                <button class="btn btn-primary w-100 rounded-pill">
-                  View Schedule
-                </button>
+                <p class="text-muted small mb-3">Current active counselors available for booking.</p>
+                <button class="btn btn-green w-100 rounded-pill">View Schedule</button>
               </div>
             </div>
           </div>
-        </div>
-        <!-- ================= END DASHBOARD CONTENT ================= -->
 
-        <!-- ================= PROFILE SECTION (HIDDEN INITIALLY) ================= -->
-        <section id="profileSection" class="hidden-section">
-          <div class="profile-header">
-            <h2>User Profile</h2>
-            <p>Update your personal information and account details.</p>
-          </div>
+        </div>
+        <section id="profileSection" class="hidden-section mb-5">
+          <h2 class="fw-bold text-dark">User Profile</h2>
+          <p class="text-secondary">Update your personal information and account details.</p>
 
           <div class="profile-grid">
-            <!-- Left -->
-            <div class="profile-card">
-              <div class="profile-avatar-wrap">
-                <div class="avatar-circle">
-                  <img id="avatarPreview" src="" alt="Avatar" class="hidden-section">
-                  <span id="avatarFallback">AU</span>
-                </div>
-
-                <div class="avatar-info">
-                  <h3 id="displayName">Admin User</h3>
-                  <span class="role-tag" id="displayRole">Super Admin</span>
-                </div>
+            <div class="profile-card profile-left-content">
+              <div class="d-flex align-items-center w-100 mb-4">
+                 <div class="avatar-large" id="profileAvatarFallback">HH</div>
+                 <div class="ms-3 text-start">
+                    <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
+                    <span class="role-badge" id="profileDisplayRole">Super Admin</span>
+                 </div>
               </div>
-
-              <div class="profile-actions">
-                <label class="btn btn-primary">
-                  Change Avatar
-                  <input type="file" id="avatarInput" accept="image/*" hidden>
-                </label>
-                <button class="btn btn-outline-secondary" type="button" id="resetPassBtn">Reset Password</button>
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">Change Avatar <input type="file" id="avatarInput" hidden></label>
+                <button class="btn btn-outline-custom flex-grow-1" id="resetPassBtn">Reset Password</button>
               </div>
-
             </div>
 
-            <!-- Right -->
             <div class="profile-card form-card">
-              <h3>Account Details</h3>
-
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" id="firstName" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" id="lastName" required>
-                  </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6"><label class="form-label">First Name</label><input type="text" class="form-control" id="firstName" value="Hanis"></div>
+                  <div class="col-md-6"><label class="form-label">Last Name</label><input type="text" class="form-control" id="lastName" value="Heidi"></div>
                 </div>
-
-                <div class="form-group">
-                  <label>Email Address</label>
-                  <input type="email" id="email" required>
+                <div class="mb-3"><label class="form-label">Email Address</label><input type="email" class="form-control" id="email" value="hanisheidi@mindcarehub.com"></div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6"><label class="form-label">Role</label><select class="form-select" id="role"><option value="Super Admin" selected>Super Admin</option><option value="Admin">Admin</option></select></div>
+                  <div class="col-md-6"><label class="form-label">Phone</label><input type="text" class="form-control" id="phone" value="+60 12-345 6789"></div>
                 </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Role</label>
-                    <select id="role">
-                      <option value="Super Admin">Super Admin</option>
-                      <option value="Admin">Admin</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Phone</label>
-                    <input type="text" id="phone">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>Bio</label>
-                  <textarea id="bio" rows="4"></textarea>
-                </div>
-
-                <div class="form-footer">
-                  <button type="submit" class="btn btn-success">Save Changes</button>
-                  <button type="button" class="btn btn-outline-secondary ms-2" id="backToDashboardBtn">
-                    Back
-                  </button>
+                <div class="mb-4"><label class="form-label">Bio</label><textarea class="form-control" id="bio" rows="3">Managing appointments and counselor schedules.</textarea></div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-outline-custom px-4" id="backToDashboardBtn">Back</button>
+                  <button type="submit" class="btn btn-green px-4">Save Changes</button>
                 </div>
               </form>
             </div>
           </div>
         </section>
-        <!-- ================= END PROFILE SECTION ================= -->
 
-      </div>
+      </div> <footer>
+        <div class="container-fluid px-5">
+          <div class="row align-items-center text-center text-md-start">
+            <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
+            <div class="col-md-4 mb-3 mb-md-0 text-center">
+              <div class="d-flex justify-content-center mb-2">
+                <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
+                <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
+              </div>
+              <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted">mindcarehub@gmail.com</a>
+            </div>
+            <div class="col-md-4 text-center text-md-end">
+              <div class="footer-links mb-2"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Help Center</a></div>
+              <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <!-- Custom JS -->
-  <script src="js/app.js"></script>
-
-  <!-- ✅ Profile Script (NEW) -->
-  <script>
-    const menuProfile = document.getElementById("menuProfile");
-    const profileSection = document.getElementById("profileSection");
-    const dashboardContent = document.getElementById("dashboardContent");
-    const backToDashboardBtn = document.getElementById("backToDashboardBtn");
-
-    const topUserName = document.getElementById("topUserName");
-    const topUserBadge = document.getElementById("topUserBadge");
-
-    const displayName = document.getElementById("displayName");
-    const displayRole = document.getElementById("displayRole");
-
-    const firstName = document.getElementById("firstName");
-    const lastName = document.getElementById("lastName");
-    const email = document.getElementById("email");
-    const role = document.getElementById("role");
-    const phone = document.getElementById("phone");
-    const bio = document.getElementById("bio");
-
-    const profileForm = document.getElementById("profileForm");
-
-    const avatarInput = document.getElementById("avatarInput");
-    const avatarPreview = document.getElementById("avatarPreview");
-    const avatarFallback = document.getElementById("avatarFallback");
-
-    const resetPassBtn = document.getElementById("resetPassBtn");
-
-    // ✅ Default user object (replace with your backend data)
-    const currentUser = {
-      firstName: "Hanis",
-      lastName: "Heidi",
-      email: "hanisheidi@mindcarehub.com",
-      role: "Super Admin",
-      phone: "+60 12-345 6789",
-      bio: "Managing appointments and counselor schedules."
-    };
-
-    function getInitials(fn, ln) {
-      return (fn?.charAt(0) || "A").toUpperCase() + (ln?.charAt(0) || "U").toUpperCase();
-    }
-
-    function loadProfileData() {
-      firstName.value = currentUser.firstName;
-      lastName.value = currentUser.lastName;
-      email.value = currentUser.email;
-      role.value = currentUser.role;
-      phone.value = currentUser.phone;
-      bio.value = currentUser.bio;
-
-      displayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-      displayRole.textContent = currentUser.role;
-
-      topUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
-      topUserBadge.textContent = getInitials(currentUser.firstName, currentUser.lastName);
-
-      avatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
-    }
-
-    function showProfile() {
-      dashboardContent.classList.add("hidden-section");
-      profileSection.classList.remove("hidden-section");
-      loadProfileData();
-    }
-
-    function showDashboard() {
-      profileSection.classList.add("hidden-section");
-      dashboardContent.classList.remove("hidden-section");
-    }
-
-    // ✅ Open profile from dropdown
-    menuProfile.addEventListener("click", function (e) {
-      e.preventDefault();
-      showProfile();
-    });
-
-    // ✅ Back to dashboard button
-    backToDashboardBtn.addEventListener("click", function () {
-      showDashboard();
-    });
-
-    // ✅ Save profile
-    profileForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      currentUser.firstName = firstName.value.trim();
-      currentUser.lastName = lastName.value.trim();
-      currentUser.email = email.value.trim();
-      currentUser.role = role.value;
-      currentUser.phone = phone.value.trim();
-      currentUser.bio = bio.value.trim();
-
-      loadProfileData();
-      alert("Profile updated successfully ✅");
-    });
-
-    // ✅ Avatar preview
-    avatarInput.addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-
-      const url = URL.createObjectURL(file);
-      avatarPreview.src = url;
-      avatarPreview.classList.remove("hidden-section");
-      avatarFallback.classList.add("hidden-section");
-    });
-
-    // ✅ Reset password demo
-    resetPassBtn.addEventListener("click", function () {
-      alert("Reset password clicked ✅ (demo)");
-    });
-  </script>
-
-  <!-- Logout Confirmation Modal -->
-  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header" style="background-color:#bddeb1;">
-          <h5 class="modal-title text-black" id="logoutConfirmLabel">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">Confirm Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body">
-          <p>Are you sure you want to logout and return to the login page?</p>
-        </div>
+        <div class="modal-body">Are you sure you want to logout?</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="confirmLogoutBtn" class="btn" style="background-color:#bddeb1; color:#0b0b0b;">Logout</button>
+          <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="logout()" class="btn btn-danger">Logout</button>
         </div>
       </div>
     </div>
   </div>
 
-</body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    // Init Page
+    function initDashboard() {
+        document.getElementById('yearSpan').textContent = new Date().getFullYear();
+        renderChart();
+    }
 
+    // Sidebar Logic
+    const sidebar = document.getElementById("sidebarWrapper");
+    function toggleSidebar() { sidebar.classList.toggle("collapsed"); }
+    document.getElementById("sidebarToggleBtn").addEventListener("click", toggleSidebar);
+    document.getElementById("toggleSidebar").addEventListener("click", toggleSidebar);
+
+    // Profile Toggle Logic
+    const profileSection = document.getElementById("profileSection");
+    const dashboardContent = document.getElementById("dashboardContent");
+    
+    document.getElementById("menuProfile").addEventListener("click", (e) => {
+       e.preventDefault(); dashboardContent.classList.add("hidden-section"); profileSection.classList.remove("hidden-section");
+    });
+    document.getElementById("backToDashboardBtn").addEventListener("click", () => {
+       profileSection.classList.add("hidden-section"); dashboardContent.classList.remove("hidden-section");
+    });
+
+    // Profile Form Logic
+    function getInitials(name) {
+        const names = name.split(' ');
+        let initials = names[0].substring(0, 1).toUpperCase();
+        if (names.length > 1) initials += names[names.length - 1].substring(0, 1).toUpperCase();
+        return initials;
+    }
+
+    document.getElementById("profileForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fn = document.getElementById("firstName").value;
+      const ln = document.getElementById("lastName").value;
+      const full = fn + " " + ln;
+      document.getElementById("topUserName").textContent = full;
+      document.getElementById("topUserBadge").textContent = getInitials(full);
+      document.getElementById("profileDisplayName").textContent = full;
+      document.getElementById("profileAvatarFallback").textContent = getInitials(full);
+      alert("Profile Saved!");
+    });
+
+    function logout() { window.location.href = "login.html"; }
+
+    // Dummy Chart Render
+    function renderChart() {
+        const ctx = document.getElementById('appointmentsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Appointments',
+                    data: [12, 19, 15, 25, 22, 30],
+                    borderColor: '#198754',
+                    backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+  </script>
+</body>
 </html>
