@@ -75,14 +75,12 @@
   }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-  /* ========================= PARALLAX WELCOME BANNER ========================= */
+  /* ========================= PARALLAX BANNER ========================= */
   .welcome-card {
-    /* Fallback color */
     background-color: #102e35;
-    /* Parallax Image with Gradient Overlay */
-    background-image: linear-gradient(to right, rgba(16, 46, 53, 0.95), rgba(16, 46, 53, 0.7)), 
-                      url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1470&auto=format&fit=crop');
-    /* This creates the Parallax Effect */
+    /* Parallax Image */
+    background-image: linear-gradient(to right, rgba(16, 46, 53, 0.9), rgba(16, 46, 53, 0.6)), 
+                      url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1470&auto=format&fit=crop');
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -101,7 +99,6 @@
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   .animate-entry { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
   .delay-1 { animation-delay: 0.1s; }
   .delay-2 { animation-delay: 0.2s; }
@@ -117,46 +114,34 @@
   .stat-card-mini:hover { transform: translateY(-5px); }
   .icon-square { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
 
-  /* Horizontal Timeline */
-  .timeline-wrapper {
-    display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px;
-  }
+  /* Timeline */
+  .timeline-wrapper { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 20px; }
   .timeline-card {
-    flex: 0 0 260px; 
-    background: rgba(255, 255, 255, 0.8); 
-    backdrop-filter: blur(10px);
-    border-radius: 12px; padding: 15px;
-    border-left: 4px solid #10b981; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    position: relative; transition: transform 0.2s;
+    flex: 0 0 260px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+    border-radius: 12px; padding: 15px; border-left: 4px solid #10b981; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: relative; transition: transform 0.2s;
   }
   .timeline-card:hover { transform: scale(1.02); }
   .timeline-card.pending { border-left-color: #f59e0b; }
   .timeline-card.cancelled { border-left-color: #f43f5e; }
-  
   .time-badge { background: #102e35; color: white; font-weight: bold; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; display: inline-block; margin-bottom: 8px; }
 
-  /* ========================= KANBAN BOARD VIEW ========================= */
+  /* ========================= KANBAN VIEW ========================= */
   .kanban-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   @media(max-width: 992px) { .kanban-container { grid-template-columns: 1fr; } }
-  
   .kanban-col { background: #eef2f5; border-radius: 12px; padding: 15px; height: 100%; border: 1px solid #dee2e6; }
   .kanban-header { font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-size: 0.85rem; color: #555; }
-  
   .kanban-card {
     background: white; border-radius: 8px; padding: 15px; margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03); border-left: 3px solid #102e35;
-    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03); border-left: 3px solid #102e35; transition: transform 0.2s;
   }
   .kanban-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
 
-  /* ========================= TABLE STYLES ========================= */
+  /* ========================= TABLE ========================= */
   .table-card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); overflow: hidden; }
   table { width: 100%; border-collapse: separate; border-spacing: 0; }
   th { background-color: #bddeb1; color: #102e35; padding: 15px; font-weight: 800; border:none; }
   td { background-color: #FFFFFF; padding: 15px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; }
-  
-  /* Utils */
   .avatar-text { width: 32px; height: 32px; border-radius: 50%; background: #e0f2f1; color: #00695c; font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-right: 10px; border: 1px solid #b2dfdb; }
   
   .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
@@ -171,6 +156,12 @@
   .social-icon-btn:hover { transform: translateY(-4px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
   .hidden-section { display: none !important; }
+  
+  /* Profile Styles (Consistent) */
+  #profileSection { margin-top: 20px; }
+  .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
+  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; }
+  .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
 </style>
 
 <body onload="initPage()">
@@ -205,6 +196,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
@@ -229,7 +221,7 @@
           </div>
 
           <h6 class="fw-bold text-secondary small mb-3 animate-entry delay-2"><i class="bi bi-clock-history me-1"></i> UPCOMING SCHEDULE</h6>
-          <div class="scrolling-wrapper mb-4 animate-entry delay-2" id="timelineContainer">
+          <div class="timeline-wrapper mb-4 animate-entry delay-2" id="timelineContainer">
               </div>
 
           <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2 animate-entry delay-3">
@@ -266,8 +258,7 @@
                       <th>Client</th>
                       <th>Counselor</th>
                       <th>Date & Time</th>
-                      <th>Type</th>
-                      <th class="text-center">Status</th>
+                      <th>Status</th>
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
@@ -295,7 +286,19 @@
 
         <section id="profileSection" class="hidden-section mb-5">
           <h2 class="fw-bold text-dark">User Profile</h2>
-          <div class="alert alert-info shadow-sm border-0">Profile management is centralized on the Dashboard. <a href="#" id="backToMainBtn" class="fw-bold text-primary">Go Back</a></div>
+          <div class="profile-grid">
+            <div class="profile-card d-flex flex-column align-items-center text-center">
+              <div class="avatar-large mb-3">HH</div>
+              <h4 class="fw-bold mb-0">Hanis Heidi</h4>
+              <span class="badge bg-info bg-opacity-10 text-info rounded-pill mb-3">Super Admin</span>
+              <button class="btn btn-outline-secondary w-100 mb-2">Change Avatar</button>
+              <button class="btn btn-outline-secondary w-100" id="backToMainBtn">Back</button>
+            </div>
+            <div class="profile-card">
+                <h5>Account Details</h5>
+                <p class="text-muted">Managed via Dashboard.</p>
+            </div>
+          </div>
         </section>
 
       </div>
@@ -334,27 +337,14 @@
         <div class="modal-body">
           <form id="apptForm">
             <input type="hidden" id="editId">
-            <div class="mb-3">
-                <label class="fw-bold small">Client</label>
-                <select class="form-select" id="aClient" required></select>
-            </div>
-            <div class="mb-3">
-                <label class="fw-bold small">Counselor</label>
-                <select class="form-select" id="aCounselor" required></select>
-            </div>
+            <div class="mb-3"><label class="fw-bold small">Client</label><select class="form-select" id="aClient" required></select></div>
+            <div class="mb-3"><label class="fw-bold small">Counselor</label><select class="form-select" id="aCounselor" required></select></div>
             <div class="row mb-3">
                 <div class="col-6"><label class="fw-bold small">Date</label><input type="date" class="form-control" id="aDate" required></div>
                 <div class="col-6"><label class="fw-bold small">Time</label><input type="time" class="form-control" id="aTime" required></div>
             </div>
             <div class="row mb-3">
-                <div class="col-6">
-                    <label class="fw-bold small">Mode</label>
-                    <select class="form-select" id="aMode"><option>In-Person</option><option>Online (Zoom)</option></select>
-                </div>
-                <div class="col-6">
-                    <label class="fw-bold small">Status</label>
-                    <select class="form-select" id="aStatus"><option>Pending</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select>
-                </div>
+                <div class="col-6"><label class="fw-bold small">Status</label><select class="form-select" id="aStatus"><option>Pending</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select></div>
             </div>
             <div class="text-end"><button type="submit" class="btn btn-green shadow-sm">Save Appointment</button></div>
           </form>
@@ -378,7 +368,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // --- KEYS & DATA ---
     const KEY_APPTS = 'mindcare_appointments_data';
     const KEY_CLIENTS = 'mindcare_clients_data';
     const KEY_COUNSELORS = 'mindcare_counselors_data';
@@ -387,40 +376,45 @@
     let clientList = JSON.parse(localStorage.getItem(KEY_CLIENTS)) || [];
     let counselorList = JSON.parse(localStorage.getItem(KEY_COUNSELORS)) || [];
 
-    // Fallbacks if lists empty
-    if(clientList.length === 0) clientList = [{name:"Nur Aina"}, {name:"Jason Lim"}, {name:"Siti Mariam"}, {name:"Daniel Wong"}];
+    if(clientList.length === 0) clientList = [{name:"Nur Aina"}, {name:"Jason Lim"}, {name:"Siti Mariam"}, {name:"Daniel Wong"}, {name:"Amira Sofea"}, {name:"Kelvin Tan"}];
     if(counselorList.length === 0) counselorList = [{name:"Dr. Farah Ahmad"}, {name:"Mr. Hafiz Rahman"}, {name:"Ms. Priya Nair"}];
 
-    // --- DATA GENERATION (If empty) ---
+    // GENERATE DATA (If empty)
     if(apptData.length === 0) {
-        // Create 15 dummy appointments
-        for(let i=0; i<15; i++) {
+        // Specific data from request
+        apptData = [
+            {id: "APT001", client: "Nur Aina", counselor: "Dr. Farah Ahmad", date: "2025-12-28", time: "10:00 AM", status: "Confirmed"},
+            {id: "APT002", client: "Jason Lim", counselor: "Mr. Hafiz Rahman", date: "2025-12-28", time: "11:30 AM", status: "Pending"},
+            {id: "APT003", client: "Siti Mariam", counselor: "Dr. Farah Ahmad", date: "2025-12-28", time: "02:00 PM", status: "Completed"},
+            {id: "APT004", client: "Daniel Wong", counselor: "Ms. Priya Nair", date: "2025-12-29", time: "09:00 AM", status: "Confirmed"},
+            {id: "APT005", client: "Amira Sofea", counselor: "Mr. Hafiz Rahman", date: "2025-12-29", time: "03:30 PM", status: "Cancelled"},
+            {id: "APT006", client: "Kelvin Tan", counselor: "Ms. Priya Nair", date: "2025-12-30", time: "01:00 PM", status: "Pending"}
+        ];
+        
+        // Generate a few more random ones
+        for(let i=0; i<8; i++) {
             const client = clientList[Math.floor(Math.random() * clientList.length)];
             const counselor = counselorList[Math.floor(Math.random() * counselorList.length)];
-            const isPending = Math.random() > 0.6;
-            const isConf = Math.random() > 0.5;
-            
             apptData.push({
-                id: `APT${(i+101).toString()}`,
+                id: `APT${(i+7).toString().padStart(3,'0')}`,
                 client: client.name,
                 counselor: counselor.name,
-                date: `2025-12-${(28+Math.floor(i/3))}`,
-                time: `${9+ (i%5)}:00 ${i%2==0?'AM':'PM'}`,
-                mode: i%3==0 ? 'Online (Zoom)' : 'In-Person',
-                status: isPending ? "Pending" : (isConf ? "Confirmed" : "Completed")
+                date: `2025-12-${30+i}`,
+                time: "10:00 AM",
+                status: ["Pending", "Confirmed"][Math.floor(Math.random()*2)]
             });
         }
         localStorage.setItem(KEY_APPTS, JSON.stringify(apptData));
     }
 
-    // --- INIT ---
+    // INIT
     function initPage() {
         document.getElementById('yearSpan').textContent = new Date().getFullYear();
         populateDropdowns();
         renderTable();
         renderTimeline();
         updateStats();
-
+        
         document.getElementById('searchInput').addEventListener('input', refreshView);
         document.getElementById('statusFilter').addEventListener('change', refreshView);
     }
@@ -453,7 +447,6 @@
         }
     }
 
-    // --- RENDERERS ---
     function getFilteredData() {
         const q = document.getElementById('searchInput').value.toLowerCase();
         const s = document.getElementById('statusFilter').value;
@@ -466,12 +459,10 @@
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = "";
-        const data = getFilteredData();
-
-        data.forEach(a => {
+        getFilteredData().forEach(a => {
             const badge = getStatusBadge(a.status);
             
-            // Smart Action Button
+            // Smart Actions
             let actionBtn = `<button class="btn btn-sm btn-light border" onclick="editAppt('${a.id}')"><i class="bi bi-pencil"></i> Edit</button>`;
             if(a.status === 'Pending') actionBtn = `<button class="btn btn-sm btn-success text-white py-0" onclick="setStatus('${a.id}','Confirmed')">Approve</button>`;
             else if(a.status === 'Confirmed') actionBtn = `<button class="btn btn-sm btn-primary py-0" onclick="setStatus('${a.id}','Completed')">Complete</button>`;
@@ -482,7 +473,6 @@
                 <td class="fw-bold"><div class="d-flex align-items-center"><div class="avatar-text">${getInitials(a.client)}</div>${a.client}</div></td>
                 <td><div class="d-flex align-items-center"><div class="avatar-text bg-light text-dark">${getInitials(a.counselor)}</div>${a.counselor}</div></td>
                 <td class="small">${a.date} <br> <span class="text-muted">${a.time}</span></td>
-                <td class="small">${a.mode}</td>
                 <td class="text-center"><span class="badge ${badge} rounded-pill">${a.status}</span></td>
                 <td class="text-center">
                     ${actionBtn}
@@ -512,19 +502,16 @@
                     ${getKanbanAction(a)}
                 </div>
             </div>`;
-
             if(a.status === 'Pending') p.innerHTML += cardHtml;
             else if(a.status === 'Confirmed') c.innerHTML += cardHtml;
-            else h.innerHTML += cardHtml; // Completed or Cancelled
+            else h.innerHTML += cardHtml;
         });
     }
 
     function renderTimeline() {
         const cont = document.getElementById('timelineContainer');
         cont.innerHTML = "";
-        // Sort by date then status
         const upcoming = apptData.filter(a => a.status === 'Confirmed' || a.status === 'Pending').slice(0, 6);
-        
         upcoming.forEach(a => {
             const borderClass = a.status === 'Pending' ? 'pending' : '';
             cont.innerHTML += `
@@ -532,12 +519,11 @@
                <div class="time-badge">${a.time}</div>
                <h6 class="fw-bold mb-0">${a.client}</h6>
                <small class="text-muted">with ${a.counselor}</small>
-               <div class="mt-2 badge ${a.mode.includes('Online') ? 'bg-info bg-opacity-10 text-info' : 'bg-secondary bg-opacity-10 text-dark'}">${a.mode}</div>
+               <div class="mt-2 text-muted small">${a.date}</div>
             </div>`;
         });
     }
 
-    // --- HELPERS ---
     function getStatusBadge(s) {
         if(s==='Confirmed') return 'bg-success bg-opacity-10 text-success border border-success';
         if(s==='Pending') return 'bg-warning bg-opacity-10 text-warning border border-warning';
@@ -558,7 +544,6 @@
         document.getElementById('statCancelled').innerText = apptData.filter(a=>a.status==='Cancelled').length;
     }
 
-    // --- CRUD ---
     function openAddModal() {
         document.getElementById('editId').value = "";
         document.getElementById('apptForm').reset();
@@ -572,21 +557,39 @@
         document.getElementById('aClient').value = a.client;
         document.getElementById('aCounselor').value = a.counselor;
         document.getElementById('aDate').value = a.date;
-        // Convert "10:00 AM" back to "10:00" for input type=time is hard without library, skipping complex logic for demo, setting raw value might fail if format differs.
-        document.getElementById('aMode').value = a.mode;
+        document.getElementById('aTime').value = convertTo24Hour(a.time);
         document.getElementById('aStatus').value = a.status;
         new bootstrap.Modal(document.getElementById('apptModal')).show();
+    }
+
+    // Helper to handle time formats simply
+    function convertTo24Hour(timeStr) {
+        // Very basic parser assuming "HH:MM AM/PM"
+        if(!timeStr.includes('M')) return timeStr; // already 24h
+        let [time, modifier] = timeStr.split(' ');
+        let [hours, minutes] = time.split(':');
+        if (hours === '12') hours = '00';
+        if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+        return `${hours}:${minutes}`;
     }
 
     document.getElementById('apptForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const editId = document.getElementById('editId').value;
+        const rawTime = document.getElementById('aTime').value;
+        // Simple formatting
+        let hour = parseInt(rawTime.split(':')[0]);
+        const min = rawTime.split(':')[1];
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12; 
+        hour = hour ? hour : 12; 
+        const formattedTime = `${hour}:${min} ${ampm}`;
+
         const form = {
             client: document.getElementById('aClient').value,
             counselor: document.getElementById('aCounselor').value,
             date: document.getElementById('aDate').value,
-            time: document.getElementById('aTime').value, // Raw 24h
-            mode: document.getElementById('aMode').value,
+            time: formattedTime, 
             status: document.getElementById('aStatus').value
         };
 
@@ -594,7 +597,7 @@
             const idx = apptData.findIndex(a => a.id === editId);
             if(idx !== -1) apptData[idx] = { ...apptData[idx], ...form };
         } else {
-            const newId = `APT${(parseInt(apptData[apptData.length-1].id.substring(3)) + 1)}`;
+            const newId = `APT${(parseInt(apptData[apptData.length-1].id.substring(3)) + 1).toString().padStart(3,'0')}`;
             apptData.push({ id: newId, ...form });
         }
         
@@ -620,7 +623,6 @@
         }
     }
 
-    // Sidebar & Profile Logic
     const sidebar = document.getElementById("sidebarWrapper");
     document.getElementById("sidebarToggleBtn").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
     document.getElementById("toggleSidebar").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
