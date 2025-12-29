@@ -16,208 +16,182 @@
 <style>
   /* ========================= GENERAL STYLES ========================= */
   body {
-    background-color: #f4f7f6; /* Slight grey background for better contrast */
+    background-color: #f8f9fa; /* Light gray background like screenshot */
     font-family: 'Roboto', sans-serif;
     color: #333333;
   }
 
   /* ========================= SIDEBAR ========================= */
-  /* EXACT MATCH COLOR: #102e35 */
   .sidebar {
-    background-color: #102e35; 
-    border-right: none; /* Removed border to blend better */
+    background-color: #102e35; /* Dark Teal/Navy */
     width: 250px;
     transition: width 0.25s ease;
     position: relative;
     min-height: 100vh;
     z-index: 10;
-  }
-
-  .sidebar.collapsed {
-    width: 60px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    text-align: center;
-  }
-
-  .sidebar .label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 8px;
-  }
-
-  .sidebar.collapsed .label { display: none; }
-
-  .sidebar-toggle-btn {
-    position: absolute;
-    right: -18px;
-    top: 20px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    padding: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    z-index: 20;
-    background: #fff;
+    flex-direction: column;
   }
 
-  /* Profile Icons */
-  .profile-icons { display: flex; justify-content: center; align-items: center; }
-  .profile-icons .profile-icon {
-    width: 64px; height: 64px; display: inline-flex;
-    align-items: center; justify-content: center;
-    border-radius: 50%; background: #f1f1f1; color: #333;
-    font-size: 2rem; line-height: 0;
+  .sidebar.collapsed { width: 60px; padding: 0 10px; text-align: center; }
+  .sidebar .label { display: inline-block; margin-left: 10px; }
+  .sidebar.collapsed .label { display: none; }
+  
+  /* Toggle Button */
+  .sidebar-toggle-btn {
+    position: absolute; right: -15px; top: 20px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: white; border: 1px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 20;
   }
-
-  .sidebar.collapsed .profile-icons,
-  .sidebar.collapsed .text-center h6,
-  .sidebar.collapsed .text-center h5,
-  .sidebar.collapsed .text-secondary { display: none; }
 
   /* Sidebar Links */
-  .sidebar .nav-link { font-weight: bold; color: #aebdbf; }
-  .sidebar .nav-link:hover { color: #bddeb1; }
-  .sidebar .nav-link.active {
-    background-color: #bddeb1; color: #102e35; border-radius: 6px;
+  .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; }
+  .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+  .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
+  .sidebar.collapsed .text-center, .sidebar.collapsed .profile-icons { display: none; }
+
+  /* Profile Icon Sidebar */
+  .profile-icon {
+    width: 60px; height: 60px; background: rgba(255,255,255,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: white; margin: 0 auto;
   }
 
   /* ========================= CONTENT AREA ========================= */
-  .content {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+  .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
 
   /* Navbar */
-  .navbar {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #e0e0e0;
-  }
+  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
+  .navbar-brand { font-weight: 800; color: #333; letter-spacing: 0.5px; }
 
-  .navbar-brand { font-weight: bold; color: #333; }
-
-  /* ========================= MINI STATS CARDS ========================= */
+  /* ========================= STATS CARDS ========================= */
   .stat-card-mini {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.2s;
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #f0f0f0;
   }
-  
-  .stat-card-mini:hover {
-    transform: translateY(-3px);
-  }
-
   .icon-square {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
+    width: 45px; height: 45px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
   }
 
   /* ========================= TABLE STYLES ========================= */
+  .card-table { background: white; border-radius: 12px; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; }
   table { width: 100%; border-collapse: separate; border-spacing: 0; }
-
-  th {
-    background-color: #bddeb1;
-    color: #102e35;
-    padding: 15px;
-    font-weight: 800;
-  }
+  th { background-color: #bddeb1; color: #102e35; padding: 15px; font-weight: 700; border: none; }
+  td { padding: 12px 15px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; background: white; }
   
-  th:first-child { border-top-left-radius: 10px; }
-  th:last-child { border-top-right-radius: 10px; }
-
-  td {
-    background-color: #FFFFFF;
-    padding: 12px 15px;
-    border-bottom: 1px solid #f1f1f1;
-    vertical-align: middle;
-  }
-
-  /* Avatar in Table */
   .avatar-table {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: #eef2ff;
-    color: #102e35;
-    font-weight: bold;
-    font-size: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-    border: 1px solid #bddeb1;
+    width: 32px; height: 32px; border-radius: 50%;
+    background-color: #eef2ff; color: #102e35;
+    font-weight: bold; font-size: 11px;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-right: 10px; border: 1px solid #d0d7de;
   }
 
-  /* ========================= FOOTER (Exact Match) ========================= */
-  footer {
-    background-color: #102e35; /* EXACT SAME AS SIDEBAR */
-    color: white;
-    padding: 30px 0;
-    margin-top: auto;
-    border-top: none;
-  }
-
-  footer a { text-decoration: none; color: #aebdbf; transition: color 0.2s; }
-  footer a:hover { color: #bddeb1; }
-
-  .social-icon-btn {
-    font-size: 1.4rem; margin: 0 10px; color: white;
+  /* ========================= PROFILE SECTION (MATCHING SCREENSHOT) ========================= */
+  .hidden-section { display: none !important; }
+  
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Sidebar width vs Form width */
+    gap: 24px;
+    margin-top: 20px;
   }
   
+  @media (max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
+
+  .profile-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+    height: 100%;
+  }
+
+  /* Left Card (Avatar) */
+  .profile-left-content {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  
+  .avatar-large {
+    width: 100px; height: 100px; border-radius: 50%;
+    background-color: #eef2ff; color: #102e35;
+    font-size: 2rem; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 15px; border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #e0e7ff;
+  }
+
+  .role-badge {
+    background-color: #e0f2f1; color: #00897b; /* Teal-ish look from screenshot */
+    padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    margin-top: 5px; display: inline-block;
+  }
+
+  /* Form Styles */
+  .form-label { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 6px; }
+  .form-control, .form-select {
+    border: 1px solid #dee2e6; border-radius: 6px; padding: 10px 12px; font-size: 14px;
+    background-color: #fff;
+  }
+  .form-control:focus { border-color: #bddeb1; box-shadow: 0 0 0 3px rgba(189, 222, 177, 0.2); }
+
+  /* Buttons */
+  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
+  .btn-green:hover { background-color: #146c43; color: white; }
+  
+  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
+  .btn-outline-custom:hover { background: #f8f9fa; border-color: #ccc; color: #333; }
+
+  /* ========================= FOOTER (WHITE VERSION) ========================= */
+  footer {
+    background-color: #FFFFFF; /* White Background */
+    color: #333; /* Dark Text */
+    padding: 40px 0 20px 0;
+    margin-top: auto;
+    border-top: 1px solid #e0e0e0; /* Subtle separator */
+  }
+
+  footer h2.brand-rgb { font-size: 1.8rem; margin-bottom: 0; }
+
+  footer a { text-decoration: none; color: #555; transition: color 0.2s; font-size: 0.9rem; }
+  footer a:hover { color: #198754; }
+
+  .footer-links a { margin: 0 10px; font-weight: 500; }
+  
+  /* Social Icons */
+  .social-icon-btn {
+    font-size: 1.5rem; margin: 0 12px; 
+    color: #444; /* Dark Icon Color */
+    transition: all 0.3s ease; display: inline-block;
+  }
+  
+  /* RGB Hover Effect */
   .social-icon-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* ========================= RGB TEXT ========================= */
+  /* RGB Text Gradient */
   .brand-rgb {
     font-weight: 800;
     background: linear-gradient(90deg, rgb(34, 197, 94), rgb(16, 185, 129), rgb(59, 130, 246), rgb(245, 158, 11), rgb(244, 63, 94), rgb(34, 197, 94));
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     animation: rgbMove 4s ease-in-out infinite;
   }
+  @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-  @keyframes rgbMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
-
-  /* ========================= UTILS ========================= */
-  .hidden-section { display: none !important; }
-  .page-link { color: #102e35; }
-  .page-item.active .page-link { background-color: #bddeb1; color: #102e35; border-color: #bddeb1; }
-
-  /* Profile Styles (Preserved) */
-  #profileSection { margin-top: 20px; }
-  .profile-grid { display: grid; grid-template-columns: 320px 1fr; gap: 16px; margin-top: 16px; }
-  @media (max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
-  .profile-card { background: white; border-radius: 14px; padding: 18px; box-shadow: 0 10px 18px rgba(0,0,0,0.05); }
-  .profile-avatar-wrap { display: flex; align-items: center; gap: 14px; }
-  .avatar-circle { width: 80px; height: 80px; border-radius: 999px; background: #eef2ff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form-group { display: flex; flex-direction: column; margin-bottom: 12px; }
-  .form-group input, .form-group select, .form-group textarea { border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; }
+  /* Pagination */
+  .page-link { color: #333; border-color: #dee2e6; }
+  .page-item.active .page-link { background-color: #bddeb1; border-color: #bddeb1; color: #102e35; }
 
 </style>
 
@@ -226,42 +200,42 @@
   <div class="d-flex">
     
     <div id="sidebarWrapper" class="sidebar p-3">
-      <button id="sidebarToggleBtn" class="btn sidebar-toggle-btn">
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn">
         <i id="sidebarToggleIcon" class="bi bi-list"></i>
       </button>
 
       <div class="profile-icons d-flex justify-content-center mb-3">
-        <button class="profile-icon btn p-0"><i class="bi bi-person-circle"></i></button>
+        <div class="profile-icon"><i class="bi bi-person-circle"></i></div>
       </div>
 
       <div class="text-center mb-4">
-        <h6 class="text-white mb-0">WELCOME</h6>
+        <h6 class="text-white-50 mb-0 small">WELCOME</h6>
         <h5 class="text-white fw-bold">ADMIN</h5>
       </div>
 
-      <p class="text-secondary small mt-4" style="color: #aebdbf !important;">NAVIGATION</p>
+      <p class="text-secondary small mt-3 fw-bold" style="color: #6c757d !important; padding-left: 10px;">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2"></i><span class="label">Dashboard</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check"></i><span class="label">Appointments</span></a></li>
-        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="clients.html"><i class="bi bi-people"></i><span class="label">Clients</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge"></i><span class="label">Counselors</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text"></i><span class="label">Session Notes</span></a></li>
-        <li class="nav-item mt-4"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right"></i><span class="label">Logout</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check me-2"></i><span class="label">Appointments</span></a></li>
+        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="clients.html"><i class="bi bi-people me-2"></i><span class="label">Clients</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge me-2"></i><span class="label">Counselors</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text me-2"></i><span class="label">Session Notes</span></a></li>
+        <li class="nav-item mt-4"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i><span class="label">Logout</span></a></li>
       </ul>
     </div>
 
     <div class="content flex-grow-1">
 
-      <nav class="navbar navbar-expand-lg top-navbar px-4">
+      <nav class="navbar navbar-expand-lg">
         <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
-        <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
+        <a class="navbar-brand brand-rgb" href="#">MINDCAREHUB</a>
         <div class="ms-auto d-flex align-items-center gap-3">
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
-              <span class="fw-bold" id="topUserBadge" style="color:#102e35">HH</span>
-              <span class="fw-semibold small" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
+              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
+              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -277,48 +251,42 @@
           
           <div class="mb-4">
               <h1 class="fw-bold mb-0 brand-rgb">Client Management</h1>
-              <p class="text-muted">View and manage all registered clients</p>
+              <p class="text-secondary">View and manage all registered clients</p>
           </div>
 
           <div class="row g-3 mb-4">
              <div class="col-md-4">
                <div class="stat-card-mini">
                  <div>
-                   <p class="text-muted small mb-1 fw-bold">TOTAL CLIENTS</p>
-                   <h2 class="fw-bold mb-0" id="statTotal">0</h2>
+                   <p class="text-secondary small mb-1 fw-bold">TOTAL CLIENTS</p>
+                   <h2 class="fw-bold mb-0 text-dark" id="statTotal">0</h2>
                  </div>
-                 <div class="icon-square bg-primary bg-opacity-10 text-primary">
-                   <i class="bi bi-people-fill"></i>
-                 </div>
+                 <div class="icon-square bg-primary bg-opacity-10 text-primary"><i class="bi bi-people-fill"></i></div>
                </div>
              </div>
              <div class="col-md-4">
                <div class="stat-card-mini">
                  <div>
-                   <p class="text-muted small mb-1 fw-bold">ACTIVE CLIENTS</p>
-                   <h2 class="fw-bold mb-0" id="statActive">0</h2>
+                   <p class="text-secondary small mb-1 fw-bold">ACTIVE CLIENTS</p>
+                   <h2 class="fw-bold mb-0 text-dark" id="statActive">0</h2>
                  </div>
-                 <div class="icon-square bg-success bg-opacity-10 text-success">
-                   <i class="bi bi-check-circle-fill"></i>
-                 </div>
+                 <div class="icon-square bg-success bg-opacity-10 text-success"><i class="bi bi-check-circle-fill"></i></div>
                </div>
              </div>
              <div class="col-md-4">
                <div class="stat-card-mini">
                  <div>
-                   <p class="text-muted small mb-1 fw-bold">INACTIVE CLIENTS</p>
-                   <h2 class="fw-bold mb-0" id="statInactive">0</h2>
+                   <p class="text-secondary small mb-1 fw-bold">INACTIVE CLIENTS</p>
+                   <h2 class="fw-bold mb-0 text-dark" id="statInactive">0</h2>
                  </div>
-                 <div class="icon-square bg-secondary bg-opacity-10 text-secondary">
-                   <i class="bi bi-dash-circle-fill"></i>
-                 </div>
+                 <div class="icon-square bg-secondary bg-opacity-10 text-secondary"><i class="bi bi-dash-circle-fill"></i></div>
                </div>
              </div>
           </div>
 
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-             <div class="input-group w-md-50">
-                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+             <div class="input-group w-md-50 shadow-sm">
+                 <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-secondary"></i></span>
                  <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search ID, Name or Contact...">
              </div>
              <button class="btn fw-bold mt-3 mt-md-0 shadow-sm" style="background-color: #bddeb1; color: #102e35;" onclick="openAddModal()">
@@ -326,7 +294,7 @@
              </button>
           </div>
 
-          <div class="card shadow-sm border-0 rounded-4 p-0 overflow-hidden mb-5">
+          <div class="card-table mb-5">
              <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <thead>
@@ -339,65 +307,96 @@
                       <th class="text-center">Action</th>
                     </tr>
                   </thead>
-                  <tbody id="tableBody">
-                     </tbody>
+                  <tbody id="tableBody"></tbody>
                 </table>
              </div>
-
-             <div class="d-flex justify-content-between align-items-center p-3 bg-white">
-                <span class="small text-muted" id="showingText">Loading...</span>
-                <nav>
-                  <ul class="pagination mb-0" id="paginationControls"></ul>
-                </nav>
+             <div class="d-flex justify-content-between align-items-center p-3 bg-white border-top">
+                <span class="small text-secondary" id="showingText">Loading...</span>
+                <ul class="pagination mb-0" id="paginationControls"></ul>
              </div>
           </div>
-
         </div>
+
         <section id="profileSection" class="hidden-section mb-5">
-          <div class="profile-header">
-            <h2>User Profile</h2>
-            <p>Update your personal information and account details.</p>
-          </div>
+          <h2 class="fw-bold text-dark">User Profile</h2>
+          <p class="text-secondary">Update your personal information and account details.</p>
+
           <div class="profile-grid">
-            <div class="profile-card">
-              <div class="profile-avatar-wrap">
-                <div class="avatar-circle">
-                  <img id="avatarPreview" src="" alt="Avatar" class="hidden-section">
-                  <span id="avatarFallback">AU</span>
-                </div>
-                <div class="avatar-info">
-                  <h3 id="displayName">Admin User</h3>
-                  <span class="role-tag" id="displayRole">Super Admin</span>
-                </div>
+            
+            <div class="profile-card profile-left-content">
+              <div class="d-flex align-items-center w-100 mb-4">
+                 <div class="avatar-large" id="profileAvatarFallback">HH</div>
+                 <div class="ms-3 text-start">
+                    <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
+                    <span class="role-badge" id="profileDisplayRole">Super Admin</span>
+                 </div>
               </div>
-              <div class="profile-actions">
-                <label class="btn btn-primary btn-sm w-100 mb-2">Change Avatar<input type="file" id="avatarInput" hidden></label>
-                <button class="btn btn-outline-secondary btn-sm w-100" id="resetPassBtn">Reset Password</button>
+
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">
+                    Change Avatar <input type="file" id="avatarInput" hidden>
+                </label>
+                <button class="btn btn-outline-custom flex-grow-1" id="resetPassBtn">Reset Password</button>
               </div>
             </div>
+
             <div class="profile-card form-card">
-              <h3>Account Details</h3>
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
-                <div class="form-row">
-                  <div class="form-group"><label>First Name</label><input type="text" id="firstName"></div>
-                  <div class="form-group"><label>Last Name</label><input type="text" id="lastName"></div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" value="Hanis">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" value="Heidi">
+                  </div>
                 </div>
-                <div class="form-group"><label>Email</label><input type="email" id="email"></div>
-                <div class="form-footer">
-                  <button type="submit" class="btn btn-success">Save</button>
-                  <button type="button" class="btn btn-outline-secondary ms-2" id="backToClientsBtn">Back</button>
+
+                <div class="mb-3">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-control" id="email" value="hanisheidi@mindcarehub.com">
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Role</label>
+                    <select class="form-select" id="role">
+                      <option value="Super Admin" selected>Super Admin</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Counselor">Counselor</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" value="+60 12-345 6789">
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Bio</label>
+                  <textarea class="form-control" id="bio" rows="3">Managing appointments and counselor schedules.</textarea>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-outline-custom px-4" id="backToClientsBtn">Back</button>
+                  <button type="submit" class="btn btn-green px-4">Save Changes</button>
                 </div>
               </form>
             </div>
+
           </div>
         </section>
 
       </div> <footer>
         <div class="container-fluid px-5">
           <div class="row align-items-center text-center text-md-start">
+            
             <div class="col-md-4 mb-3 mb-md-0">
-              <h2 class="brand-rgb mb-0" style="font-size: 1.8rem;">MindCareHub</h2>
+              <h2 class="brand-rgb">MindCareHub</h2>
             </div>
+
             <div class="col-md-4 mb-3 mb-md-0 text-center">
               <div class="d-flex justify-content-center mb-2">
                 <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
@@ -405,14 +404,18 @@
                 <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
                 <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
               </div>
-              <a href="mailto:mindcarehub@gmail.com" class="small" style="color:#aebdbf">mindcarehub@gmail.com</a>
+              <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted">mindcarehub@gmail.com</a>
             </div>
+
             <div class="col-md-4 text-center text-md-end">
               <div class="footer-links mb-2">
-                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Help</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Help Center</a>
               </div>
-              <p class="mb-0 small text-white-50">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
+              <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
             </div>
+
           </div>
         </div>
       </footer>
@@ -422,21 +425,21 @@
 
   <div class="modal fade" id="clientModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: #bddeb1;">
-          <h5 class="modal-title fw-bold text-dark" id="clientModalTitle">Add Client</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title fw-bold" id="clientModalTitle">Add Client</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body p-4">
           <form id="clientForm">
             <input type="hidden" id="editClientId">
-            <div class="mb-3"><label class="fw-bold">Name</label><input type="text" class="form-control" id="cName" required></div>
-            <div class="mb-3"><label class="fw-bold">Email</label><input type="email" class="form-control" id="cEmail" required></div>
+            <div class="mb-3"><label class="fw-bold small">Full Name</label><input type="text" class="form-control" id="cName" required></div>
+            <div class="mb-3"><label class="fw-bold small">Email</label><input type="email" class="form-control" id="cEmail" required></div>
             <div class="row">
-              <div class="col-6 mb-3"><label class="fw-bold">Sessions</label><input type="number" class="form-control" id="cCount" min="0"></div>
-              <div class="col-6 mb-3"><label class="fw-bold">Status</label><select class="form-select" id="cStatus"><option>Active</option><option>Inactive</option></select></div>
+              <div class="col-6 mb-3"><label class="fw-bold small">Sessions</label><input type="number" class="form-control" id="cCount" min="0"></div>
+              <div class="col-6 mb-3"><label class="fw-bold small">Status</label><select class="form-select" id="cStatus"><option>Active</option><option>Inactive</option></select></div>
             </div>
-            <div class="text-end"><button type="submit" class="btn fw-bold text-white" style="background-color:#102e35">Save</button></div>
+            <div class="text-end pt-2"><button type="submit" class="btn btn-success fw-bold px-4">Save</button></div>
           </form>
         </div>
       </div>
@@ -446,14 +449,14 @@
   <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header" style="background-color:#bddeb1;">
-          <h5 class="modal-title text-dark">Confirm Logout</h5>
+        <div class="modal-header bg-light">
+          <h5 class="modal-title fw-bold">Confirm Logout</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">Are you sure you want to logout?</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button onclick="logout()" class="btn" style="background-color:#bddeb1; color:#000;">Logout</button>
+          <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+          <button onclick="logout()" class="btn btn-danger">Logout</button>
         </div>
       </div>
     </div>
@@ -467,7 +470,6 @@
     function getStoredData() { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || null; }
     function saveStoredData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
 
-    // Generate 128 clients if empty
     function generateInitialData() {
       const firstNames = ["Nur", "Jason", "Siti", "Daniel", "Amira", "Kelvin", "Ali", "Rachel", "Amirul", "Hana", "John", "Wei", "Cindy", "Khairul", "Zainab", "Aisha", "Ibrahim", "Nurul", "Sofie", "Rina", "Faridah", "Alice", "Tony", "Liana", "Hamza", "Johan", "Jasmin", "Rafiq", "Lina", "Azman", "Elina", "Kamarul", "Esha", "Nadia", "Ayman", "Nurin", "Sami", "Sabrina", "Alia", "Amir", "Yasmin", "Naqibullah", "Rafeeq", "Sarah", "Raja", "Zain", "Hafiz", "Radhi", "Salina", "Muzaffar", "Khairul", "Nadira", "Sofia", "Hafizul", "Anwar", "Farah", "Shafiq", "Fariz", "Marwan", "Kamilah"];
       const lastNames = ["Aina", "Lim", "Mariam", "Wong", "Sofea", "Tan", "Khairul", "Hakim", "Rafiq", "Li", "Raziq", "Shah", "Zulkifli", "Fadhil", "Hidayah", "Dizon", "Mohd", "Hasan", "Kamaruddin", "Fadilah", "Zakariya", "Sanusi", "Sabri", "Zaidan", "Hafizah", "Azizan", "Faris", "Rahim", "Azmi", "Yasmin", "Iman", "Fikri", "Zubair", "Rashid", "Rahman", "Zulaika", "Zainab", "Hisham", "Salim", "Ibrahim", "Alfi", "Khairani", "Imran", "Hizam", "Aini", "Iqbal", "Hidayat", "Zulkarnain", "Khairun", "Jamil", "Sufian", "Ashraf", "Noor", "Farhan", "Akmal", "Abdullah"];
@@ -492,35 +494,26 @@
     let clientsData = getStoredData();
     if (!clientsData) { clientsData = generateInitialData(); saveStoredData(clientsData); }
 
-    // --- 2. VARIABLES ---
+    // --- 2. VARS ---
     let currentPage = 1;
     const itemsPerPage = 10;
     let filteredData = [...clientsData];
-    
-    // Modal
     const clientModal = new bootstrap.Modal(document.getElementById('clientModal'));
-    const clientForm = document.getElementById('clientForm');
     const cName = document.getElementById('cName'), cEmail = document.getElementById('cEmail'), cCount = document.getElementById('cCount'), cStatus = document.getElementById('cStatus'), editClientId = document.getElementById('editClientId');
 
     // --- 3. INIT ---
     function initPage() {
       document.getElementById('yearSpan').textContent = new Date().getFullYear();
       clientsData.sort((a, b) => parseInt(b.id.substring(2)) - parseInt(a.id.substring(2)));
-      
-      updateStats(); // Calc stats on load
+      updateStats();
       handleSearch(); 
       document.getElementById("searchInput").addEventListener("input", handleSearch);
     }
 
-    // --- 4. NEW: STATS LOGIC ---
     function updateStats() {
-        const total = clientsData.length;
-        const active = clientsData.filter(c => c.status === 'Active').length;
-        const inactive = clientsData.filter(c => c.status === 'Inactive').length;
-
-        document.getElementById('statTotal').innerText = total;
-        document.getElementById('statActive').innerText = active;
-        document.getElementById('statInactive').innerText = inactive;
+        document.getElementById('statTotal').innerText = clientsData.length;
+        document.getElementById('statActive').innerText = clientsData.filter(c => c.status === 'Active').length;
+        document.getElementById('statInactive').innerText = clientsData.filter(c => c.status === 'Inactive').length;
     }
 
     function handleSearch() {
@@ -530,20 +523,16 @@
         renderTable();
     }
 
-    // Helper for Initials (e.g. "Nur Aina" -> "NA")
     function getInitials(name) {
         const names = name.split(' ');
         let initials = names[0].substring(0, 1).toUpperCase();
-        if (names.length > 1) {
-            initials += names[names.length - 1].substring(0, 1).toUpperCase();
-        }
+        if (names.length > 1) initials += names[names.length - 1].substring(0, 1).toUpperCase();
         return initials;
     }
 
     function renderTable() {
         const tbody = document.getElementById("tableBody");
         tbody.innerHTML = "";
-        
         const totalItems = filteredData.length;
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -556,25 +545,22 @@
         }
 
         currentItems.forEach(c => {
-            const badgeClass = c.status === "Active" ? "bg-success bg-opacity-75" : "bg-secondary";
-            // Create Avatar HTML
-            const avatarHtml = `<div class="avatar-table">${getInitials(c.name)}</div>`;
-
+            const badgeClass = c.status === "Active" ? "bg-success bg-opacity-10 text-success" : "bg-secondary bg-opacity-10 text-secondary";
             const row = `
                 <tr>
-                    <td class="fw-bold text-secondary">${c.id}</td>
+                    <td class="fw-bold text-secondary small">${c.id}</td>
                     <td>
                         <div class="d-flex align-items-center">
-                            ${avatarHtml}
-                            <span class="fw-semibold">${c.name}</span>
+                            <div class="avatar-table">${getInitials(c.name)}</div>
+                            <span class="fw-semibold text-dark">${c.name}</span>
                         </div>
                     </td>
-                    <td><a href="mailto:${c.contact}" class="text-decoration-none text-secondary"><i class="bi bi-envelope me-1"></i> ${c.contact}</a></td>
-                    <td class="text-center">${c.count}</td>
-                    <td class="text-center"><span class="badge ${badgeClass}">${c.status}</span></td>
+                    <td class="small text-secondary"><i class="bi bi-envelope me-1"></i> ${c.contact}</td>
+                    <td class="text-center fw-bold">${c.count}</td>
+                    <td class="text-center"><span class="badge ${badgeClass} rounded-pill px-3">${c.status}</span></td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openEditModal('${c.id}')"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteClient('${c.id}')"><i class="bi bi-trash"></i></button>
+                        <button class="btn btn-sm btn-light border me-1" onclick="openEditModal('${c.id}')"><i class="bi bi-pencil text-primary"></i></button>
+                        <button class="btn btn-sm btn-light border" onclick="deleteClient('${c.id}')"><i class="bi bi-trash text-danger"></i></button>
                     </td>
                 </tr>`;
             tbody.innerHTML += row;
@@ -587,19 +573,16 @@
     function renderPagination(totalPages) {
         const nav = document.getElementById("paginationControls");
         nav.innerHTML = "";
-        
         const createBtn = (i, text, isActive = false, isDisabled = false) => {
             return `<li class="page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}">
-                <button class="page-link" onclick="changePage(${i})">${text}</button></li>`;
+                <button class="page-link shadow-none" onclick="changePage(${i})">${text}</button></li>`;
         };
-
         nav.innerHTML += createBtn(currentPage - 1, 'Prev', false, currentPage === 1);
-
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
                 nav.innerHTML += createBtn(i, i, i === currentPage);
             } else if (i === currentPage - 2 || i === currentPage + 2) {
-                nav.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                nav.innerHTML += `<li class="page-item disabled"><span class="page-link border-0">...</span></li>`;
             }
         }
         nav.innerHTML += createBtn(currentPage + 1, 'Next', false, currentPage === totalPages);
@@ -614,7 +597,7 @@
     // --- CRUD ---
     function openAddModal() {
         document.getElementById('clientModalTitle').innerText = "Add Client";
-        editClientId.value = ""; clientForm.reset(); cCount.value = 0; clientModal.show();
+        editClientId.value = ""; document.getElementById('clientForm').reset(); cCount.value = 0; clientModal.show();
     }
     
     function openEditModal(id) {
@@ -625,7 +608,7 @@
         clientModal.show();
     }
 
-    clientForm.addEventListener('submit', (e) => {
+    document.getElementById('clientForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const id = editClientId.value;
         const newData = { name: cName.value, contact: cEmail.value, count: parseInt(cCount.value), status: cStatus.value };
@@ -637,19 +620,13 @@
             const maxId = clientsData.reduce((m, c) => Math.max(m, parseInt(c.id.replace('CL', ''))), 0);
             clientsData.unshift({ id: `CL${String(maxId + 1).padStart(3,'0')}`, ...newData });
         }
-        
-        saveStoredData(clientsData);
-        updateStats(); // UPDATE STATS
-        handleSearch();
-        clientModal.hide();
+        saveStoredData(clientsData); updateStats(); handleSearch(); clientModal.hide();
     });
 
     function deleteClient(id) {
         if(confirm("Delete this client?")) {
             clientsData = clientsData.filter(c => c.id !== id);
-            saveStoredData(clientsData);
-            updateStats(); // UPDATE STATS
-            handleSearch();
+            saveStoredData(clientsData); updateStats(); handleSearch();
         }
     }
 
@@ -659,7 +636,7 @@
     document.getElementById("sidebarToggleBtn").addEventListener("click", toggleSidebar);
     document.getElementById("toggleSidebar").addEventListener("click", toggleSidebar);
 
-    // Profile Logic (Simple Toggle)
+    // Profile Toggle Logic
     const profileSection = document.getElementById("profileSection");
     const clientContent = document.getElementById("clientContent");
     
@@ -668,6 +645,16 @@
     });
     document.getElementById("backToClientsBtn").addEventListener("click", () => {
        profileSection.classList.add("hidden-section"); clientContent.classList.remove("hidden-section");
+    });
+
+    // Profile Form Save (Dummy)
+    document.getElementById("profileForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Update top bar text immediately
+      document.getElementById("topUserName").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+      document.getElementById("topUserBadge").textContent = getInitials(document.getElementById("topUserName").textContent);
+      document.getElementById("profileDisplayName").textContent = document.getElementById("topUserName").textContent;
+      alert("Profile Saved!");
     });
     
     function logout() { window.location.href = "login.html"; }
