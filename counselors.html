@@ -15,40 +15,23 @@
 
 <style>
   /* ========================= GENERAL ========================= */
-  body {
-    background-color: #f8f9fa;
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-  }
+  body { background-color: #f8f9fa; font-family: 'Roboto', sans-serif; color: #333; }
 
   /* ========================= SIDEBAR ========================= */
   .sidebar {
-    background-color: #102e35;
-    width: 250px;
-    min-height: 100vh;
-    transition: width 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-    position: relative;
+    background-color: #102e35; width: 250px; min-height: 100vh;
+    transition: width 0.25s ease; display: flex; flex-direction: column;
+    z-index: 100; position: relative;
   }
-
   .sidebar.collapsed { width: 60px; padding: 0 10px; text-align: center; }
-  
-  .sidebar.collapsed .label, 
-  .sidebar.collapsed .text-center, 
-  .sidebar.collapsed .profile-icons,
-  .sidebar.collapsed .nav-header { 
-    display: none !important;
-  }
+  .sidebar.collapsed .label, .sidebar.collapsed .text-center, 
+  .sidebar.collapsed .profile-icons, .sidebar.collapsed .nav-header { display: none !important; }
   
   .sidebar-toggle-btn {
-    position: absolute; right: -15px; top: 20px;
-    width: 32px; height: 32px; border-radius: 50%;
-    background: white; border: 1px solid #ddd;
+    position: absolute; right: -15px; top: 20px; width: 32px; height: 32px;
+    border-radius: 50%; background: white; border: 1px solid #ddd;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 101;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer; z-index: 101; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
 
   .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
@@ -83,7 +66,6 @@
   
   .card-header-img { height: 90px; position: relative; }
   
-  /* Gender Themes */
   .female-theme .card-header-img { background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); }
   .female-theme .counselor-avatar { border-color: #fce7f3; color: #be185d; background: #fdf2f8; }
   
@@ -105,34 +87,18 @@
   .status-dot.inactive { background: #9ca3af; }
 
   .card-body { padding: 50px 20px 20px; text-align: center; flex-grow: 1; }
-  
-  .spec-badge { 
-    background: #f3f4f6; color: #4b5563; padding: 4px 10px; 
-    border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-  }
-
-  .rating-box {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: #fffbeb; color: #b45309; padding: 4px 10px;
-    border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-top: 10px;
-  }
-
+  .spec-badge { background: #f3f4f6; color: #4b5563; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .rating-box { display: inline-flex; align-items: center; gap: 4px; background: #fffbeb; color: #b45309; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-top: 10px; }
   .exp-text { font-size: 0.8rem; color: #6b7280; margin-top: 5px; }
 
-  /* ========================= STATS & UTILS ========================= */
-  .stat-card-mini {
-    background: white; border-radius: 12px; padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
-    display: flex; justify-content: space-between; align-items: center;
-  }
+  /* ========================= UTILS ========================= */
+  .stat-card-mini { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
   .icon-square { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
-
   .view-btn { border: 1px solid #dee2e6; background: white; color: #555; }
   .view-btn.active { background: #102e35; color: white; border-color: #102e35; }
-  
   .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
   .btn-green:hover { background-color: #a8d697; color: #000; }
-
+  
   footer { background-color: #FFFFFF; color: #333; padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; }
   footer a:hover { color: #198754; }
   .social-icon-btn { font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block; }
@@ -143,11 +109,10 @@
   .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; border: 1px solid #f0f0f0; }
   .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
 
-  /* Star Rating in Modal */
+  /* Interactive Stars */
   .star-rating { font-size: 2rem; color: #e0e0e0; cursor: pointer; transition: color 0.2s; }
-  .star-rating.active { color: #ffc107; } /* Gold color */
+  .star-rating.active { color: #ffc107; }
   .star-rating:hover { color: #ffdb58; }
-
 </style>
 
 <body onload="initPage()">
@@ -199,30 +164,10 @@
           </div>
 
           <div class="row g-3 mb-4">
-             <div class="col-md-3">
-               <div class="stat-card-mini">
-                 <div><p class="text-secondary small mb-1 fw-bold">TOTAL STAFF</p><h2 class="fw-bold mb-0 text-dark" id="statTotal">0</h2></div>
-                 <div class="icon-square bg-primary bg-opacity-10 text-primary"><i class="bi bi-person-badge"></i></div>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="stat-card-mini">
-                 <div><p class="text-secondary small mb-1 fw-bold">AVG EXPERIENCE</p><h2 class="fw-bold mb-0 text-dark">6.5 Yrs</h2></div>
-                 <div class="icon-square bg-info bg-opacity-10 text-info"><i class="bi bi-briefcase-fill"></i></div>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="stat-card-mini">
-                 <div><p class="text-secondary small mb-1 fw-bold">CLIENT RATING</p><h2 class="fw-bold mb-0 text-dark">4.8/5</h2></div>
-                 <div class="icon-square bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill"></i></div>
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div class="stat-card-mini">
-                 <div><p class="text-secondary small mb-1 fw-bold">SESSIONS DONE</p><h2 class="fw-bold mb-0 text-dark">1,240</h2></div>
-                 <div class="icon-square bg-success bg-opacity-10 text-success"><i class="bi bi-check2-circle"></i></div>
-               </div>
-             </div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">TOTAL STAFF</p><h2 class="fw-bold mb-0 text-dark" id="statTotal">0</h2></div><div class="icon-square bg-primary bg-opacity-10 text-primary"><i class="bi bi-person-badge"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">AVG EXPERIENCE</p><h2 class="fw-bold mb-0 text-dark">6.5 Yrs</h2></div><div class="icon-square bg-info bg-opacity-10 text-info"><i class="bi bi-briefcase-fill"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">CLIENT RATING</p><h2 class="fw-bold mb-0 text-dark">4.8/5</h2></div><div class="icon-square bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill"></i></div></div></div>
+             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">SESSIONS DONE</p><h2 class="fw-bold mb-0 text-dark">1,240</h2></div><div class="icon-square bg-success bg-opacity-10 text-success"><i class="bi bi-check2-circle"></i></div></div></div>
           </div>
 
           <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
@@ -231,20 +176,17 @@
                      <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-secondary"></i></span>
                      <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search...">
                  </div>
-                 
                  <select class="form-select shadow-sm" style="max-width: 160px;" id="sortFilter">
                      <option value="ID">Sort: ID (Default)</option>
                      <option value="Newest">Sort: Newest First</option>
                      <option value="ExpHigh">Experience: High</option>
                      <option value="RatingHigh">Rating: High</option>
                  </select>
-
                  <select class="form-select shadow-sm" style="max-width: 140px;" id="genderFilter">
                      <option value="All">All Genders</option>
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
                  </select>
-
                  <select class="form-select shadow-sm" style="max-width: 130px;" id="statusFilter">
                      <option value="All">All Status</option>
                      <option value="Active">Active</option>
@@ -281,8 +223,7 @@
              </div>
           </div>
 
-          <div id="cardView" class="row g-4 mb-5 hidden-section">
-              </div>
+          <div id="cardView" class="row g-4 mb-5 hidden-section"></div>
 
         </div>
 
@@ -339,8 +280,7 @@
         <div class="modal-body">
           <form id="counselorForm">
             <input type="hidden" id="editId">
-            <div class="mb-3"><label class="fw-bold small">Name (Prefix with Dr/Mr/Ms)</label><input type="text" class="form-control" id="cName" required placeholder="e.g. Dr. Adam Malik"></div>
-            
+            <div class="mb-3"><label class="fw-bold small">Name</label><input type="text" class="form-control" id="cName" required></div>
             <div class="row">
                <div class="col-6 mb-3">
                    <label class="fw-bold small">Gender</label>
@@ -351,9 +291,7 @@
                </div>
                <div class="col-6 mb-3"><label class="fw-bold small">Experience (Years)</label><input type="number" class="form-control" id="cExp" required></div>
             </div>
-
             <div class="mb-3"><label class="fw-bold small">Specialization</label><input type="text" class="form-control" id="cSpec" required></div>
-            
             <div class="row">
                <div class="col-6 mb-3"><label class="fw-bold small">Availability</label><input type="text" class="form-control" id="cAvail" placeholder="Mon-Fri 9-5"></div>
                <div class="col-6 mb-3"><label class="fw-bold small">Status</label><select class="form-select" id="cStatus"><option>Active</option><option>Inactive</option></select></div>
@@ -374,7 +312,7 @@
         </div>
         <div class="modal-body text-center">
            <p class="text-muted">How was your experience?</p>
-           <div class="mb-3" id="starContainer">
+           <div class="mb-3">
              <i class="bi bi-star-fill star-rating" onclick="selectStar(1)"></i>
              <i class="bi bi-star-fill star-rating" onclick="selectStar(2)"></i>
              <i class="bi bi-star-fill star-rating" onclick="selectStar(3)"></i>
@@ -404,16 +342,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const STORAGE_KEY = 'mindcare_counselors_data';
-    // Load data or Generate if missing/broken
     let counselorsData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-    // Force refresh if data is old or missing gender
-    if (!counselorsData || counselorsData.length > 0 && !counselorsData[0].gender) {
+    // Force data refresh if missing key fields to ensure "Years" are visible
+    if (!counselorsData || counselorsData.length === 0 || !counselorsData[0].exp) {
        counselorsData = generateData();
     }
 
     function generateData() {
-        // Base 5 WITH DEFINED EXP & GENDER
         let data = [
             {id:"C001", name:"Dr. Farah Ahmad", gender: "Female", spec:"Anxiety & Stress", avail:"Mon–Fri (9AM–4PM)", status:"Active", rating:4.9, sessions:120, exp: 12},
             {id:"C002", name:"Mr. Hafiz Rahman", gender: "Male", spec:"Career & Motivation", avail:"Tue–Sat (10AM–5PM)", status:"Active", rating:4.7, sessions:95, exp: 8},
@@ -426,42 +362,30 @@
         const femaleNames = ["Ms. Siti Aminah", "Dr. Rina Harun", "Ms. Eva Green", "Ms. Aishah Zulkifli", "Dr. Lisa Wong", "Ms. Zooey Deschanel", "Ms. Nurul Izzah"];
         const specs = ["Anxiety", "Career", "Family", "Youth", "Depression", "Trauma", "Addiction"];
         
-        // Generate Males
-        maleNames.forEach((name, i) => {
-             data.push(createRandomC(name, "Male", specs, i+6));
-        });
-        // Generate Females
-        femaleNames.forEach((name, i) => {
-             data.push(createRandomC(name, "Female", specs, i+6+maleNames.length));
-        });
+        const allNames = [...maleNames, ...femaleNames].sort(() => Math.random() - 0.5);
 
-        // Sort by ID to keep order
-        data.sort((a,b) => a.id.localeCompare(b.id));
-        
+        allNames.forEach((name, i) => {
+            data.push({
+                id: `C${(i+6).toString().padStart(3,'0')}`,
+                name: name,
+                gender: name.includes("Mr.") || name.includes("Ben") || name.includes("Dan") || name.includes("Steve") || name.includes("Peter") ? "Male" : "Female",
+                spec: specs[i % specs.length],
+                avail: "Mon-Fri 9AM-5PM",
+                status: Math.random() > 0.2 ? "Active" : "Inactive",
+                rating: (4.2 + Math.random() * 0.8).toFixed(1),
+                sessions: Math.floor(Math.random() * 100),
+                exp: Math.floor(Math.random() * 15) + 3 
+            });
+        });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         return data;
-    }
-
-    function createRandomC(name, gender, specs, num) {
-        return {
-            id: `C0${(num).toString().padStart(2,'0')}`,
-            name: name,
-            gender: gender,
-            spec: specs[Math.floor(Math.random() * specs.length)],
-            avail: "Mon-Fri 9AM-5PM",
-            status: Math.random() > 0.2 ? "Active" : "Inactive",
-            rating: (4.2 + Math.random() * 0.8).toFixed(1),
-            sessions: Math.floor(Math.random() * 100),
-            exp: Math.floor(Math.random() * 15) + 3 // 3-18 years
-        };
     }
 
     function initPage() {
         document.getElementById('yearSpan').textContent = new Date().getFullYear();
         updateStats();
         renderTable();
-        
-        // Event Listeners
+        // Listeners
         document.getElementById('searchInput').addEventListener('input', refreshView);
         document.getElementById('statusFilter').addEventListener('change', refreshView);
         document.getElementById('genderFilter').addEventListener('change', refreshView);
@@ -485,11 +409,10 @@
             (g === 'All' || c.gender === g)
         );
 
-        // Sorting Logic
-        if(sort === 'Newest') filtered.sort((a,b) => b.id.localeCompare(a.id)); // High ID first
+        if(sort === 'Newest') filtered.sort((a,b) => b.id.localeCompare(a.id));
         else if(sort === 'ExpHigh') filtered.sort((a,b) => b.exp - a.exp);
         else if(sort === 'RatingHigh') filtered.sort((a,b) => b.rating - a.rating);
-        else filtered.sort((a,b) => a.id.localeCompare(b.id)); // Default ID
+        else filtered.sort((a,b) => a.id.localeCompare(b.id)); 
 
         return filtered;
     }
@@ -530,17 +453,15 @@
                   <div class="card-header-img">
                      <div class="counselor-avatar">
                         ${initials}
-                        <span class="status-dot ${statusDot}" title="${c.status}"></span>
+                        <span class="status-dot ${statusDot}"></span>
                      </div>
                   </div>
                   <div class="card-body">
                      <h6 class="fw-bold mb-1">${c.name}</h6>
                      <span class="spec-badge">${c.spec}</span>
                      <div class="exp-text">${c.exp} Years Exp.</div>
-                     
                      <div class="rating-box"><i class="bi bi-star-fill"></i> ${c.rating}</div>
                      <div class="small text-muted mt-2 mb-3"><i class="bi bi-clock me-1"></i> ${c.avail}</div>
-
                      <div class="d-flex justify-content-center gap-2">
                         <button class="btn btn-green shadow-sm flex-grow-1" onclick="openRateModal('${c.name}')"><i class="bi bi-star"></i> Rate</button>
                         <button class="btn btn-light border shadow-sm" onclick="openEditModal('${c.id}')"><i class="bi bi-pencil text-primary"></i></button>
@@ -570,9 +491,8 @@
         document.getElementById('statTotal').innerText = counselorsData.length;
     }
 
-    // --- CRUD ---
     function openAddModal() {
-        document.getElementById('editId').value = ""; // Clear for add mode
+        document.getElementById('editId').value = "";
         document.getElementById('counselorForm').reset();
         document.querySelector('#counselorModal .modal-title').innerText = "Add Counselor";
         new bootstrap.Modal(document.getElementById('counselorModal')).show();
@@ -588,12 +508,10 @@
         document.getElementById('cExp').value = c.exp;
         document.getElementById('cAvail').value = c.avail;
         document.getElementById('cStatus').value = c.status;
-        
         document.querySelector('#counselorModal .modal-title').innerText = "Edit Counselor";
         new bootstrap.Modal(document.getElementById('counselorModal')).show();
     }
 
-    // --- SEQUENTIAL ID LOGIC ---
     document.getElementById('counselorForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const editId = document.getElementById('editId').value;
@@ -607,23 +525,14 @@
         };
 
         if (editId) {
-            // Edit Mode
             const index = counselorsData.findIndex(c => c.id === editId);
-            if(index !== -1) {
-                counselorsData[index] = { ...counselorsData[index], ...formData };
-            }
+            if(index !== -1) counselorsData[index] = { ...counselorsData[index], ...formData };
         } else {
-            // Add Mode
-            const ids = counselorsData.map(c => parseInt(c.id.substring(1))); // Remove 'C0' part
+            // New logic: find max ID, increment
+            const ids = counselorsData.map(c => parseInt(c.id.substring(1))); 
             const maxId = ids.length > 0 ? Math.max(...ids) : 0;
-            const newIdStr = `C0${(maxId + 1).toString().padStart(2,'0')}`; 
-
-            counselorsData.push({
-                id: newIdStr,
-                ...formData,
-                rating: "5.0",
-                sessions: 0
-            });
+            const newId = `C${(maxId + 1).toString().padStart(3,'0')}`; 
+            counselorsData.push({ id: newId, ...formData, rating: "5.0", sessions: 0 });
         }
         
         localStorage.setItem(STORAGE_KEY, JSON.stringify(counselorsData));
@@ -641,30 +550,27 @@
         }
     }
 
-    // --- RATING LOGIC ---
+    // Rating Logic
     function openRateModal(name) {
         document.getElementById('rateName').innerText = name;
         selectStar(0);
         new bootstrap.Modal(document.getElementById('rateModal')).show();
     }
-
     function selectStar(n) {
         const stars = document.querySelectorAll('.star-rating');
         stars.forEach((star, index) => {
-            if (index < n) star.classList.add('active');
-            else star.classList.remove('active');
+            if (index < n) star.classList.add('active'); else star.classList.remove('active');
         });
     }
-
     function submitReview() {
         alert("Thank you for leaving a rate and review!");
         bootstrap.Modal.getInstance(document.getElementById('rateModal')).hide();
     }
 
+    // Sidebar & Profile Toggles
     const sidebar = document.getElementById("sidebarWrapper");
-    function toggleSidebar() { sidebar.classList.toggle("collapsed"); }
-    document.getElementById("sidebarToggleBtn").addEventListener("click", toggleSidebar);
-    document.getElementById("toggleSidebar").addEventListener("click", toggleSidebar);
+    document.getElementById("sidebarToggleBtn").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
+    document.getElementById("toggleSidebar").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
     
     document.getElementById("menuProfile").addEventListener("click", (e) => {
         e.preventDefault();
