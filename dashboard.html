@@ -45,7 +45,18 @@
   .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
 
   /* === DASHBOARD CONTENT STYLES === */
-  .welcome-card { background-color: #102e35; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); color: white; background-image: linear-gradient(45deg, #102e35 0%, #17424d 100%); }
+  /* Added background-attachment: fixed for parallax effect */
+  .welcome-card { 
+    background-color: #102e35; 
+    padding: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    color: white; 
+    background-image: linear-gradient(45deg, rgba(16, 46, 53, 0.8) 0%, rgba(23, 66, 77, 0.8) 100%), url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); /* Example background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax Trigger */
+  }
   .stat-card { background: white; border-radius: 12px; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; transition: transform 0.2s; }
   .stat-card:hover { transform: translateY(-5px); }
   .icon-box { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
@@ -55,6 +66,31 @@
   .chart-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
   .progress-circle { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(#bddeb1 0% 72%, #f0f0f0 72% 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto; }
   .circle-text { width: 120px; height: 120px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* Marquee Style */
+  .marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #eef2ff; /* Light background for contrast */
+    padding: 10px 0;
+    margin-bottom: 20px; /* Space below welcome card */
+    border-radius: 8px;
+    border: 1px solid #e0e7ff;
+  }
+
+  .marquee-content {
+    display: inline-block;
+    padding-left: 100%; /* Start off-screen right */
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    color: #102e35;
+  }
+
+  @keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+  }
 </style>
 
 <body onload="initDashboard()">
@@ -97,9 +133,16 @@
       <div class="container-fluid p-4 flex-grow-1">
         <div id="dashboardContent">
           <div class="welcome-card mb-4">
-            <h1 class="fw-bold mb-2">Welcome to <span style="color:#bddeb1;">MindCareHub</span> Dashboard</h1>
+            <h1 class="fw-bold mb-2">Welcome to <span class="brand-rgb">MindCareHub</span> Dashboard</h1>
             <p class="mb-0 text-white-50">Manage appointments, clients, counselors and session activities.</p>
           </div>
+
+          <div class="marquee-container">
+            <div class="marquee-content">
+              🌟 Tip of the Day: Consistent follow-ups improve client retention by 20%. | 📢 Reminder: Weekly staff meeting is scheduled for Friday at 3 PM. | 🎉 Congratulations to Dr. Farah for receiving the highest client ratings this month! | 💡 Check out the new resources in the Session Notes section.
+            </div>
+          </div>
+
           <div class="row g-4 mb-4">
             <div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-1">TOTAL CLIENTS</p><h2 class="fw-bold mb-0">128</h2></div><div class="icon-box bg-soft-blue"><i class="bi bi-people-fill"></i></div></div></div>
             <div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-1">TODAY'S APPOINTMENTS</p><h2 class="fw-bold mb-0">12</h2></div><div class="icon-box bg-soft-green"><i class="bi bi-calendar-check-fill"></i></div></div></div>
@@ -130,7 +173,7 @@
               <div class="d-flex align-items-center w-100 mb-4"><div class="avatar-large" id="profileAvatarFallback">HH</div><div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="badge bg-info bg-opacity-25 text-info rounded-pill">Super Admin</span></div></div>
               <div class="d-flex gap-2 w-100"><button class="btn btn-green flex-grow-1">Change Avatar</button><button class="btn btn-outline-custom flex-grow-1">Reset Password</button></div>
             </div>
-            <div class="profile-card">
+            <div class="profile-card form-card">
               <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
                 <div class="row g-3 mb-3"><div class="col-md-6"><label class="form-label">First Name</label><input type="text" class="form-control" id="firstName" value="Hanis"></div><div class="col-md-6"><label class="form-label">Last Name</label><input type="text" class="form-control" id="lastName" value="Heidi"></div></div>
@@ -147,7 +190,7 @@
           <div class="row align-items-center text-center text-md-start">
             <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
             <div class="col-md-4 mb-3 mb-md-0 text-center"><div class="d-flex justify-content-center mb-2"><a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a><a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a><a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a></div><a href="#" class="fw-bold text-muted">mindcarehub@gmail.com</a></div>
-            <div class="col-md-4 text-center text-md-end"><div class="footer-links mb-2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div><p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub.</p></div>
+            <div class="col-md-4 text-center text-md-end"><div class="footer-links mb-2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div><p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p></div>
           </div>
         </div>
       </footer>
