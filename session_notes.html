@@ -73,13 +73,39 @@
   }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-  /* ========================= STATS CARDS ========================= */
-  .stat-card-mini {
-    background: white; border-radius: 12px; padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #f0f0f0;
-    display: flex; justify-content: space-between; align-items: center;
+  /* ========================= SLIDING TABS (HIGHLIGHTS REEL) ========================= */
+  .scrolling-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
   }
-  .icon-square { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  
+  .scrolling-wrapper::-webkit-scrollbar { height: 6px; }
+  .scrolling-wrapper::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+  .scrolling-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+  .scrolling-wrapper::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+  .highlight-card {
+    flex: 0 0 auto;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .highlight-card:hover { transform: translateY(-3px); border-color: #bddeb1; }
+  
+  .h-icon {
+    width: 35px; height: 35px; border-radius: 8px; 
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 10px;
+  }
 
   /* ========================= TABLE STYLES ========================= */
   .table-card { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; }
@@ -87,15 +113,20 @@
   th { background-color: #bddeb1; color: #102e35; padding: 15px; font-weight: 800; border:none; }
   td { background-color: #FFFFFF; padding: 15px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; }
   
+  .counselor-pill {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .c-avatar-small {
+    width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; color: #00695c;
+    font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center;
+  }
+
   /* Tags */
-  .tag-badge { font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-right: 4px; display: inline-block; }
+  .tag-badge { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: 600; margin-right: 4px; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px; }
   .tag-blue { background: #e0f2fe; color: #0284c7; }
   .tag-purple { background: #f3e8ff; color: #7e22ce; }
   .tag-orange { background: #ffedd5; color: #c2410c; }
-
-  /* Progress Bar */
-  .progress-thin { height: 6px; border-radius: 3px; background-color: #e9ecef; width: 100px; }
-  .progress-bar-custom { background-color: #10b981; border-radius: 3px; }
+  .tag-red { background: #ffe4e6; color: #be123c; }
 
   /* Buttons */
   .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
@@ -111,12 +142,8 @@
 
   /* Utils */
   .hidden-section { display: none !important; }
-  
-  /* Modal Attachment Style */
-  .attachment-box {
-    border: 1px dashed #ccc; padding: 15px; border-radius: 8px; background: #f9f9f9;
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
-  }
+  .page-link { color: #102e35; }
+  .page-item.active .page-link { background-color: #bddeb1; color: #102e35; border-color: #bddeb1; }
 </style>
 
 <body onload="initPage()">
@@ -162,26 +189,85 @@
 
         <div id="mainContent">
           
-          <div class="mb-4">
-              <h1 class="fw-bold mb-0 brand-rgb">Session Notes</h1>
-              <p class="text-secondary">Track client progress, documentation, and follow-ups.</p>
+          <div class="mb-4 d-flex justify-content-between align-items-center">
+              <div>
+                  <h1 class="fw-bold mb-0 brand-rgb">Session Notes</h1>
+                  <p class="text-secondary mb-0">Centralized documentation for client progress and history.</p>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" onclick="exportData()"><i class="bi bi-download me-1"></i> Export All</button>
           </div>
 
-          <div class="row g-3 mb-4">
-             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">TOTAL NOTES</p><h2 class="fw-bold mb-0 text-dark" id="statTotal">0</h2></div><div class="icon-square bg-primary bg-opacity-10 text-primary"><i class="bi bi-journal-text"></i></div></div></div>
-             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">PENDING REVIEW</p><h2 class="fw-bold mb-0 text-dark">4</h2></div><div class="icon-square bg-danger bg-opacity-10 text-danger"><i class="bi bi-exclamation-circle"></i></div></div></div>
-             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">AVG RATING</p><h2 class="fw-bold mb-0 text-dark">4.9</h2></div><div class="icon-square bg-warning bg-opacity-10 text-warning"><i class="bi bi-star-fill"></i></div></div></div>
-             <div class="col-md-3"><div class="stat-card-mini"><div><p class="text-secondary small mb-1 fw-bold">GOALS MET</p><h2 class="fw-bold mb-0 text-dark">85%</h2></div><div class="icon-square bg-success bg-opacity-10 text-success"><i class="bi bi-graph-up-arrow"></i></div></div></div>
+          <h6 class="fw-bold text-secondary small mb-3">QUICK INSIGHTS</h6>
+          <div class="scrolling-wrapper">
+              
+              <div class="highlight-card">
+                  <div class="d-flex justify-content-between">
+                      <div class="h-icon bg-danger bg-opacity-10 text-danger"><i class="bi bi-exclamation-triangle"></i></div>
+                      <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill">Urgent</span>
+                  </div>
+                  <h6 class="fw-bold mb-1">Crisis Intervention</h6>
+                  <p class="small text-muted mb-0">Client: <strong>Nur Aina</strong></p>
+                  <small class="text-secondary">Needs immediate follow-up plan.</small>
+              </div>
+
+              <div class="highlight-card">
+                  <div class="d-flex justify-content-between">
+                      <div class="h-icon bg-success bg-opacity-10 text-success"><i class="bi bi-graph-up"></i></div>
+                      <span class="badge bg-success bg-opacity-10 text-success rounded-pill">Progress</span>
+                  </div>
+                  <h6 class="fw-bold mb-1">Goal Achieved</h6>
+                  <p class="small text-muted mb-0">Client: <strong>Jason Lim</strong></p>
+                  <small class="text-secondary">Completed anxiety management module.</small>
+              </div>
+
+              <div class="highlight-card">
+                  <div class="d-flex justify-content-between">
+                      <div class="h-icon bg-info bg-opacity-10 text-info"><i class="bi bi-mic"></i></div>
+                      <span class="badge bg-info bg-opacity-10 text-info rounded-pill">New Audio</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                          <h6 class="fw-bold mb-1">Session #S1045</h6>
+                          <p class="small text-muted mb-0">Counselor: <strong>Dr. Farah</strong></p>
+                      </div>
+                      <i class="bi bi-play-circle fs-4 text-primary"></i>
+                  </div>
+              </div>
+
+              <div class="highlight-card">
+                  <div class="d-flex justify-content-between">
+                      <div class="h-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-star"></i></div>
+                      <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill">Review</span>
+                  </div>
+                  <h6 class="fw-bold mb-1">5-Star Feedback</h6>
+                  <p class="small text-muted mb-0">Client: <strong>Siti Mariam</strong></p>
+                  <small class="text-secondary">"Session was incredibly helpful..."</small>
+              </div>
+
+              <div class="highlight-card">
+                  <div class="d-flex justify-content-between">
+                      <div class="h-icon bg-primary bg-opacity-10 text-primary"><i class="bi bi-calendar-plus"></i></div>
+                      <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill">Upcoming</span>
+                  </div>
+                  <h6 class="fw-bold mb-1">Group Session</h6>
+                  <p class="small text-muted mb-0">Topic: <strong>Stress Mgmt</strong></p>
+                  <small class="text-secondary">Scheduled for tomorrow, 10 AM.</small>
+              </div>
+
           </div>
 
           <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
              <div class="d-flex gap-2 flex-grow-1 align-items-center">
-                 <div class="input-group shadow-sm" style="max-width: 300px;">
+                 <div class="input-group shadow-sm" style="max-width: 250px;">
                      <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-secondary"></i></span>
-                     <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search client or counselor...">
+                     <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search...">
                  </div>
-                 <input type="date" class="form-control shadow-sm" style="max-width: 150px;">
-                 <select class="form-select shadow-sm" style="max-width: 150px;" id="statusFilter">
+                 
+                 <select class="form-select shadow-sm" style="max-width: 180px;" id="counselorFilter">
+                     <option value="All">All Counselors</option>
+                     </select>
+
+                 <select class="form-select shadow-sm" style="max-width: 140px;" id="statusFilter">
                      <option value="All">All Status</option>
                      <option value="Completed">Completed</option>
                      <option value="Pending">Pending</option>
@@ -223,7 +309,7 @@
 
         <section id="profileSection" class="hidden-section mb-5">
           <h2 class="fw-bold text-dark">User Profile</h2>
-          <div class="alert alert-info">Profile management is centralized on the Dashboard. <a href="#" id="backToMainBtn">Go Back</a></div>
+          <div class="alert alert-info shadow-sm border-0">Profile management is centralized on the Dashboard. <a href="#" id="backToMainBtn" class="fw-bold text-primary">Go Back</a></div>
         </section>
 
       </div>
@@ -264,17 +350,11 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="fw-bold small">Client</label>
-                    <select class="form-select" id="sClient" required>
-                        </select>
+                    <select class="form-select" id="sClient" required></select>
                 </div>
                 <div class="col-md-6">
                     <label class="fw-bold small">Counselor</label>
-                    <select class="form-select" id="sCounselor">
-                        <option>Dr. Farah Ahmad</option>
-                        <option>Mr. Hafiz Rahman</option>
-                        <option>Ms. Priya Nair</option>
-                        <option>Ms. Sarah Lee</option>
-                    </select>
+                    <select class="form-select" id="sCounselor" required></select>
                 </div>
             </div>
             <div class="row mb-3">
@@ -285,6 +365,7 @@
                         <option>Initial Consultation</option>
                         <option>Follow-up</option>
                         <option>Crisis Intervention</option>
+                        <option>Group Therapy</option>
                     </select>
                 </div>
             </div>
@@ -322,7 +403,6 @@
               <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-notes">Detailed Notes</a></li>
               <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-attach">Attachments</a></li>
            </ul>
-
            <div class="tab-content">
               <div class="tab-pane fade show active" id="tab-overview">
                   <div class="row">
@@ -340,27 +420,17 @@
               </div>
               <div class="tab-pane fade" id="tab-notes">
                   <h6 class="fw-bold">Summary</h6>
-                  <p class="text-muted" id="vNotesText">Client discussed recent stress triggers...</p>
+                  <p class="text-muted" id="vNotesText"></p>
                   <h6 class="fw-bold mt-3">Next Steps</h6>
-                  <ul class="text-muted small">
-                      <li>Complete mindfulness worksheet.</li>
-                      <li>Schedule follow-up in 2 weeks.</li>
-                  </ul>
+                  <ul class="text-muted small"><li>Complete worksheet.</li><li>Schedule follow-up.</li></ul>
               </div>
               <div class="tab-pane fade" id="tab-attach">
-                  <div class="attachment-box">
-                      <div class="d-flex align-items-center"><i class="bi bi-file-earmark-pdf fs-3 text-danger me-3"></i> <span>Session_Worksheet.pdf</span></div>
-                      <button class="btn btn-sm btn-outline-primary">Download</button>
-                  </div>
-                  <div class="attachment-box">
-                      <div class="d-flex align-items-center"><i class="bi bi-file-music fs-3 text-info me-3"></i> <span>Session_Recording.mp3</span></div>
-                      <button class="btn btn-sm btn-outline-primary">Play</button>
-                  </div>
+                  <div class="p-3 bg-light rounded text-center text-muted">No attachments available for this session.</div>
               </div>
            </div>
         </div>
         <div class="modal-footer bg-light">
-            <button class="btn btn-outline-secondary" onclick="alert('Downloading PDF report...')"><i class="bi bi-download me-1"></i> Export Report</button>
+            <button class="btn btn-outline-secondary" onclick="alert('Downloading...')"><i class="bi bi-download me-1"></i> Export PDF</button>
             <button class="btn btn-green" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
@@ -382,95 +452,144 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const STORAGE_KEY_SESSIONS = 'mindcare_sessions_data';
-    const STORAGE_KEY_CLIENTS = 'mindcare_clients_data'; // Reading from Clients page
+    const KEY_SESSIONS = 'mindcare_sessions_data';
+    const KEY_CLIENTS = 'mindcare_clients_data';
+    const KEY_COUNSELORS = 'mindcare_counselors_data';
 
-    let sessionData = JSON.parse(localStorage.getItem(STORAGE_KEY_SESSIONS)) || [];
-    let clientList = JSON.parse(localStorage.getItem(STORAGE_KEY_CLIENTS)) || [];
+    let sessionData = JSON.parse(localStorage.getItem(KEY_SESSIONS)) || [];
+    let clientList = JSON.parse(localStorage.getItem(KEY_CLIENTS)) || [];
+    let counselorList = JSON.parse(localStorage.getItem(KEY_COUNSELORS)) || [];
 
-    // Initialize with dummy data if empty, ensuring it matches actual clients
-    if(sessionData.length === 0 && clientList.length > 0) {
-        const types = ["Initial", "Follow-up", "Crisis"];
+    // --- DATA GENERATION (If empty) ---
+    if(sessionData.length === 0 && clientList.length > 0 && counselorList.length > 0) {
+        const types = ["Initial Consultation", "Follow-up", "Crisis Intervention", "Group Therapy"];
         const statuses = ["Completed", "Pending", "Cancelled"];
-        const tags = ["Anxiety", "Career", "Family", "Trauma"];
+        const tagsPool = ["Anxiety", "Career", "Family", "Trauma", "Addiction", "Grief"];
         
-        // Create 15 dummy notes linked to real clients
-        for(let i=0; i<15; i++) {
-            const client = clientList[i % clientList.length];
+        // Generate ~80 notes
+        for(let i=0; i<85; i++) {
+            const client = clientList[Math.floor(Math.random() * clientList.length)];
+            const counselor = counselorList[Math.floor(Math.random() * counselorList.length)];
+            const tag = tagsPool[Math.floor(Math.random() * tagsPool.length)];
+            
             sessionData.push({
-                id: `S${(i+1001)}`,
+                id: `S${(1000+i).toString()}`,
                 clientName: client.name,
-                counselor: "Dr. Farah Ahmad",
-                date: "2025-01-" + (10 + i),
-                type: types[i % 3],
-                status: statuses[i % 3],
+                counselor: counselor.name,
+                date: `2025-01-${String(Math.floor(Math.random()*28)+1).padStart(2,'0')}`,
+                type: types[Math.floor(Math.random() * types.length)],
+                status: statuses[Math.floor(Math.random() * statuses.length)],
                 progress: Math.floor(Math.random() * 100),
-                notes: "Client reported improvements in sleep. Discussed coping mechanisms.",
-                tags: [tags[i % 4]]
+                notes: `Session focused on ${tag.toLowerCase()} management. Client showed positive engagement. Assigned homework regarding daily journaling.`,
+                tags: [tag]
             });
         }
-        localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
+        // Sort by date desc
+        sessionData.sort((a,b) => new Date(b.date) - new Date(a.date));
+        localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
     }
+
+    // --- INIT ---
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let filteredData = [...sessionData];
 
     function initPage() {
         document.getElementById('yearSpan').textContent = new Date().getFullYear();
-        populateClientDropdown();
-        renderTable();
-        updateStats();
-
-        document.getElementById('searchInput').addEventListener('input', renderTable);
-        document.getElementById('statusFilter').addEventListener('change', renderTable);
+        populateDropdowns();
+        handleSearch();
+        
+        document.getElementById('searchInput').addEventListener('input', handleSearch);
+        document.getElementById('statusFilter').addEventListener('change', handleSearch);
+        document.getElementById('counselorFilter').addEventListener('change', handleSearch);
     }
 
-    // Populate "Client" dropdown in Add Modal from Client Data
-    function populateClientDropdown() {
-        const select = document.getElementById('sClient');
-        select.innerHTML = "";
-        if(clientList.length === 0) {
-            select.innerHTML = "<option>No clients found</option>";
-            return;
-        }
-        clientList.forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c.name;
-            opt.innerText = c.name;
-            select.appendChild(opt);
+    function populateDropdowns() {
+        // Counselors in Filter
+        const filterSelect = document.getElementById('counselorFilter');
+        // Counselors in Modal
+        const modalSelect = document.getElementById('sCounselor');
+        
+        // Clients in Modal
+        const clientSelect = document.getElementById('sClient');
+
+        counselorList.forEach(c => {
+            filterSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+            modalSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`;
         });
+
+        clientList.forEach(c => {
+            clientSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+        });
+    }
+
+    function handleSearch() {
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        const s = document.getElementById('statusFilter').value;
+        const c = document.getElementById('counselorFilter').value;
+
+        filteredData = sessionData.filter(item => 
+            (item.clientName.toLowerCase().includes(q) || item.id.toLowerCase().includes(q)) &&
+            (s === 'All' || item.status === s) &&
+            (c === 'All' || item.counselor === c)
+        );
+        currentPage = 1;
+        renderTable();
+    }
+
+    function getInitials(name) {
+        return name.split(" ").map(n=>n[0]).join("").substring(0,2);
     }
 
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = "";
         
-        const q = document.getElementById('searchInput').value.toLowerCase();
-        const s = document.getElementById('statusFilter').value;
+        const totalItems = filteredData.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const currentItems = filteredData.slice(startIndex, Math.min(startIndex + itemsPerPage, totalItems));
 
-        const filtered = sessionData.filter(item => 
-            (item.clientName.toLowerCase().includes(q) || item.counselor.toLowerCase().includes(q)) &&
-            (s === 'All' || item.status === s)
-        );
+        if(totalItems === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" class="text-center py-4">No sessions found.</td></tr>`;
+            document.getElementById("showingText").innerText = "Showing 0 entries";
+            document.getElementById("paginationControls").innerHTML = "";
+            return;
+        }
 
-        filtered.forEach(item => {
+        currentItems.forEach(item => {
             const badgeClass = item.status === 'Completed' ? 'bg-success' : item.status === 'Pending' ? 'bg-warning text-dark' : 'bg-danger';
             
-            // Generate Tag Badges
+            // Tags
             let tagsHtml = item.tags.map(t => {
-                let color = t === 'Anxiety' ? 'tag-purple' : t === 'Career' ? 'tag-blue' : 'tag-orange';
+                let color = 'tag-blue';
+                if(t === 'Anxiety' || t === 'Trauma') color = 'tag-purple';
+                if(t === 'Crisis' || t === 'Addiction') color = 'tag-red';
+                if(t === 'Career') color = 'tag-orange';
                 return `<span class="tag-badge ${color}">${t}</span>`;
             }).join('');
+
+            // Type Badge
+            let typeBadge = `<span class="badge bg-light text-dark border">${item.type}</span>`;
+            if(item.type === 'Crisis Intervention') typeBadge = `<span class="badge bg-danger bg-opacity-10 text-danger border border-danger">Crisis</span>`;
 
             tbody.innerHTML += `
             <tr>
                 <td class="fw-bold text-secondary small">${item.id}</td>
                 <td class="fw-bold">${item.clientName}</td>
-                <td>${item.counselor}</td>
-                <td>${item.date}</td>
-                <td>${item.type}</td>
+                <td>
+                    <div class="counselor-pill">
+                        <div class="c-avatar-small">${getInitials(item.counselor)}</div>
+                        <span class="small">${item.counselor}</span>
+                    </div>
+                </td>
+                <td class="small">${item.date}</td>
+                <td>${typeBadge}</td>
                 <td>${tagsHtml}</td>
                 <td>
                     <div class="d-flex align-items-center gap-2">
                         <div class="progress progress-thin"><div class="progress-bar progress-bar-custom" style="width: ${item.progress}%"></div></div>
-                        <small class="text-muted">${item.progress}%</small>
+                        <small class="text-muted" style="font-size:0.7rem">${item.progress}%</small>
                     </div>
                 </td>
                 <td class="text-center"><span class="badge ${badgeClass} rounded-pill">${item.status}</span></td>
@@ -480,12 +599,33 @@
                 </td>
             </tr>`;
         });
-        document.getElementById('statTotal').innerText = sessionData.length;
+
+        document.getElementById("showingText").innerText = `Showing ${startIndex + 1} to ${Math.min(startIndex + itemsPerPage, totalItems)} of ${totalItems} entries`;
+        renderPagination(totalPages);
     }
 
-    function updateStats() {
-        // Simple logic for demo
-        document.getElementById('statTotal').innerText = sessionData.length;
+    function renderPagination(totalPages) {
+        const nav = document.getElementById("paginationControls");
+        nav.innerHTML = "";
+        const createBtn = (i, text, isActive = false, isDisabled = false) => {
+            return `<li class="page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}">
+                <button class="page-link shadow-none" onclick="changePage(${i})">${text}</button></li>`;
+        };
+        nav.innerHTML += createBtn(currentPage - 1, 'Prev', false, currentPage === 1);
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                nav.innerHTML += createBtn(i, i, i === currentPage);
+            } else if (i === currentPage - 2 || i === currentPage + 2) {
+                nav.innerHTML += `<li class="page-item disabled"><span class="page-link border-0">...</span></li>`;
+            }
+        }
+        nav.innerHTML += createBtn(currentPage + 1, 'Next', false, currentPage === totalPages);
+    }
+
+    function changePage(page) {
+        if (page < 1 || page > Math.ceil(filteredData.length / itemsPerPage)) return;
+        currentPage = page;
+        renderTable();
     }
 
     // CRUD
@@ -505,19 +645,19 @@
             notes: document.getElementById('sNotes').value,
             tags: document.getElementById('sTags').value ? [document.getElementById('sTags').value] : ["General"],
             progress: document.getElementById('sProgress').value,
-            status: "Pending" // Default new
+            status: "Pending" 
         };
         sessionData.unshift(newSession);
-        localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
-        renderTable();
+        localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
+        handleSearch(); // Refresh
         bootstrap.Modal.getInstance(document.getElementById('sessionModal')).hide();
     });
 
     function deleteSession(id) {
-        if(confirm("Delete this note?")) {
+        if(confirm("Delete this session note?")) {
             sessionData = sessionData.filter(s => s.id !== id);
-            localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(sessionData));
-            renderTable();
+            localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
+            handleSearch();
         }
     }
 
@@ -530,11 +670,15 @@
         document.getElementById('vDate').innerText = s.date;
         document.getElementById('vStatus').innerText = s.status;
         document.getElementById('vProgBar').style.width = s.progress + "%";
-        document.getElementById('vNotesText').innerText = s.notes || "No additional notes.";
+        document.getElementById('vNotesText').innerText = s.notes;
         new bootstrap.Modal(document.getElementById('viewModal')).show();
     }
 
-    // Sidebar & Profile Logic (Standard)
+    function exportData() {
+        alert("Exporting all session notes to PDF...");
+    }
+
+    // Sidebar & Profile Logic
     const sidebar = document.getElementById("sidebarWrapper");
     document.getElementById("sidebarToggleBtn").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
     document.getElementById("toggleSidebar").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
