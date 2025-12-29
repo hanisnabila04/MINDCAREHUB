@@ -14,15 +14,17 @@
 </head>
 
 <style>
-  /* ========================= EXACT PROVIDED STYLES ========================= */
-  /* General Page Styles */
+  /* ========================= GENERAL STYLES ========================= */
   body {
     background-color: #FFFFFF;
     font-family: 'Roboto', sans-serif;
     color: #333333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
-  /* Navigation Bar */
+  /* Top Navigation Bar (White) */
   .navbar {
     background-color: #FFFFFF;
     border-bottom: 1px solid #f1f1f1; 
@@ -33,28 +35,17 @@
     color: #333333;
   }
 
-  .navbar-nav .nav-link.active {
-    background-color: #bddeb1;
-    color: #FFFFFF;
-  }
-
-  .navbar-brand {
-    font-weight: bold;
-    color: #333333;
-  }
-
-  .nav-link:hover {
-    color: #bddeb1;
-  }
-
-  /* Sidebar */
+  /* ========================= SIDEBAR (TEAL DARK BLUE) ========================= */
   .sidebar {
-    background-color: #2d5016; 
+    /* Updated to Dark Teal Blue */
+    background-color: #102e35; 
     border-right: 1px solid #f1f1f1;
     width: 250px;
     transition: width 0.25s ease, padding 0.25s ease;
     position: relative;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   .sidebar.collapsed {
@@ -74,6 +65,7 @@
     display: none;
   }
 
+  /* Sidebar Toggle Button */
   .sidebar-toggle-btn {
     position: absolute;
     right: -18px;
@@ -89,6 +81,7 @@
     z-index: 20;
   }
 
+  /* Profile Icons */
   .profile-icons {
     display: flex;
     justify-content: center;
@@ -109,57 +102,35 @@
     line-height: 0;
   }
 
-  .profile-icons .profile-icon:focus {
-    outline: 2px solid #bddeb1;
-    outline-offset: 2px;
-  }
-
-  .sidebar.collapsed .profile-icons {
-    display: none;
-  }
-
-  .sidebar .nav-link i {
-    font-size: 1.1rem;
-    width: 28px;
-    text-align: center;
-  }
-
+  .sidebar.collapsed .profile-icons,
   .sidebar.collapsed .text-center h6,
   .sidebar.collapsed .text-center h5,
-  .sidebar.collapsed .text-secondary,
-  .sidebar.collapsed .avatar {
+  .sidebar.collapsed .text-secondary {
     display: none;
-  }
-
-  .sidebar.collapsed .nav {
-    align-items: center;
-  }
-
-  .sidebar.collapsed .nav-link {
-    justify-content: center;
-    padding-left: 0.25rem !important;
-    padding-right: 0.25rem !important;
-  }
-
-  .sidebar.collapsed .sidebar-toggle-btn {
-    top: 12px;
-    transform: none;
-    right: -18px;
   }
 
   .sidebar .nav-link {
     font-weight: bold;
-    color: #f9f8f8;
+    color: #e8f0f2; /* Light text for contrast */
   }
 
+  /* Active Sidebar Link - Soft Green to pop against Teal */
   .sidebar .nav-link.active {
       background-color: #bddeb1;
-      color: #FFFFFF;
+      color: #0f2e35; /* Dark text on active button */
       border-radius: 6px;
   }
 
   .sidebar .nav-link:hover {
     color: #bddeb1;
+  }
+
+  /* Content Wrapper */
+  .content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    flex-grow: 1;
   }
 
   /* Table Styling */
@@ -172,9 +143,9 @@
 
   th {
     background-color: #bddeb1;
-    color: white;
+    color: #102e35; /* Dark text for contrast on green header */
     padding: 12px;
-    font-weight: bold;
+    font-weight: 800;
   }
   
   th:first-child { border-top-left-radius: 10px; }
@@ -191,37 +162,113 @@
     background-color: #f9f9f9;
   }
 
-  /* ========================= PROFILE SECTION STYLES ========================= */
-  .hidden-section {
-    display: none !important;
-  }
-
-  #profileSection {
-    margin-top: 20px;
-  }
-
-  .profile-header h2 {
-    font-size: 26px;
+  /* Brand RGB gradient */
+  .brand-rgb {
     font-weight: 800;
-    margin: 0;
+    background: linear-gradient(
+      90deg,
+      rgb(34, 197, 94),    
+      rgb(16, 185, 129),   
+      rgb(59, 130, 246),   
+      rgb(245, 158, 11),   
+      rgb(244, 63, 94),    
+      rgb(34, 197, 94)     
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgbMove 4s ease-in-out infinite;
+    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
   }
 
-  .profile-header p {
-    margin-top: 6px;
-    color: #6b7280;
+  @keyframes rgbMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
+  /* ========================= FOOTER STYLES ========================= */
+  footer {
+    /* Matches Sidebar Exact Color */
+    background-color: #102e35; 
+    color: #ffffff;
+    margin-top: auto; 
+    padding: 40px 0 20px 0;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* Footer RGB Logo */
+  footer .brand-rgb {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2));
+  }
+
+  /* Social Icons */
+  .social-icon-btn {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  /* RGB Hover Effect for Icons */
+  .social-icon-btn:hover {
+    transform: translateY(-5px); /* Float up */
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); /* RGB Gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.5));
+  }
+
+  .footer-email {
+    color: #bddeb1;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .footer-email:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .footer-links a {
+    color: #aebdbf;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #bddeb1;
+  }
+
+  .copyright-text {
+    font-size: 0.8rem;
+    color: #7b9496;
+    margin-top: 15px;
+  }
+
+  /* ========================= PROFILE STYLES ========================= */
+  .hidden-section { display: none !important; }
+  
   .profile-grid {
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 16px;
     margin-top: 16px;
   }
-
+  
   @media (max-width: 900px) {
-    .profile-grid {
-      grid-template-columns: 1fr;
-    }
+    .profile-grid { grid-template-columns: 1fr; }
   }
 
   .profile-card {
@@ -254,106 +301,10 @@
     height: 100%;
     object-fit: cover;
   }
-
-  .avatar-info h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .role-tag {
-    margin-top: 6px;
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: #ecfeff;
-    color: #155e75;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .profile-actions {
-    margin-top: 16px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .form-card h3 {
-    margin: 0 0 14px 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  @media (max-width: 600px) {
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-  }
-
-  .form-group label {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 10px 12px;
-    outline: none;
-    font-size: 14px;
-  }
-
-  .form-footer {
-    margin-top: 12px;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  /* Brand RGB gradient */
-  .brand-rgb {
-    font-weight: 800;
-    background: linear-gradient(
-      90deg,
-      rgb(34, 197, 94),    
-      rgb(16, 185, 129),   
-      rgb(59, 130, 246),   
-      rgb(245, 158, 11),   
-      rgb(244, 63, 94),    
-      rgb(34, 197, 94)     
-    );
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rgbMove 4s ease-in-out infinite;
-    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
-  }
-
-  @keyframes rgbMove {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
+  
   /* Pagination */
   .page-link {
-      color: #2d5016;
+      color: #102e35;
       border: none;
       margin: 0 3px;
       border-radius: 5px;
@@ -361,7 +312,7 @@
   }
   .page-item.active .page-link {
       background-color: #bddeb1;
-      color: white;
+      color: #102e35;
   }
   .page-item.disabled .page-link {
       color: #ccc;
@@ -371,7 +322,8 @@
 
 <body onload="initPage()">
 
-  <div class="d-flex">
+  <div class="d-flex w-100">
+    
     <div id="sidebarWrapper" class="sidebar p-3">
       <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
         <i id="sidebarToggleIcon" class="bi bi-list"></i>
@@ -388,7 +340,7 @@
         <h5 class="text-white fw-bold">ADMIN</h5>
       </div>
 
-      <p class="text-secondary small mt-4" style="color: #b0cba4 !important;">NAVIGATION</p>
+      <p class="text-secondary small mt-4" style="color: #aebdbf !important;">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="dashboard.html">
@@ -396,35 +348,30 @@
             <span class="label">Dashboard</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="appointments.html">
             <i class="bi bi-calendar-check"></i>
             <span class="label">Appointments</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link active d-flex align-items-center" href="clients.html">
             <i class="bi bi-people"></i>
             <span class="label">Clients</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="counselors.html">
             <i class="bi bi-person-badge"></i>
             <span class="label">Counselors</span>
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="session_notes.html">
             <i class="bi bi-file-earmark-text"></i>
             <span class="label">Session Notes</span>
           </a>
         </li>
-
         <li class="nav-item mt-4">
           <a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal">
             <i class="bi bi-box-arrow-right"></i>
@@ -433,8 +380,7 @@
         </li>
       </ul>
     </div>
-
-    <div class="content flex-grow-1">
+    <div class="content">
 
       <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
         <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar">
@@ -444,21 +390,15 @@
         <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
 
         <div class="ms-auto d-flex align-items-center gap-3">
-          <span class="text-black small d-none d-md-block"></span>
-
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
-              data-bs-toggle="dropdown">
-              <span class="user-badge fw-bold" id="topUserBadge" style="color:#2d5016">HH</span>
-              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
+              <span class="fw-bold" id="topUserBadge" style="color:#102e35">HH</span>
+              <span class="fw-semibold small" id="topUserName">Hanis Heidi</span>
             </a>
-
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
           </div>
@@ -480,11 +420,11 @@
                  <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
                  <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search ID or Name...">
                </div>
-               <button class="btn text-white fw-bold" style="background-color: #bddeb1;" onclick="openAddModal()">+ Add</button>
+               <button class="btn fw-bold" style="background-color: #bddeb1; color: #102e35;" onclick="openAddModal()">+ Add</button>
             </div>
           </div>
 
-          <div class="card shadow-sm border-0 rounded-4 p-3">
+          <div class="card shadow-sm border-0 rounded-4 p-3 mb-5">
              <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <thead>
@@ -512,7 +452,7 @@
           </div>
 
         </div>
-        <section id="profileSection" class="hidden-section">
+        <section id="profileSection" class="hidden-section mb-5">
           <div class="profile-header">
             <h2>User Profile</h2>
             <p>Update your personal information and account details.</p>
@@ -581,15 +521,40 @@
             </div>
           </div>
         </section>
-        </div>
-    </div>
-  </div>
+        </div> <footer>
+        <div class="container-fluid px-5">
+          <div class="row align-items-center text-center text-md-start">
+            
+            <div class="col-md-4 mb-3 mb-md-0">
+              <h2 class="brand-rgb">MindCareHub</h2>
+            </div>
 
-  <div class="modal fade" id="clientModal" tabindex="-1" aria-hidden="true">
+            <div class="col-md-4 mb-3 mb-md-0 text-center">
+              <div class="d-flex justify-content-center mb-2">
+                <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
+              </div>
+              <a href="mailto:mindcarehub@gmail.com" class="footer-email">mindcarehub@gmail.com</a>
+            </div>
+
+            <div class="col-md-4 text-center text-md-end">
+              <div class="footer-links mb-2">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Help Center</a>
+              </div>
+              <p class="copyright-text mb-0">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
+            </div>
+
+          </div>
+        </div>
+      </footer>
+      </div> </div> <div class="modal fade" id="clientModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" style="background-color: #bddeb1;">
-          <h5 class="modal-title fw-bold" id="clientModalTitle">Add New Client</h5>
+          <h5 class="modal-title fw-bold" id="clientModalTitle" style="color: #102e35;">Add New Client</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -618,7 +583,7 @@
             </div>
             <div class="d-flex justify-content-end gap-2 mt-3">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn text-white fw-bold" style="background-color: #2d5016;">Save Client</button>
+              <button type="submit" class="btn fw-bold text-white" style="background-color: #102e35;">Save Client</button>
             </div>
           </form>
         </div>
@@ -630,7 +595,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" style="background-color:#bddeb1;">
-          <h5 class="modal-title text-black">Confirm Logout</h5>
+          <h5 class="modal-title" style="color:#102e35;">Confirm Logout</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -638,7 +603,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" onclick="logout()" class="btn" style="background-color:#bddeb1; color:#0b0b0b;">Logout</button>
+          <button type="button" onclick="logout()" class="btn" style="background-color:#bddeb1; color:#102e35;">Logout</button>
         </div>
       </div>
     </div>
@@ -648,17 +613,13 @@
 
   <script>
     // ================= 1. DATA GENERATION & STORAGE =================
-    
-    // Key for LocalStorage
     const STORAGE_KEY = 'mindcare_clients_data';
 
-    // Helper to get data
     function getStoredData() {
       const data = localStorage.getItem(STORAGE_KEY);
       return data ? JSON.parse(data) : null;
     }
 
-    // Helper to save data
     function saveStoredData(data) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
@@ -676,31 +637,22 @@
         const lname = lastNames[Math.floor(Math.random() * lastNames.length)];
         const fullName = `${fname} ${lname}`;
         const email = `${fname.toLowerCase()}.${lname.toLowerCase()}@gmail.com`;
-        // 80% chance of Active
         const status = Math.random() < 0.8 ? "Active" : "Inactive"; 
-        const count = Math.floor(Math.random() * 8); // Random count 0-7
+        const count = Math.floor(Math.random() * 8); 
 
-        generated.push({
-          id: id,
-          name: fullName,
-          contact: email,
-          count: count,
-          status: status
-        });
+        generated.push({ id, name: fullName, contact: email, count, status });
       }
       return generated;
     }
 
-    // Load data into variable
     let clientsData = getStoredData();
 
-    // If first time load (null), generate and save
     if (!clientsData) {
       clientsData = generateInitialData();
       saveStoredData(clientsData);
     }
 
-    // ================= 2. VARIABLES & DOM ELEMENTS =================
+    // ================= 2. VARIABLES =================
     let currentPage = 1;
     const itemsPerPage = 10;
     let filteredData = [...clientsData];
@@ -710,7 +662,7 @@
     const searchInput = document.getElementById("searchInput");
     const showingText = document.getElementById("showingText");
     
-    // Modal Elements
+    // Modal
     const clientModal = new bootstrap.Modal(document.getElementById('clientModal'));
     const clientForm = document.getElementById('clientForm');
     const clientModalTitle = document.getElementById('clientModalTitle');
@@ -720,12 +672,13 @@
     const cCount = document.getElementById('cCount');
     const cStatus = document.getElementById('cStatus');
 
-
-    // ================= 3. INITIALIZATION & SEARCH =================
+    // ================= 3. INIT & SEARCH =================
     function initPage() {
-      // Sort by ID descending (newest first) usually looks better for CRUD
+      // Set Copyright Year
+      document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
       clientsData.sort((a, b) => parseInt(b.id.substring(2)) - parseInt(a.id.substring(2)));
-      handleSearch(); // Initial render
+      handleSearch(); 
       searchInput.addEventListener("input", handleSearch);
     }
 
@@ -739,7 +692,7 @@
         renderTable();
     }
 
-    // ================= 4. RENDER TABLE & PAGINATION =================
+    // ================= 4. RENDER =================
     function renderTable() {
         tableBody.innerHTML = "";
         
@@ -761,7 +714,6 @@
                 ? `<span class="badge bg-success bg-opacity-75">Active</span>` 
                 : `<span class="badge bg-secondary">Inactive</span>`;
 
-            // Note: passing ID as string to functions needs escaping
             const row = `
                 <tr>
                     <td class="fw-bold">${client.id}</td>
@@ -789,11 +741,9 @@
     function renderPagination(totalPages) {
         paginationControls.innerHTML = "";
         
-        // Prev
         const prevClass = currentPage === 1 ? "disabled" : "";
         paginationControls.innerHTML += `<li class="page-item ${prevClass}"><button class="page-link" onclick="changePage(${currentPage - 1})">Prev</button></li>`;
 
-        // Logic to show limited page numbers (1... 4 5 6 ... 13)
         for (let i = 1; i <= totalPages; i++) {
             if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
                  const activeClass = i === currentPage ? "active" : "";
@@ -803,7 +753,6 @@
             }
         }
 
-        // Next
         const nextClass = currentPage === totalPages ? "disabled" : "";
         paginationControls.innerHTML += `<li class="page-item ${nextClass}"><button class="page-link" onclick="changePage(${currentPage + 1})">Next</button></li>`;
     }
@@ -815,18 +764,15 @@
         renderTable();
     }
 
-    // ================= 5. CRUD FUNCTIONS =================
-
-    // --- CREATE (ADD) ---
+    // ================= 5. CRUD =================
     function openAddModal() {
       clientModalTitle.innerText = "Add New Client";
-      editClientId.value = ""; // Clear ID indicates new mode
+      editClientId.value = ""; 
       clientForm.reset();
-      cCount.value = 0; // Default
+      cCount.value = 0; 
       clientModal.show();
     }
 
-    // --- UPDATE (EDIT) ---
     function openEditModal(id) {
       const client = clientsData.find(c => c.id === id);
       if(!client) return;
@@ -841,10 +787,8 @@
       clientModal.show();
     }
 
-    // --- SAVE (HANDLE FORM SUBMIT) ---
     clientForm.addEventListener('submit', function(e) {
       e.preventDefault();
-
       const id = editClientId.value;
       const name = cName.value.trim();
       const email = cEmail.value.trim();
@@ -852,52 +796,30 @@
       const status = cStatus.value;
 
       if(id) {
-        // === EDIT MODE ===
         const index = clientsData.findIndex(c => c.id === id);
         if(index !== -1) {
           clientsData[index] = { id, name, contact: email, count, status };
         }
       } else {
-        // === ADD MODE ===
-        // Generate new ID (Find max ID and add 1)
-        // Extract numbers from IDs (e.g. CL005 -> 5)
         const maxIdNum = clientsData.reduce((max, client) => {
           const num = parseInt(client.id.replace('CL', ''));
           return num > max ? num : max;
         }, 0);
         
         const newId = `CL${String(maxIdNum + 1).padStart(3, '0')}`;
-        
-        const newClient = {
-          id: newId,
-          name: name,
-          contact: email,
-          count: count,
-          status: status
-        };
-        
-        // Add to beginning of array
+        const newClient = { id: newId, name, contact: email, count, status };
         clientsData.unshift(newClient);
       }
 
-      // 1. Save to LocalStorage
       saveStoredData(clientsData);
-      
-      // 2. Refresh UI
-      handleSearch(); // Re-runs filtering and rendering
-      
-      // 3. Close Modal
+      handleSearch(); 
       clientModal.hide();
-      alert(id ? "Client updated successfully!" : "New client added successfully!");
+      alert(id ? "Client updated!" : "New client added!");
     });
 
-    // --- DELETE ---
     function deleteClient(id) {
-      if(confirm(`Are you sure you want to delete client ${id}? This cannot be undone.`)) {
-        // Filter out the client
+      if(confirm(`Delete client ${id}?`)) {
         clientsData = clientsData.filter(c => c.id !== id);
-        
-        // Save and Render
         saveStoredData(clientsData);
         handleSearch();
       }
@@ -907,7 +829,7 @@
       window.location.href = "login.html";
     }
 
-    // ================= SIDEBAR & PROFILE LOGIC (Preserved) =================
+    // ================= SIDEBAR & PROFILE =================
     const sidebar = document.getElementById("sidebarWrapper");
     const toggleBtn = document.getElementById("sidebarToggleBtn");
     const toggleBtnMobile = document.getElementById("toggleSidebar");
@@ -926,7 +848,6 @@
 
     if(toggleBtn) toggleBtn.addEventListener("click", toggleSidebar);
     if(toggleBtnMobile) toggleBtnMobile.addEventListener("click", toggleSidebar);
-
 
     // Profile Logic
     const menuProfile = document.getElementById("menuProfile");
