@@ -19,33 +19,17 @@
     background-color: #FFFFFF;
     font-family: 'Roboto', sans-serif;
     color: #333333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
   }
 
-  /* Top Navigation Bar (White) */
-  .navbar {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #f1f1f1; 
-  }
-
-  .navbar-nav .nav-link {
-    font-weight: bold;
-    color: #333333;
-  }
-
-  /* ========================= SIDEBAR (TEAL DARK BLUE) ========================= */
+  /* ========================= SIDEBAR (Dark Teal) ========================= */
   .sidebar {
-    /* Updated to Dark Teal Blue */
-    background-color: #102e35; 
+    background-color: #102e35; /* Dark Teal Blue */
     border-right: 1px solid #f1f1f1;
     width: 250px;
     transition: width 0.25s ease, padding 0.25s ease;
     position: relative;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    z-index: 10;
   }
 
   .sidebar.collapsed {
@@ -65,7 +49,6 @@
     display: none;
   }
 
-  /* Sidebar Toggle Button */
   .sidebar-toggle-btn {
     position: absolute;
     right: -18px;
@@ -81,7 +64,7 @@
     z-index: 20;
   }
 
-  /* Profile Icons */
+  /* Profile Icons in Sidebar */
   .profile-icons {
     display: flex;
     justify-content: center;
@@ -111,29 +94,44 @@
 
   .sidebar .nav-link {
     font-weight: bold;
-    color: #e8f0f2; /* Light text for contrast */
-  }
-
-  /* Active Sidebar Link - Soft Green to pop against Teal */
-  .sidebar .nav-link.active {
-      background-color: #bddeb1;
-      color: #0f2e35; /* Dark text on active button */
-      border-radius: 6px;
+    color: #aebdbf; /* Light gray-blue text */
   }
 
   .sidebar .nav-link:hover {
     color: #bddeb1;
   }
 
-  /* Content Wrapper */
+  .sidebar .nav-link.active {
+    background-color: #bddeb1;
+    color: #102e35;
+    border-radius: 6px;
+  }
+
+  /* ========================= CONTENT AREA & NAVBAR ========================= */
+  /* This wrapper ensures the footer stays at the bottom */
   .content {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    flex-grow: 1;
   }
 
-  /* Table Styling */
+  /* Navigation Bar */
+  .navbar {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .navbar-nav .nav-link {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  /* ========================= TABLE STYLES ========================= */
   table {
     width: 100%;
     margin-top: 20px;
@@ -143,7 +141,7 @@
 
   th {
     background-color: #bddeb1;
-    color: #102e35; /* Dark text for contrast on green header */
+    color: #102e35;
     padding: 12px;
     font-weight: 800;
   }
@@ -162,81 +160,22 @@
     background-color: #f9f9f9;
   }
 
-  /* Brand RGB gradient */
-  .brand-rgb {
-    font-weight: 800;
-    background: linear-gradient(
-      90deg,
-      rgb(34, 197, 94),    
-      rgb(16, 185, 129),   
-      rgb(59, 130, 246),   
-      rgb(245, 158, 11),   
-      rgb(244, 63, 94),    
-      rgb(34, 197, 94)     
-    );
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: rgbMove 4s ease-in-out infinite;
-    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
-  }
-
-  @keyframes rgbMove {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* ========================= FOOTER STYLES ========================= */
+  /* ========================= FOOTER (Teal to match Sidebar) ========================= */
   footer {
-    /* Matches Sidebar Exact Color */
-    background-color: #102e35; 
-    color: #ffffff;
-    margin-top: auto; 
-    padding: 40px 0 20px 0;
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    background-color: #102e35;
+    color: white;
+    padding: 30px 0;
+    margin-top: auto; /* Pushes footer to bottom */
   }
 
-  /* Footer RGB Logo */
-  footer .brand-rgb {
-    font-size: 1.8rem;
-    margin-bottom: 0;
-    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2));
+  footer h5 {
+    font-weight: bold;
   }
 
-  /* Social Icons */
-  .social-icon-btn {
-    color: #ffffff;
-    font-size: 1.5rem;
-    margin: 0 10px;
-    transition: all 0.3s ease;
-    display: inline-block;
-  }
-
-  /* RGB Hover Effect for Icons */
-  .social-icon-btn:hover {
-    transform: translateY(-5px); /* Float up */
-    background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); /* RGB Gradient */
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.5));
-  }
-
-  .footer-email {
-    color: #bddeb1;
-    text-decoration: none;
+  footer p {
     font-weight: 300;
-    font-size: 0.9rem;
-    margin-top: 10px;
-    display: block;
-    transition: color 0.2s;
-  }
-
-  .footer-email:hover {
-    color: #ffffff;
-    text-decoration: underline;
+    font-size: 14px;
+    color: #aebdbf;
   }
 
   .footer-links a {
@@ -251,22 +190,52 @@
     color: #bddeb1;
   }
 
-  .copyright-text {
-    font-size: 0.8rem;
-    color: #7b9496;
-    margin-top: 15px;
+  .social-icon-btn {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
   }
 
-  /* ========================= PROFILE STYLES ========================= */
+  /* RGB Hover Effect for Icons */
+  .social-icon-btn:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Brand RGB gradient */
+  .brand-rgb {
+    font-weight: 800;
+    background: linear-gradient(90deg, rgb(34, 197, 94), rgb(16, 185, 129), rgb(59, 130, 246), rgb(245, 158, 11), rgb(244, 63, 94), rgb(34, 197, 94));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgbMove 4s ease-in-out infinite;
+  }
+
+  @keyframes rgbMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ========================= PROFILE SECTION ========================= */
   .hidden-section { display: none !important; }
-  
+
+  #profileSection { margin-top: 20px; }
+
   .profile-grid {
     display: grid;
     grid-template-columns: 320px 1fr;
     gap: 16px;
     margin-top: 16px;
   }
-  
+
   @media (max-width: 900px) {
     .profile-grid { grid-template-columns: 1fr; }
   }
@@ -302,27 +271,34 @@
     object-fit: cover;
   }
   
+  .avatar-info h3 { font-size: 18px; font-weight: 800; margin: 0; }
+  
+  .role-tag {
+    margin-top: 6px; display: inline-block; padding: 5px 10px;
+    border-radius: 999px; background: #ecfeff; color: #155e75;
+    font-size: 12px; font-weight: 700;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  
+  .form-group { display: flex; flex-direction: column; margin-bottom: 12px; }
+  
+  .form-group label { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; outline: none; font-size: 14px;
+  }
+
   /* Pagination */
-  .page-link {
-      color: #102e35;
-      border: none;
-      margin: 0 3px;
-      border-radius: 5px;
-      font-weight: bold;
-  }
-  .page-item.active .page-link {
-      background-color: #bddeb1;
-      color: #102e35;
-  }
-  .page-item.disabled .page-link {
-      color: #ccc;
-      background-color: transparent;
-  }
+  .page-link { color: #102e35; border: none; margin: 0 3px; border-radius: 5px; font-weight: bold; }
+  .page-item.active .page-link { background-color: #bddeb1; color: #102e35; }
+  .page-item.disabled .page-link { color: #ccc; background-color: transparent; }
+
 </style>
 
 <body onload="initPage()">
 
-  <div class="d-flex w-100">
+  <div class="d-flex">
     
     <div id="sidebarWrapper" class="sidebar p-3">
       <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
@@ -380,7 +356,7 @@
         </li>
       </ul>
     </div>
-    <div class="content">
+    <div class="content flex-grow-1">
 
       <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
         <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar">
@@ -395,6 +371,7 @@
               <span class="fw-bold" id="topUserBadge" style="color:#102e35">HH</span>
               <span class="fw-semibold small" id="topUserName">Hanis Heidi</span>
             </a>
+
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
@@ -405,7 +382,7 @@
         </div>
       </nav>
 
-      <div class="container-fluid p-4">
+      <div class="container-fluid p-4 flex-grow-1">
 
         <div id="clientContent">
           
@@ -526,25 +503,26 @@
           <div class="row align-items-center text-center text-md-start">
             
             <div class="col-md-4 mb-3 mb-md-0">
-              <h2 class="brand-rgb">MindCareHub</h2>
+              <h2 class="brand-rgb mb-0">MindCareHub</h2>
             </div>
 
             <div class="col-md-4 mb-3 mb-md-0 text-center">
               <div class="d-flex justify-content-center mb-2">
                 <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
+                <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
                 <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
               </div>
-              <a href="mailto:mindcarehub@gmail.com" class="footer-email">mindcarehub@gmail.com</a>
+              <a href="mailto:mindcarehub@gmail.com" style="color:#bddeb1; text-decoration:none;">mindcarehub@gmail.com</a>
             </div>
 
             <div class="col-md-4 text-center text-md-end">
               <div class="footer-links mb-2">
                 <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Help Center</a>
+                <a href="#">Terms</a>
+                <a href="#">Help</a>
               </div>
-              <p class="copyright-text mb-0">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
+              <p class="mb-0 small" style="color:#7b9496">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
             </div>
 
           </div>
