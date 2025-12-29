@@ -441,6 +441,45 @@
     border-color: rgba(255,255,255,0.15) !important;
   }
 
+  /* ========================= MODAL THEME FIX ========================= */
+  body.theme-dark .modal-content {
+    background-color: #f7f8f9 !important;
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .modal-header {
+    background-color: var(--accent) !important;
+    color: #ffffff !important;
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+  }
+
+  body.theme-dark .modal-title {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .modal-body {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .modal-body p {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .modal-footer {
+    background-color: #1f2937 !important;
+    border-top-color: rgba(255,255,255,0.1) !important;
+  }
+
+  /* Light theme explicit styling */
+  body.theme-light .modal-title {
+    color: #000000 !important;
+  }
+
+  body.theme-light .modal-body p {
+    color: #000000 !important;
+  }
+
   /* ========================= REDUCED MOTION ========================= */
   body.reduce-motion * {
     transition: none !important;
@@ -717,7 +756,7 @@
   <!-- Custom JS -->
   <script src="js/app.js"></script>
 
-  <!-- ✅ Profile Script -->
+  <!--  Profile Script -->
   <script>
     const menuProfile = document.getElementById("menuProfile");
     const menuSettings = document.getElementById("menuSettings");
@@ -840,7 +879,7 @@
     });
   </script>
 
-  <!-- ✅ SETTINGS SCRIPT -->
+  <!-- SETTINGS SCRIPT -->
   <script>
     const themePreference = document.getElementById("themePreference");
     const compactSidebar = document.getElementById("compactSidebar");
@@ -951,7 +990,7 @@
     });
   </script>
 
-  <!-- ✅ LOGOUT MODAL FIX -->
+  <!-- LOGOUT MODAL FIX -->
   <script>
     function logout() {
       const logoutModalEl = document.getElementById("logoutConfirmModal");
@@ -980,11 +1019,11 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" style="background-color:var(--accent);">
-          <h5 class="modal-title text-black" id="logoutConfirmLabel">Confirm Logout</h5>
+          <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to logout and return to the login page?</p>
+          <p>Are you sure want to logout and return to the login page?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
