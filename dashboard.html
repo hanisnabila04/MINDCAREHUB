@@ -45,11 +45,25 @@
     .sidebar-toggle-btn { display: none; }
   }
   
-  /* Layout */
+  /* CONTENT & NAVBAR */
   .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
-  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 8px 20px; }
-  .brand-rgb { font-weight: 800; background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rgbMove 4s ease-in-out infinite; }
+  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 5px 20px; }
+  .brand-rgb { font-weight: 800; background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rgbMove 4s ease-in-out infinite; font-size: 1.3rem; }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+  
+  /* User badge in navbar */
+  .user-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #102e35;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
   
   /* Mobile Navbar */
   @media (max-width: 768px) {
@@ -191,8 +205,13 @@
 
   /* Apply accent color to text/font elements only */
   .sidebar .nav-link:hover,
-  .nav-link:hover {
+  .nav-link:hover,
+  .profile-icons .profile-icon:focus {
     color: var(--accent) !important;
+  }
+
+  .profile-icons .profile-icon:focus {
+    outline-color: var(--accent) !important;
   }
 
   body {
@@ -289,7 +308,7 @@
       <p class="text-secondary small mt-4">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="dashboard.html">
+          <a class="nav-link active d-flex align-items-center" href="dashboard.html">
             <i class="bi bi-speedometer2"></i>
             <span class="label">Dashboard</span>
           </a>
@@ -333,19 +352,29 @@
     </div>
 
     <div class="content flex-grow-1">
-      <nav class="navbar navbar-expand-lg">
-        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
-        <a class="navbar-brand brand-rgb fs-5" href="#">MINDCAREHUB</a>
+      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
+        <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand fw-bold brand-rgb" href="#">MINDCAREHUB</a>
+
         <div class="ms-auto d-flex align-items-center gap-3">
+          <span class="text-black small d-none d-md-block"></span>
+
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
-              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
-              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
+              data-bs-toggle="dropdown">
+              <span class="user-badge" id="topUserBadge">HH</span>
+              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+
+            <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
           </div>
@@ -482,7 +511,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p style="color: #000000;">Are you sure want to logout and return to the login page?</p>
+          <p>Are you sure want to logout and return to the login page?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -592,6 +621,7 @@
       style.innerHTML = `
         .sidebar .nav-link:hover { color: ${color} !important; }
         .nav-link:hover { color: ${color} !important; }
+        .profile-icons .profile-icon:focus { outline-color: ${color} !important; }
       `;
       
       // Remove old dynamic styles
