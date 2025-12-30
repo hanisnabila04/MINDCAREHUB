@@ -524,6 +524,31 @@
     color: #000000 !important;
   }
 
+  /* Center alignment for appearance section text elements */
+  #settingsSection .row:first-child .form-card h3,
+  #settingsSection .row:first-child .form-group label,
+  #settingsSection .row:first-child .form-check-label {
+    text-align: center !important;
+    display: block !important;
+  }
+
+  /* Keep dropdown and inputs left-aligned */
+  #settingsSection .row:first-child .form-group select,
+  #settingsSection .row:first-child .form-group input,
+  #settingsSection .row:first-child .form-check-input {
+    text-align: left !important;
+  }
+
+  /* Additional centering for appearance section */
+  #settingsSection .row:first-child .form-group {
+    text-align: center !important;
+  }
+  
+  #settingsSection .row:first-child .form-check {
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
   /* ========================= REDUCED MOTION ========================= */
   body.reduce-motion * {
     transition: none !important;
@@ -720,67 +745,146 @@
             <p>Customize your MindCareHub admin panel appearance.</p>
           </div>
 
-          <div class="profile-grid">
-            <div class="profile-card form-card">
-              <h3><i class="bi bi-brush me-2"></i>Appearance</h3>
+          <div class="row">
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+              <div class="profile-card form-card">
+                <h3><i class="bi bi-brush me-2"></i>Appearance</h3>
 
-              <form id="settingsForm">
-                <div class="form-group">
-                  <label>Theme Preference</label>
-                  <select id="themePreference">
-                    <option value="auto">Auto (System)</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Compact Sidebar</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="compactSidebar">
-                    <label class="form-check-label" for="compactSidebar">Enable compact sidebar</label>
+                <form id="settingsForm">
+                  <div class="form-group">
+                    <label>Theme Preference</label>
+                    <select id="themePreference">
+                      <option value="auto">Auto (System)</option>
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                    </select>
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <label>Accent Color</label>
-                  <select id="accentColor">
-                    <option value="#bddeb1" selected>Light Green (Default)</option>
-                    <option value="#22c55e">Bright Green</option>
-                    <option value="#059669">Forest Green</option>
-                    <option value="#0d6efd">Blue</option>
-                    <option value="#6f42c1">Purple</option>
-                    <option value="#dc3545">Red</option>
-                    <option value="#fd7e14">Orange</option>
-                    <option value="#ffc107">Yellow</option>
-                    <option value="#20c997">Teal</option>
-                    <option value="#6c757d">Gray</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Font Size</label>
-                  <select id="fontSize">
-                    <option value="small">Small</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="large">Large</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Reduced Motion</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="reducedMotion">
-                    <label class="form-check-label" for="reducedMotion">Reduce animations</label>
+                  <div class="form-group">
+                    <label>Compact Sidebar</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="compactSidebar">
+                      <label class="form-check-label" for="compactSidebar">Enable compact sidebar</label>
+                    </div>
                   </div>
+
+                  <div class="form-group">
+                    <label>Accent Color</label>
+                    <select id="accentColor">
+                      <option value="#bddeb1" selected>Light Green (Default)</option>
+                      <option value="#22c55e">Bright Green</option>
+                      <option value="#059669">Forest Green</option>
+                      <option value="#0d6efd">Blue</option>
+                      <option value="#6f42c1">Purple</option>
+                      <option value="#dc3545">Red</option>
+                      <option value="#fd7e14">Orange</option>
+                      <option value="#ffc107">Yellow</option>
+                      <option value="#20c997">Teal</option>
+                      <option value="#6c757d">Gray</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Font Size</label>
+                    <select id="fontSize">
+                      <option value="small">Small</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="large">Large</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Reduced Motion</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="reducedMotion">
+                      <label class="form-check-label" for="reducedMotion">Reduce animations</label>
+                    </div>
+                  </div>
+
+                  <div class="form-footer">
+                    <button type="button" class="btn btn-outline-secondary ms-auto" id="backFromSettingsBtn">
+                      Back
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div class="profile-card form-card">
+                <h3><i class="bi bi-bell me-2"></i>Notifications</h3>
+
+                <form id="notificationForm">
+                  <div class="form-group">
+                    <label>Email Notifications</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                      <label class="form-check-label" for="emailNotifications">Receive emails for new appointments</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Desktop Notifications</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="desktopNotifications">
+                      <label class="form-check-label" for="desktopNotifications">Show browser notifications</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Session Reminders</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="sessionReminders" checked>
+                      <label class="form-check-label" for="sessionReminders">Alert for upcoming sessions</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>System Updates</label>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="systemUpdates" checked>
+                      <label class="form-check-label" for="systemUpdates">Notify about system maintenance</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="profile-card form-card">
+                <h3><i class="bi bi-exclamation-triangle me-2 text-danger"></i>Reset Data</h3>
+
+                <div class="alert alert-warning" role="alert">
+                  <i class="bi bi-shield-exclamation me-2"></i>
+                  <strong>Danger Zone:</strong> These actions are irreversible and will permanently delete data.
                 </div>
 
-                <div class="form-footer">
-                  <button type="button" class="btn btn-outline-secondary ms-auto" id="backFromSettingsBtn">
-                    Back
+                <div class="form-group">
+                  <label>Clear Application Settings</label>
+                  <p class="text-muted small">Reset all preferences to default values</p>
+                  <button type="button" class="btn btn-outline-warning" id="clearSettingsBtn">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Clear Settings
                   </button>
                 </div>
-              </form>
+
+                <div class="form-group">
+                  <label>Clear Local Storage</label>
+                  <p class="text-muted small">Remove all stored data from this browser</p>
+                  <button type="button" class="btn btn-outline-danger" id="clearStorageBtn">
+                    <i class="bi bi-trash me-2"></i>Clear Storage
+                  </button>
+                </div>
+
+                <div class="form-group">
+                  <label>Reset All Data</label>
+                  <p class="text-muted small">Complete system reset - removes all settings and data</p>
+                  <button type="button" class="btn btn-danger" id="resetAllBtn">
+                    <i class="bi bi-arrow-repeat me-2"></i>Reset Everything
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -926,6 +1030,17 @@
     const fontSize = document.getElementById("fontSize");
     const reducedMotion = document.getElementById("reducedMotion");
 
+    // Notification elements
+    const emailNotifications = document.getElementById("emailNotifications");
+    const desktopNotifications = document.getElementById("desktopNotifications");
+    const sessionReminders = document.getElementById("sessionReminders");
+    const systemUpdates = document.getElementById("systemUpdates");
+
+    // Reset data elements
+    const clearSettingsBtn = document.getElementById("clearSettingsBtn");
+    const clearStorageBtn = document.getElementById("clearStorageBtn");
+    const resetAllBtn = document.getElementById("resetAllBtn");
+
     const sidebarWrapper = document.getElementById("sidebarWrapper");
 
     // Load saved settings from localStorage
@@ -937,6 +1052,12 @@
       accentColor.value = savedSettings.accentColor || "#bddeb1";
       fontSize.value = savedSettings.fontSize || "medium";
       reducedMotion.checked = savedSettings.reducedMotion || false;
+
+      // Load notification settings
+      emailNotifications.checked = savedSettings.emailNotifications !== false;
+      desktopNotifications.checked = savedSettings.desktopNotifications || false;
+      sessionReminders.checked = savedSettings.sessionReminders !== false;
+      systemUpdates.checked = savedSettings.systemUpdates !== false;
 
       // Apply loaded settings
       applyTheme(themePreference.value);
@@ -953,7 +1074,11 @@
         compactSidebar: compactSidebar.checked,
         accentColor: accentColor.value,
         fontSize: fontSize.value,
-        reducedMotion: reducedMotion.checked
+        reducedMotion: reducedMotion.checked,
+        emailNotifications: emailNotifications.checked,
+        desktopNotifications: desktopNotifications.checked,
+        sessionReminders: sessionReminders.checked,
+        systemUpdates: systemUpdates.checked
       };
       localStorage.setItem("mindcarehub_settings", JSON.stringify(settings));
     }
@@ -1011,12 +1136,78 @@
       saveSettings();
     }
 
+    // Notification functions
+    function requestNotificationPermission() {
+      if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            new Notification("MindCareHub", {
+              body: "Desktop notifications enabled successfully!",
+              icon: "/images/logo.png"
+            });
+          }
+        });
+      }
+    }
+
+    // Reset data functions
+    function clearSettings() {
+      if (confirm("Are you sure you want to reset all settings to default? This action cannot be undone.")) {
+        localStorage.removeItem("mindcarehub_settings");
+        alert("Settings cleared successfully! Reloading page...");
+        setTimeout(() => location.reload(), 1000);
+      }
+    }
+
+    function clearStorage() {
+      if (confirm("Are you sure you want to clear all local storage? This will remove all saved data from this browser.")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        alert("Storage cleared successfully! Reloading page...");
+        setTimeout(() => location.reload(), 1000);
+      }
+    }
+
+    function resetAll() {
+      if (confirm("⚠️ WARNING: This will permanently delete ALL data and settings. Are you absolutely sure?")) {
+        if (confirm("This is your final warning. All data will be lost permanently. Continue?")) {
+          localStorage.clear();
+          sessionStorage.clear();
+          // Clear any other app-specific data
+          if ('caches' in window) {
+            caches.keys().then(names => {
+              names.forEach(name => caches.delete(name));
+            });
+          }
+          alert("All data has been reset. Redirecting to login...");
+          setTimeout(() => window.location.href = "index.html", 2000);
+        }
+      }
+    }
+
     // Event listeners
     themePreference.addEventListener("change", () => applyTheme(themePreference.value));
     compactSidebar.addEventListener("change", () => applyCompactSidebar(compactSidebar.checked));
     accentColor.addEventListener("change", () => applyAccent(accentColor.value));
     fontSize.addEventListener("change", () => applyFontSize(fontSize.value));
     reducedMotion.addEventListener("change", () => applyReducedMotion(reducedMotion.checked));
+
+    // Notification event listeners
+    emailNotifications.addEventListener("change", saveSettings);
+    sessionReminders.addEventListener("change", saveSettings);
+    systemUpdates.addEventListener("change", saveSettings);
+
+    desktopNotifications.addEventListener("change", () => {
+      if (desktopNotifications.checked) {
+        requestNotificationPermission();
+      }
+      saveSettings();
+    });
+
+    // Reset data event listeners
+    clearSettingsBtn.addEventListener("click", clearSettings);
+    clearStorageBtn.addEventListener("click", clearStorage);
+    resetAllBtn.addEventListener("click", resetAll);
 
     // Initialize settings on page load
     document.addEventListener("DOMContentLoaded", function () {
