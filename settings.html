@@ -319,6 +319,18 @@
     box-shadow: 0 10px 18px rgba(0,0,0,0.05);
   }
 
+  /* Profile Utils from Dashboard */
+  .avatar-large { width: 80px; height: 80px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
+  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
+
+  /* Mobile Profile */
+  @media (max-width: 768px) {
+    .profile-grid { grid-template-columns: 1fr; gap: 15px; }
+    .profile-card { padding: 15px; }
+    .avatar-large { width: 60px; height: 60px; font-size: 1.4rem; }
+  }
+
   .profile-avatar-wrap {
     display: flex;
     align-items: center;
@@ -703,75 +715,62 @@
         <section id="profileSection" class="hidden-section">
           <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
             <div class="profile-header">
-              <h2>User Profile</h2>
+              <h2 class="fw-bold text-dark">User Profile</h2>
               <p>Update your personal information and account details.</p>
             </div>
           </div>
 
           <div class="profile-grid">
-            <div class="profile-card">
-              <div class="profile-avatar-wrap">
-                <div class="avatar-circle">
-                  <img id="avatarPreview" src="" alt="Avatar" class="hidden-section">
-                  <span id="avatarFallback">HH</span>
-                </div>
-
-                <div class="avatar-info">
-                  <h3 id="displayName">Hanis Heidi</h3>
-                  <span class="role-tag" id="displayRole">Super Admin</span>
+            <div class="profile-card profile-left-content">
+              <div class="d-flex align-items-center w-100 mb-4">
+                <div class="avatar-large" id="profileAvatarFallback">HH</div>
+                <div class="ms-3 text-start">
+                  <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
+                  <span class="badge bg-info bg-opacity-25 text-info rounded-pill" id="displayRole">Super Admin</span>
                 </div>
               </div>
-
-              <div class="profile-actions">
-                <label class="btn btn-primary">
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">
                   Change Avatar
                   <input type="file" id="avatarInput" accept="image/*" hidden>
                 </label>
-                <button class="btn btn-outline-secondary" type="button" id="resetPassBtn">Reset Password</button>
+                <button class="btn btn-outline-custom flex-grow-1" type="button" id="resetPassBtn">Reset Password</button>
               </div>
             </div>
 
             <div class="profile-card form-card">
-              <h3>Account Details</h3>
-
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" id="firstName" required>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" value="Hanis" required>
                   </div>
-
-                  <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" id="lastName" required>
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" value="Heidi" required>
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label>Email Address</label>
-                  <input type="email" id="email" required>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" value="hanis@mindcare.com" required>
                 </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Role</label>
-                    <select id="role">
-                      <option value="Super Admin">Super Admin</option>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Role</label>
+                    <select class="form-control" id="role">
                       <option value="Admin">Admin</option>
+                      <option value="Super Admin" selected>Super Admin</option>
                     </select>
                   </div>
-
-                  <div class="form-group">
-                    <label>Phone</label>
-                    <input type="text" id="phone">
+                  <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" value="+60 12-345 6789">
                   </div>
                 </div>
-
-                <div class="form-footer">
-                  <button type="submit" class="btn btn-success">Save Changes</button>
-                  <button type="button" class="btn btn-outline-secondary ms-2" id="backToDashboardBtn">
-                    Back
-                  </button>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-outline-custom px-4" id="backToDashboardBtn">Back</button>
+                  <button type="submit" class="btn btn-green px-4">Save</button>
                 </div>
               </form>
             </div>
@@ -956,7 +955,7 @@
     const topUserName = document.getElementById("topUserName");
     const topUserBadge = document.getElementById("topUserBadge");
 
-    const displayName = document.getElementById("displayName");
+    const profileDisplayName = document.getElementById("profileDisplayName");
     const displayRole = document.getElementById("displayRole");
 
     const firstName = document.getElementById("firstName");
@@ -964,23 +963,18 @@
     const email = document.getElementById("email");
     const role = document.getElementById("role");
     const phone = document.getElementById("phone");
-    const bio = document.getElementById("bio");
 
     const profileForm = document.getElementById("profileForm");
-
     const avatarInput = document.getElementById("avatarInput");
-    const avatarPreview = document.getElementById("avatarPreview");
-    const avatarFallback = document.getElementById("avatarFallback");
-
+    const profileAvatarFallback = document.getElementById("profileAvatarFallback");
     const resetPassBtn = document.getElementById("resetPassBtn");
 
     const currentUser = {
       firstName: "Hanis",
       lastName: "Heidi",
-      email: "hanisheidi@mindcarehub.com",
+      email: "hanis@mindcare.com",
       role: "Super Admin",
-      phone: "+60 12-345 6789",
-      bio: "Managing appointments and counselor schedules."
+      phone: "+60 12-345 6789"
     };
 
     function getInitials(fn, ln) {
@@ -993,15 +987,14 @@
       email.value = currentUser.email;
       role.value = currentUser.role;
       phone.value = currentUser.phone;
-      bio.value = currentUser.bio;
 
-      displayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      profileDisplayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
       displayRole.textContent = currentUser.role;
 
       topUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
       topUserBadge.textContent = getInitials(currentUser.firstName, currentUser.lastName);
 
-      avatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+      profileAvatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
     }
 
     function showProfile() {
@@ -1043,20 +1036,22 @@
       currentUser.email = email.value.trim();
       currentUser.role = role.value;
       currentUser.phone = phone.value.trim();
-      currentUser.bio = bio.value.trim();
 
-      loadProfileData();
-      alert("Profile updated successfully ✅");
+      // Update all displays
+      profileDisplayName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      displayRole.textContent = currentUser.role;
+      topUserName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      topUserBadge.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+      profileAvatarFallback.textContent = getInitials(currentUser.firstName, currentUser.lastName);
+
+      alert("Profile Saved!");
     });
 
     avatarInput.addEventListener("change", function () {
       const file = this.files[0];
       if (!file) return;
-
-      const url = URL.createObjectURL(file);
-      avatarPreview.src = url;
-      avatarPreview.classList.remove("hidden-section");
-      avatarFallback.classList.add("hidden-section");
+      // Avatar functionality can be implemented here
+      alert("Avatar change functionality would be implemented here");
     });
 
     resetPassBtn.addEventListener("click", function () {
