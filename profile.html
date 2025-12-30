@@ -323,6 +323,92 @@
   body.theme-dark #profileDisplayName {
     color: #ffffff !important;
   }
+
+  /* ========================= SETTINGS THEME SUPPORT ========================= */
+  :root {
+    --accent: #bddeb1;
+    --base-font-size: 16px;
+  }
+
+  /* Apply accent color to text/font elements only */
+  .sidebar .nav-link:hover,
+  .nav-link:hover,
+  .profile-icons .profile-icon:focus {
+    color: var(--accent) !important;
+  }
+
+  .profile-icons .profile-icon:focus {
+    outline-color: var(--accent) !important;
+  }
+
+  body {
+    font-size: var(--base-font-size);
+  }
+
+  /* ========================= THEME FIX ========================= */
+  body.theme-light {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  body.theme-dark {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .navbar,
+  body.theme-dark .sidebar,
+  body.theme-dark .profile-card,
+  body.theme-dark .card {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+
+  body.theme-dark .text-black,
+  body.theme-dark .text-dark,
+  body.theme-dark .text-body {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .text-black-50,
+  body.theme-dark .text-muted,
+  body.theme-dark .text-secondary {
+    color: #cbd5e1 !important;
+  }
+
+  body.theme-dark input,
+  body.theme-dark select,
+  body.theme-dark textarea {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* Form cards with green background stay green in all themes */
+  .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-light .profile-card.form-card[style*="background-color: #c5e2c5"] {
+    background-color: #c5e2c5 !important;
+  }
+
+  /* Text in green form cards always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
+
+  /* ========================= REDUCED MOTION ========================= */
+  body.reduce-motion * {
+    transition: none !important;
+    animation: none !important;
+  }
 </style>
 
 </head>
@@ -604,6 +690,88 @@
     });
 
     window.addEventListener("DOMContentLoaded", loadProfileData);
+  </script>
+
+  <!-- ========================= SETTINGS FUNCTIONALITY ========================= -->
+  <script>
+    // Load saved settings from localStorage
+    function loadSettings() {
+      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      
+      // Apply loaded settings
+      applyTheme(savedSettings.theme || "light");
+      applyAccent(savedSettings.accentColor || "#bddeb1");
+      applyFontSize(savedSettings.fontSize || "medium");
+      applyReducedMotion(savedSettings.reducedMotion || false);
+      applyCompactSidebar(savedSettings.compactSidebar || false);
+    }
+
+    // Save settings to localStorage
+    function saveSettings() {
+      const currentSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      localStorage.setItem("mindcarehub_settings", JSON.stringify(currentSettings));
+    }
+
+    function applyTheme(mode) {
+      document.body.classList.remove("theme-dark", "theme-light");
+
+      if (mode === "dark") {
+        document.body.classList.add("theme-dark");
+      } else if (mode === "light") {
+        document.body.classList.add("theme-light");
+      } else if (mode === "auto") {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.body.classList.add(prefersDark ? "theme-dark" : "theme-light");
+      }
+    }
+
+    function applyAccent(color) {
+      document.documentElement.style.setProperty("--accent", color);
+      
+      // Update only font/text colors that use the accent color
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .sidebar .nav-link:hover { color: ${color} !important; }
+        .nav-link:hover { color: ${color} !important; }
+        .profile-icons .profile-icon:focus { outline-color: ${color} !important; }
+      `;
+      
+      // Remove old dynamic styles
+      const oldStyle = document.querySelector('#dynamic-accent-styles');
+      if (oldStyle) oldStyle.remove();
+      
+      style.id = 'dynamic-accent-styles';
+      document.head.appendChild(style);
+    }
+
+    function applyFontSize(size) {
+      let px = "16px";
+      if (size === "small") px = "14px";
+      if (size === "large") px = "18px";
+      document.documentElement.style.setProperty("--base-font-size", px);
+    }
+
+    function applyReducedMotion(isOn) {
+      document.body.classList.toggle("reduce-motion", isOn);
+    }
+
+    function applyCompactSidebar(isOn) {
+      const sidebarWrapper = document.getElementById("sidebarWrapper");
+      if (sidebarWrapper) {
+        sidebarWrapper.classList.toggle("collapsed", isOn);
+      }
+    }
+
+    // Initialize settings on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      loadSettings();
+    });
+
+    // Update theme when system preference changes (for auto mode)
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      if (savedSettings.theme === "auto") applyTheme("auto");
+    });
   </script>
 
 </body>
