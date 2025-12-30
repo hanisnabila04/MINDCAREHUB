@@ -148,6 +148,12 @@
   @media (max-width: 768px) {
     .marquee-container { font-size: 0.8rem; padding: 4px 0; }
   }
+
+  /* Header form card text always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
 </style>
 
 <body onload="initDashboard()">
@@ -259,11 +265,22 @@
         </div>
 
         <section id="profileSection" class="hidden-section mb-5">
-          <h2 class="fw-bold text-dark">User Profile</h2>
+          <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
+            <div class="profile-header">
+              <h2 class="fw-bold text-dark">User Profile</h2>
+              <p>Update your personal information and account details.</p>
+            </div>
+          </div>
           <div class="profile-grid">
             <div class="profile-card profile-left-content">
-              <div class="d-flex align-items-center w-100 mb-4"><div class="avatar-large" id="profileAvatarFallback">HH</div><div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="badge bg-info bg-opacity-25 text-info rounded-pill">Super Admin</span></div></div>
-              <div class="d-flex gap-2 w-100"><button class="btn btn-green flex-grow-1">Change Avatar</button><button class="btn btn-outline-custom flex-grow-1">Reset Password</button></div>
+              <div class="d-flex align-items-center w-100 mb-4"><div class="avatar-large" id="profileAvatarFallback">HH</div><div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="badge bg-info bg-opacity-25 text-info rounded-pill" id="displayRole">Super Admin</span></div></div>
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">
+                  Change Avatar
+                  <input type="file" id="avatarInput" accept="image/*" hidden>
+                </label>
+                <button class="btn btn-outline-custom flex-grow-1" type="button" id="resetPassBtn">Reset Password</button>
+              </div>
             </div>
             <div class="profile-card form-card">
               <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
@@ -334,7 +351,35 @@
     
     document.getElementById("menuProfile").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("dashboardContent").classList.add("hidden-section"); document.getElementById("profileSection").classList.remove("hidden-section"); });
     document.getElementById("backToDashboardBtn").addEventListener("click", () => { document.getElementById("profileSection").classList.add("hidden-section"); document.getElementById("dashboardContent").classList.remove("hidden-section"); });
-    document.getElementById("profileForm").addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("topUserName").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value; document.getElementById("topUserBadge").textContent = document.getElementById("firstName").value[0] + document.getElementById("lastName").value[0]; document.getElementById("profileDisplayName").textContent = document.getElementById("topUserName").textContent; document.getElementById("profileAvatarFallback").textContent = document.getElementById("topUserBadge").textContent; document.querySelector(".badge.bg-info").textContent = document.getElementById("role").value; alert("Profile Saved!"); });
+    
+    // Profile functionality
+    document.getElementById("profileForm").addEventListener("submit", (e) => { 
+      e.preventDefault(); 
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const role = document.getElementById("role").value;
+      
+      // Update all displays
+      document.getElementById("topUserName").textContent = firstName + " " + lastName;
+      document.getElementById("topUserBadge").textContent = firstName[0] + lastName[0]; 
+      document.getElementById("profileDisplayName").textContent = firstName + " " + lastName;
+      document.getElementById("profileAvatarFallback").textContent = firstName[0] + lastName[0];
+      document.getElementById("displayRole").textContent = role;
+      
+      alert("Profile Saved!"); 
+    });
+    
+    // Avatar input functionality
+    document.getElementById("avatarInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      alert("Avatar change functionality would be implemented here");
+    });
+    
+    // Reset password functionality
+    document.getElementById("resetPassBtn").addEventListener("click", function () {
+      alert("Reset password clicked ✅ (demo)");
+    });
     function logout() { window.location.href = "login.html"; }
     function renderChart() { const ctx = document.getElementById('appointmentsChart').getContext('2d'); new Chart(ctx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Appointments', data: [12, 19, 15, 25, 22, 30], borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false } }); }
   </script>
