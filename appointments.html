@@ -29,8 +29,8 @@
   .sidebar.collapsed .nav { align-items: center; }
   .sidebar.collapsed .nav-link { justify-content: center; padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
   .sidebar.collapsed .sidebar-toggle-btn { top: 12px; transform: none; right: -18px; }
-  .sidebar .nav-link { font-weight: bold; color: #f9f8f8; padding: 10px 15px; margin-bottom: 4px; border-radius: 6px; font-size: 0.95rem; } 
-  .sidebar .nav-link:hover { color: var(--accent); background-color: rgba(255,255,255,0.1); }
+  .sidebar .nav-link { font-weight: bold; color: #333; padding: 10px 15px; margin-bottom: 4px; border-radius: 6px; font-size: 0.95rem; } 
+  .sidebar .nav-link:hover { color: var(--accent); background-color: rgba(0,0,0,0.05); }
   .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
   .sidebar .nav-link i { font-size: 1.1rem; width: 28px; text-align: center; }
 
@@ -120,31 +120,16 @@
   }
 
   /* Apply accent color to text/font elements only */
-  .sidebar .nav-link:hover,
-  .nav-link:hover,
-  .profile-icons .profile-icon:focus {
-    color: var(--accent) !important;
-  }
+  .sidebar .nav-link:hover, .nav-link:hover, .profile-icons .profile-icon:focus { color: var(--accent) !important; }
+  .profile-icons .profile-icon:focus { outline-color: var(--accent) !important; }
 
-  .profile-icons .profile-icon:focus {
-    outline-color: var(--accent) !important;
-  }
+  body { font-size: var(--base-font-size); }
 
-  body {
-    font-size: var(--base-font-size);
-  }
+  /* ========================= THEME FIX (UPDATED FOR VISIBILITY) ========================= */
+  body.theme-light { background-color: #f8f9fa !important; color: #333333 !important; }
+  body.theme-dark { background-color: #0b1220 !important; color: #ffffff !important; }
 
-  /* ========================= THEME FIX ========================= */
-  body.theme-light {
-    background-color: #f8f9fa !important;
-    color: #333333 !important;
-  }
-
-  body.theme-dark {
-    background-color: #0b1220 !important;
-    color: #ffffff !important;
-  }
-
+  /* Global Dark Mode Overrides */
   body.theme-dark .navbar,
   body.theme-dark .sidebar,
   body.theme-dark .profile-card,
@@ -155,159 +140,93 @@
   body.theme-dark .kanban-col,
   body.theme-dark .kanban-card,
   body.theme-dark .timeline-card {
-    background-color: #111827 !important;
+    background-color: #1f2937 !important; /* Slightly lighter dark for cards */
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.1) !important;
   }
 
-  body.theme-dark .sidebar {
-    border-right-color: rgba(255,255,255,0.1) !important;
-  }
+  /* Sidebar Specific Dark Mode */
+  body.theme-dark .sidebar { border-right-color: rgba(255,255,255,0.1) !important; background-color: #111827 !important; }
+  body.theme-dark .profile-icons .profile-icon { background: #374151 !important; color: #ffffff !important; }
+  body.theme-dark .sidebar .nav-link { color: #d1d5db !important; }
+  body.theme-dark .sidebar .nav-link.active { background-color: var(--accent) !important; color: #102e35 !important; }
 
-  body.theme-dark .profile-icons .profile-icon {
-    background: #374151 !important;
-    color: #ffffff !important;
-  }
+  /* Table Dark Mode Fixes */
+  body.theme-dark td { background-color: #1f2937 !important; color: #e2e8f0 !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+  body.theme-dark th { background-color: #374151 !important; color: #ffffff !important; }
+  body.theme-dark .avatar-text { border-color: rgba(255,255,255,0.2) !important; }
 
-  body.theme-dark .text-black,
-  body.theme-dark .text-dark,
-  body.theme-dark .text-body {
-    color: #ffffff !important;
-  }
+  /* Text Color Fixes */
+  body.theme-dark .text-dark, 
+  body.theme-dark .text-body,
+  body.theme-dark .fw-bold.text-dark { color: #f3f4f6 !important; }
+  
+  body.theme-dark .text-muted, 
+  body.theme-dark .text-secondary, 
+  body.theme-dark .small.text-muted,
+  body.theme-dark small { color: #9ca3af !important; }
 
-  body.theme-dark .text-black-50,
-  body.theme-dark .text-muted,
-  body.theme-dark .text-secondary {
-    color: #cbd5e1 !important;
-  }
+  /* Button Fixes */
+  body.theme-dark .btn-light { background-color: #374151 !important; color: #f3f4f6 !important; border-color: rgba(255,255,255,0.1) !important; }
+  body.theme-dark .btn-light:hover { background-color: #4b5563 !important; }
+  body.theme-dark .view-btn { background-color: #1f2937; color: #d1d5db; border-color: rgba(255,255,255,0.2); }
+  body.theme-dark .view-btn.active { background-color: var(--accent) !important; color: #102e35 !important; }
 
+  /* Input/Select Fixes */
   body.theme-dark input,
   body.theme-dark select,
-  body.theme-dark textarea {
-    background-color: #0f172a !important;
+  body.theme-dark textarea,
+  body.theme-dark .input-group-text {
+    background-color: #111827 !important;
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.15) !important;
   }
 
-  body.theme-dark th {
-    background-color: #374151 !important;
-  }
+  body.theme-dark footer { background-color: #111827 !important; color: #ffffff !important; border-top-color: rgba(255,255,255,0.1) !important; }
 
-  body.theme-dark footer {
-    background-color: #111827 !important;
-    color: #ffffff !important;
-    border-top-color: rgba(255,255,255,0.1) !important;
-  }
+  /* Modal Fixes */
+  body.theme-dark .modal-content { background-color: #1f2937 !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.1); }
+  body.theme-dark .modal-header { border-bottom-color: rgba(255,255,255,0.1) !important; }
+  body.theme-dark .btn-close { filter: invert(1); }
 
-  /* ========================= MODAL THEME FIX ========================= */
-  body.theme-dark .modal-content {
-    background-color: #f7f8f9 !important;
-    color: #ffffff !important;
-  }
-
-  body.theme-dark .modal-header {
-    background-color: var(--accent) !important;
-    color: #ffffff !important;
-    border-bottom-color: rgba(255,255,255,0.1) !important;
-  }
-
-  /* ========================= REDUCED MOTION ========================= */
-  body.reduce-motion * {
-    transition: none !important;
-    animation: none !important;
-  }
+  /* Reduced Motion */
+  body.reduce-motion * { transition: none !important; animation: none !important; }
 </style>
 
 <body onload="initPage()">
 
   <div class="d-flex">
+    
     <div id="sidebarWrapper" class="sidebar p-3">
-      <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
-        <i id="sidebarToggleIcon" class="bi bi-list"></i>
-      </button>
-
-      <div class="profile-icons d-flex justify-content-center mb-3">
-        <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
-          <i class="bi bi-person-circle"></i>
-        </button>
-      </div>
-
-      <div class="text-center mb-4">
-        <h6 class="text-white mb-0">WELCOME</h6>
-        <h5 class="text-white fw-bold">ADMIN</h5>
-      </div>
-
-      <p class="text-secondary small mt-4">NAVIGATION</p>
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn"><i id="sidebarToggleIcon" class="bi bi-list"></i></button>
+      <div class="profile-icons d-flex justify-content-center mb-3"><div class="profile-icon"><i class="bi bi-person-circle"></i></div></div>
+      <div class="text-center mb-3"><h6 class="text-secondary small mb-0">WELCOME</h6><h5 class="fw-bold text-dark">ADMIN</h5></div>
+      <p class="text-secondary small mt-2 fw-bold nav-header" style="padding-left: 10px; font-size:0.75rem;">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="dashboard.html">
-            <i class="bi bi-speedometer2"></i>
-            <span class="label">Dashboard</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link active d-flex align-items-center" href="appointments.html">
-            <i class="bi bi-calendar-check"></i>
-            <span class="label">Appointments</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="clients.html">
-            <i class="bi bi-people"></i>
-            <span class="label">Clients</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="counselors.html">
-            <i class="bi bi-person-badge"></i>
-            <span class="label">Counselors</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="session_notes.html">
-            <i class="bi bi-file-earmark-text"></i>
-            <span class="label">Session Notes</span>
-          </a>
-        </li>
-
-        <li class="nav-item mt-4">
-          <a class="nav-link text-danger d-flex align-items-center" href="#" onclick="logout()">
-            <i class="bi bi-box-arrow-right"></i>
-            <span class="label">Logout</span>
-          </a>
-        </li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check me-2"></i><span class="label">Appointments</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="clients.html"><i class="bi bi-people me-2"></i><span class="label">Clients</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge me-2"></i><span class="label">Counselors</span></a></li>
+        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text me-2"></i><span class="label">Session Notes</span></a></li>
+        <li class="nav-item mt-3"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i><span class="label">Logout</span></a></li>
       </ul>
     </div>
 
     <div class="content flex-grow-1">
 
-      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
-        <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
-          <i class="bi bi-list"></i>
-        </button>
-
-        <a class="navbar-brand fw-bold brand-rgb" href="#">MINDCAREHUB</a>
-
+      <nav class="navbar navbar-expand-lg">
+        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
+        <a class="navbar-brand brand-rgb fs-5" href="#">MINDCAREHUB</a>
         <div class="ms-auto d-flex align-items-center gap-3">
-          <span class="text-black small d-none d-md-block"></span>
-
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
-              data-bs-toggle="dropdown">
-              <span class="user-badge" id="topUserBadge">HH</span>
-              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
+              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
+              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
             </a>
-
-            <ul class="dropdown-menu dropdown-menu-end">
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
             </ul>
           </div>
@@ -417,18 +336,19 @@
       <footer>
         <div class="container-fluid px-5">
           <div class="row align-items-center text-center text-md-start">
-            <div class="col-md-4 mb-2 mb-md-0"><h2 class="brand-rgb" style="font-size:1.5rem; margin-bottom:0;">MindCareHub</h2></div>
+            <div class="col-md-4 mb-2 mb-md-0"><h5 class="brand-rgb mb-0">MindCareHub</h5></div>
             <div class="col-md-4 mb-2 mb-md-0 text-center">
               <div class="d-flex justify-content-center mb-1">
                 <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
                 <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a> 
               </div>
               <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted small" style="text-decoration:none;">mindcarehub@gmail.com</a>
             </div>
             <div class="col-md-4 text-center text-md-end">
               <div class="footer-links mb-1"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
-              <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub.</p>
+              <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
             </div>
           </div>
         </div>
@@ -464,20 +384,14 @@
     </div>
   </div>
 
-  <!-- Logout Confirmation Modal -->
-  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header" style="background-color:var(--accent);">
-          <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure want to logout and return to the login page?</p>
-        </div>
+        <div class="modal-header bg-light"><h5 class="modal-title fw-bold">Confirm Logout</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">Are you sure you want to logout?</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
+          <button class="btn btn-light border" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="confirmLogoutBtn" onclick="confirmLogout()" class="btn btn-danger">Logout</button>
         </div>
       </div>
     </div>
@@ -522,6 +436,7 @@
 
     // INIT
     function initPage() {
+        loadSettings();
         document.getElementById('yearSpan').textContent = new Date().getFullYear();
         populateDropdowns();
         renderTable();
@@ -724,12 +639,8 @@
     });
 
     // ========================= SETTINGS FUNCTIONALITY ========================= //
-    
-    // Load saved settings from localStorage
     function loadSettings() {
       const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
-      
-      // Apply loaded settings
       applyTheme(savedSettings.theme || "light");
       applyAccent(savedSettings.accentColor || "#bddeb1");
       applyFontSize(savedSettings.fontSize || "medium");
@@ -739,12 +650,9 @@
 
     function applyTheme(mode) {
       document.body.classList.remove("theme-dark", "theme-light");
-
-      if (mode === "dark") {
-        document.body.classList.add("theme-dark");
-      } else if (mode === "light") {
-        document.body.classList.add("theme-light");
-      } else if (mode === "auto") {
+      if (mode === "dark") document.body.classList.add("theme-dark");
+      else if (mode === "light") document.body.classList.add("theme-light");
+      else if (mode === "auto") {
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         document.body.classList.add(prefersDark ? "theme-dark" : "theme-light");
       }
@@ -752,19 +660,14 @@
 
     function applyAccent(color) {
       document.documentElement.style.setProperty("--accent", color);
-      
-      // Update only font/text colors that use the accent color
       const style = document.createElement('style');
       style.innerHTML = `
         .sidebar .nav-link:hover { color: ${color} !important; }
         .nav-link:hover { color: ${color} !important; }
         .profile-icons .profile-icon:focus { outline-color: ${color} !important; }
       `;
-      
-      // Remove old dynamic styles
       const oldStyle = document.querySelector('#dynamic-accent-styles');
       if (oldStyle) oldStyle.remove();
-      
       style.id = 'dynamic-accent-styles';
       document.head.appendChild(style);
     }
@@ -776,39 +679,18 @@
       document.documentElement.style.setProperty("--base-font-size", px);
     }
 
-    function applyReducedMotion(isOn) {
-      document.body.classList.toggle("reduce-motion", isOn);
-    }
-
+    function applyReducedMotion(isOn) { document.body.classList.toggle("reduce-motion", isOn); }
     function applyCompactSidebar(isOn) {
       const sidebarWrapper = document.getElementById("sidebarWrapper");
-      if (sidebarWrapper) {
-        sidebarWrapper.classList.toggle("collapsed", isOn);
-      }
+      if (sidebarWrapper) sidebarWrapper.classList.toggle("collapsed", isOn);
     }
 
-    // Initialize settings on page load
-    document.addEventListener("DOMContentLoaded", function () {
-      loadSettings();
-    });
-
-    // Update theme when system preference changes (for auto mode)
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
-      if (savedSettings.theme === "auto") applyTheme("auto");
-    });
-  </script>
-
-  <!-- LOGOUT MODAL FUNCTIONALITY -->
-  <script>
     function logout() {
       const logoutModalEl = document.getElementById("logoutConfirmModal");
       if (logoutModalEl) {
         const logoutModal = new bootstrap.Modal(logoutModalEl);
         logoutModal.show();
-      } else {
-        confirmLogout();
-      }
+      } else { confirmLogout(); }
     }
 
     function confirmLogout() {
@@ -818,34 +700,6 @@
       localStorage.clear();
       window.location.href = "index.html";
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
-      if (confirmLogoutBtn) {
-        confirmLogoutBtn.addEventListener("click", function () {
-          confirmLogout();
-        });
-      }
-    });
   </script>
-
-  <!-- Logout Confirmation Modal -->
-  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color:var(--accent);">
-          <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure want to logout and return to the login page?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="confirmLogoutBtn" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
