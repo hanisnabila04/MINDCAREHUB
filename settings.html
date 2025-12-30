@@ -549,6 +549,44 @@
     justify-content: center !important;
   }
 
+  /* ========================= HEADER FORM CARDS FIXED COLOR ========================= */
+  /* Profile section header form card - always #c5e2c5 */
+  body #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-light #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-dark #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] {
+    background-color: #c5e2c5 !important;
+  }
+
+  /* Settings section header form card - always #c5e2c5 */
+  body #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-light #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-dark #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] {
+    background-color: #c5e2c5 !important;
+  }
+
+  /* Header form card text always black */
+  body #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-light #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-dark #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-light #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-dark #profileSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-light #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-dark #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-light #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-dark #settingsSection .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
+
+  /* Reset Data section description text always black */
+  body #settingsSection .form-group p.text-muted,
+  body.theme-light #settingsSection .form-group p.text-muted,
+  body.theme-dark #settingsSection .form-group p.text-muted {
+    color: #000000 !important;
+  }
+
   /* ========================= REDUCED MOTION ========================= */
   body.reduce-motion * {
     transition: none !important;
@@ -663,9 +701,11 @@
 
         <!-- ✅ PROFILE SECTION (KEEP SAME) -->
         <section id="profileSection" class="hidden-section">
-          <div class="profile-header">
-            <h2>User Profile</h2>
-            <p>Update your personal information and account details.</p>
+          <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
+            <div class="profile-header">
+              <h2>User Profile</h2>
+              <p>Update your personal information and account details.</p>
+            </div>
           </div>
 
           <div class="profile-grid">

@@ -279,6 +279,12 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  /* Header form card text always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
 </style>
 
 </head>
@@ -407,9 +413,11 @@
       <div class="container-fluid p-4">
 
         <section id="profileSection">
-          <div class="profile-header">
-            <h2>User Profile</h2>
-            <p>Update your personal information and account details.</p>
+          <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
+            <div class="profile-header">
+              <h2>User Profile</h2>
+              <p>Update your personal information and account details.</p>
+            </div>
           </div>
 
           <div class="profile-grid">
