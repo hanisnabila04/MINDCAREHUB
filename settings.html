@@ -69,6 +69,24 @@
     color: var(--accent);
   }
 
+  /* Brand RGB Animation */
+  .brand-rgb {
+    font-weight: 800;
+    background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgbMove 4s ease-in-out infinite;
+    filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
+  }
+
+  @keyframes rgbMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
   /* Sidebar */
   .sidebar {
     background-color: #FFFFFF;
@@ -563,7 +581,7 @@
           <i class="bi bi-list"></i>
         </button>
 
-        <a class="navbar-brand fw-bold" href="#">MINDCAREHUB</a>
+        <a class="navbar-brand fw-bold brand-rgb" href="#">MINDCAREHUB</a>
 
         <div class="ms-auto d-flex align-items-center gap-3">
           <span class="text-black small d-none d-md-block"></span>
