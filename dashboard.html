@@ -159,6 +159,81 @@
   body.theme-dark #profileDisplayName {
     color: #ffffff !important;
   }
+
+  /* ========================= SETTINGS THEME SUPPORT ========================= */
+  :root {
+    --accent: #bddeb1;
+    --base-font-size: 16px;
+  }
+
+  /* Apply accent color to text/font elements only */
+  .sidebar .nav-link:hover,
+  .nav-link:hover {
+    color: var(--accent) !important;
+  }
+
+  body {
+    font-size: var(--base-font-size);
+  }
+
+  /* ========================= THEME FIX ========================= */
+  body.theme-light {
+    background-color: #f8f9fa !important;
+    color: #333333 !important;
+  }
+
+  body.theme-dark {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+  }
+
+  /* Stat card numbers white in dark/auto mode only */
+  body.theme-dark .stat-card h3 {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .navbar,
+  body.theme-dark .sidebar,
+  body.theme-dark .profile-card,
+  body.theme-dark .card,
+  body.theme-dark .stat-card,
+  body.theme-dark .welcome-card {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+
+  body.theme-dark .text-black,
+  body.theme-dark .text-dark,
+  body.theme-dark .text-body {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .text-black-50,
+  body.theme-dark .text-muted,
+  body.theme-dark .text-secondary {
+    color: #cbd5e1 !important;
+  }
+
+  body.theme-dark input,
+  body.theme-dark select,
+  body.theme-dark textarea {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  body.theme-dark footer {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border-top-color: rgba(255,255,255,0.1) !important;
+  }
+
+  /* ========================= REDUCED MOTION ========================= */
+  body.reduce-motion * {
+    transition: none !important;
+    animation: none !important;
+  }
 </style>
 
 <body onload="initDashboard()">
@@ -385,6 +460,73 @@
     document.getElementById("resetPassBtn").addEventListener("click", function () {
       alert("Reset password clicked ✅ (demo)");
     });
+
+    // ========================= SETTINGS FUNCTIONALITY ========================= //
+    
+    // Load saved settings from localStorage
+    function loadSettings() {
+      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      
+      // Apply loaded settings
+      applyTheme(savedSettings.theme || "light");
+      applyAccent(savedSettings.accentColor || "#bddeb1");
+      applyFontSize(savedSettings.fontSize || "medium");
+      applyReducedMotion(savedSettings.reducedMotion || false);
+    }
+
+    function applyTheme(mode) {
+      document.body.classList.remove("theme-dark", "theme-light");
+
+      if (mode === "dark") {
+        document.body.classList.add("theme-dark");
+      } else if (mode === "light") {
+        document.body.classList.add("theme-light");
+      } else if (mode === "auto") {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.body.classList.add(prefersDark ? "theme-dark" : "theme-light");
+      }
+    }
+
+    function applyAccent(color) {
+      document.documentElement.style.setProperty("--accent", color);
+      
+      // Update only font/text colors that use the accent color
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .sidebar .nav-link:hover { color: ${color} !important; }
+        .nav-link:hover { color: ${color} !important; }
+      `;
+      
+      // Remove old dynamic styles
+      const oldStyle = document.querySelector('#dynamic-accent-styles');
+      if (oldStyle) oldStyle.remove();
+      
+      style.id = 'dynamic-accent-styles';
+      document.head.appendChild(style);
+    }
+
+    function applyFontSize(size) {
+      let px = "16px";
+      if (size === "small") px = "14px";
+      if (size === "large") px = "18px";
+      document.documentElement.style.setProperty("--base-font-size", px);
+    }
+
+    function applyReducedMotion(isOn) {
+      document.body.classList.toggle("reduce-motion", isOn);
+    }
+
+    // Initialize settings on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      loadSettings();
+    });
+
+    // Update theme when system preference changes (for auto mode)
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      const savedSettings = JSON.parse(localStorage.getItem("mindcarehub_settings") || "{}");
+      if (savedSettings.theme === "auto") applyTheme("auto");
+    });
+
     function logout() { window.location.href = "login.html"; }
     function renderChart() { const ctx = document.getElementById('appointmentsChart').getContext('2d'); new Chart(ctx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Appointments', data: [12, 19, 15, 25, 22, 30], borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false } }); }
   </script>
