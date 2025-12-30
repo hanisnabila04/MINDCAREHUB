@@ -551,6 +551,7 @@
       applyAccent(savedSettings.accentColor || "#bddeb1");
       applyFontSize(savedSettings.fontSize || "medium");
       applyReducedMotion(savedSettings.reducedMotion || false);
+      applyCompactSidebar(savedSettings.compactSidebar || false);
     }
 
     function applyTheme(mode) {
@@ -593,6 +594,13 @@
 
     function applyReducedMotion(isOn) {
       document.body.classList.toggle("reduce-motion", isOn);
+    }
+
+    function applyCompactSidebar(isOn) {
+      const sidebarWrapper = document.getElementById("sidebarWrapper");
+      if (sidebarWrapper) {
+        sidebarWrapper.classList.toggle("collapsed", isOn);
+      }
     }
 
     // Initialize settings on page load
