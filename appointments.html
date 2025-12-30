@@ -477,7 +477,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" onclick="logout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
+          <button type="button" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
         </div>
       </div>
     </div>
@@ -807,17 +807,23 @@
         const logoutModal = new bootstrap.Modal(logoutModalEl);
         logoutModal.show();
       } else {
-        window.location.href = "login.html";
+        confirmLogout();
       }
+    }
+
+    function confirmLogout() {
+      sessionStorage.clear();
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("isLoggedIn");
+      localStorage.clear();
+      window.location.href = "index.html";
     }
 
     document.addEventListener("DOMContentLoaded", function () {
       const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
       if (confirmLogoutBtn) {
         confirmLogoutBtn.addEventListener("click", function () {
-          sessionStorage.clear();
-          localStorage.removeItem("loggedInUser");
-          window.location.href = "login.html";
+          confirmLogout();
         });
       }
     });
@@ -836,7 +842,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="confirmLogoutBtn" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
+          <button type="button" id="confirmLogoutBtn" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
         </div>
       </div>
     </div>
