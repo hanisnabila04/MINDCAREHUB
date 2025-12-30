@@ -23,11 +23,31 @@
   .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
   .profile-icon { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; margin: 0 auto; }
   
+  /* Mobile Responsive Sidebar */
+  @media (max-width: 768px) {
+    .sidebar { 
+      position: fixed; 
+      left: -250px; 
+      transition: left 0.3s ease; 
+      z-index: 1000; 
+      height: 100vh; 
+    }
+    .sidebar.show { left: 0; }
+    .content { margin-left: 0 !important; }
+    .sidebar-toggle-btn { display: none; }
+  }
+  
   /* Layout */
   .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
   .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 8px 20px; }
   .brand-rgb { font-weight: 800; background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rgbMove 4s ease-in-out infinite; }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+  
+  /* Mobile Navbar */
+  @media (max-width: 768px) {
+    .navbar { padding: 8px 15px; }
+    .brand-rgb { font-size: 1.1rem !important; }
+  }
   
   /* Footer */
   footer { background-color: #FFFFFF; color: #333; padding: 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; font-size: 0.9rem; }
@@ -38,6 +58,12 @@
   footer a.email-link { text-decoration: none; color: #6c757d; font-weight: bold; transition: 0.3s; display: block; margin-top: 5px; }
   footer a.email-link:hover { color: #198754; }
 
+  /* Mobile Footer */
+  @media (max-width: 768px) {
+    footer { padding: 15px 0; font-size: 0.8rem; }
+    .social-icon-btn { font-size: 1rem; margin: 0 5px; }
+  }
+
   /* Profile Utils */
   .hidden-section { display: none !important; }
   .profile-grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; margin-top: 15px; }
@@ -45,6 +71,13 @@
   .avatar-large { width: 80px; height: 80px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
   .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
   .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
+
+  /* Mobile Profile */
+  @media (max-width: 768px) {
+    .profile-grid { grid-template-columns: 1fr; gap: 15px; }
+    .profile-card { padding: 15px; }
+    .avatar-large { width: 60px; height: 60px; font-size: 1.4rem; }
+  }
 
   /* === DASHBOARD COMPACT STYLES === */
   .welcome-card { 
@@ -81,6 +114,27 @@
   }
   .circle-text { width: 100px; height: 100px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
+  /* Mobile Dashboard */
+  @media (max-width: 768px) {
+    .welcome-card { 
+      padding: 20px; 
+      background-attachment: scroll; 
+    }
+    .welcome-card h2 { font-size: 1.5rem !important; }
+    .stat-card { padding: 12px 15px; }
+    .icon-box { width: 35px; height: 35px; font-size: 1.1rem; }
+    .chart-card { padding: 12px 15px; }
+    .progress-circle { width: 100px; height: 100px; }
+    .circle-text { width: 80px; height: 80px; }
+    .circle-text h3 { font-size: 1.2rem; }
+  }
+
+  @media (max-width: 576px) {
+    .welcome-card h2 { font-size: 1.3rem !important; }
+    .stat-card h3 { font-size: 1.5rem; }
+    .chart-card h6 { font-size: 0.9rem; }
+  }
+
   /* Marquee Compact */
   .marquee-container {
     width: 100%; overflow: hidden; white-space: nowrap;
@@ -89,6 +143,11 @@
   }
   .marquee-content { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; font-weight: 500; color: #102e35; }
   @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+  /* Mobile Marquee */
+  @media (max-width: 768px) {
+    .marquee-container { font-size: 0.8rem; padding: 4px 0; }
+  }
 </style>
 
 <body onload="initDashboard()">
@@ -245,8 +304,34 @@
   <script>
     function initDashboard() { document.getElementById('yearSpan').textContent = new Date().getFullYear(); renderChart(); }
     const sidebar = document.getElementById("sidebarWrapper");
+    
+    // Desktop sidebar toggle
     document.getElementById("sidebarToggleBtn").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
-    document.getElementById("toggleSidebar").addEventListener("click", () => sidebar.classList.toggle("collapsed"));
+    
+    // Mobile sidebar toggle
+    document.getElementById("toggleSidebar").addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("show");
+      } else {
+        sidebar.classList.toggle("collapsed");
+      }
+    });
+    
+    // Close mobile sidebar when clicking outside
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 768 && sidebar.classList.contains("show") && 
+          !sidebar.contains(e.target) && !document.getElementById("toggleSidebar").contains(e.target)) {
+        sidebar.classList.remove("show");
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove("show");
+      }
+    });
+    
     document.getElementById("menuProfile").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("dashboardContent").classList.add("hidden-section"); document.getElementById("profileSection").classList.remove("hidden-section"); });
     document.getElementById("backToDashboardBtn").addEventListener("click", () => { document.getElementById("profileSection").classList.add("hidden-section"); document.getElementById("dashboardContent").classList.remove("hidden-section"); });
     document.getElementById("profileForm").addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("topUserName").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value; document.getElementById("topUserBadge").textContent = document.getElementById("firstName").value[0] + document.getElementById("lastName").value[0]; document.getElementById("profileDisplayName").textContent = document.getElementById("topUserName").textContent; document.getElementById("profileAvatarFallback").textContent = document.getElementById("topUserBadge").textContent; document.querySelector(".badge.bg-info").textContent = document.getElementById("role").value; alert("Profile Saved!"); });
