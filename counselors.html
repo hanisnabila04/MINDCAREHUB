@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Counselors - MindCareHub</title>
+  <title>Counselor Management - MindCareHub</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <style>
-  /* ========================= GENERAL ========================= */
-  body { background-color: #f8f9fa; font-family: 'Roboto', sans-serif; color: #333; }
+  /* ========================= STANDARD STYLES (MATCHING ALL PAGES) ========================= */
+  html { scroll-behavior: smooth; }
+  body { background-color: #f8f9fa; font-family: 'Roboto', sans-serif; color: #333; overflow-x: hidden; }
 
-  /* ========================= SIDEBAR ========================= */
-  .sidebar {
-    background-color: #FFFFFF; border-right: 1px solid #f1f1f1; width: 250px;
-    transition: width 0.25s ease, padding 0.25s ease; display: flex; flex-direction: column;
-    z-index: 100; position: relative; min-height: 100vh;
-  }
+  /* SIDEBAR */
+  .sidebar { background-color: #FFFFFF; border-right: 1px solid #f1f1f1; width: 250px; transition: width 0.25s ease, padding 0.25s ease; position: relative; min-height: 100vh; display: flex; flex-direction: column; z-index: 100; }
   .sidebar.collapsed { width: 60px; padding-left: 0.75rem; padding-right: 0.75rem; text-align: center; }
   .sidebar .label { display: inline-block; vertical-align: middle; margin-left: 8px; }
   .sidebar.collapsed .label { display: none; }
   .sidebar.collapsed .profile-icons { display: none; }
-  
-  .sidebar-toggle-btn {
-    position: absolute; right: -18px; top: 20px; width: 36px; height: 36px;
-    border-radius: 50%; padding: 0;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12); z-index: 20;
-  }
-
+  .sidebar-toggle-btn { position: absolute; right: -18px; top: 20px; width: 36px; height: 36px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.12); z-index: 20; }
   .profile-icons { display: flex; justify-content: center; align-items: center; }
   .profile-icons .profile-icon { width: 64px; height: 64px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f1f1; color: #333; font-size: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.08); line-height: 0; }
   .profile-icons .profile-icon:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -39,21 +28,22 @@
   .sidebar.collapsed .nav { align-items: center; }
   .sidebar.collapsed .nav-link { justify-content: center; padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
   .sidebar.collapsed .sidebar-toggle-btn { top: 12px; transform: none; right: -18px; }
-
   .sidebar .nav-link { font-weight: bold; color: #f9f8f8; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
   .sidebar .nav-link:hover { color: var(--accent); background-color: rgba(255,255,255,0.1); }
   .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
   .sidebar .nav-link i { font-size: 1.1rem; width: 28px; text-align: center; }
 
-  /* ========================= CONTENT & NAVBAR ========================= */
+  /* CONTENT & NAVBAR */
   .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
   .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
-  
-  .brand-rgb {
-    font-weight: 800;
-    background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e);
-    background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    animation: rgbMove 4s ease-in-out infinite;
+  .brand-rgb { 
+    font-weight: 800; 
+    background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); 
+    background-size: 300% 300%; 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    animation: rgbMove 4s ease-in-out infinite; 
   }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
@@ -100,6 +90,17 @@
   .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
   .btn-green:hover { background-color: #a8d697; color: #000; }
 
+  /* PROFILE SECTION */
+  .hidden-section { display: none !important; }
+  .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
+  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; border: 1px solid #f0f0f0; }
+  .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
+
+  /* Interactive Stars */
+  .star-rating { font-size: 2rem; color: #e0e0e0; cursor: pointer; transition: color 0.2s; }
+  .star-rating.active { color: #ffc107; }
+  .star-rating:hover { color: #ffdb58; }
+
   /* ========================= SETTINGS THEME SUPPORT ========================= */
   :root {
     --accent: #bddeb1;
@@ -132,13 +133,21 @@
     color: #ffffff !important;
   }
 
+  /* General Dark Mode Styles */
   body.theme-dark .navbar,
   body.theme-dark .sidebar,
   body.theme-dark .counselor-card,
-  body.theme-dark .stat-card-mini {
+  body.theme-dark .table-card {
     background-color: #111827 !important;
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.1) !important;
+  }
+
+  /* 1. STATS CARDS DARK MODE FIX (Dark Gray Background) */
+  body.theme-dark .stat-card-mini {
+    background-color: #1f2937 !important; /* Dark Gray */
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #ffffff !important;
   }
 
   body.theme-dark .sidebar {
@@ -150,24 +159,90 @@
     color: #ffffff !important;
   }
 
-  body.theme-dark .text-black,
-  body.theme-dark .text-dark,
-  body.theme-dark .text-body {
-    color: #ffffff !important;
-  }
-
-  body.theme-dark .text-black-50,
-  body.theme-dark .text-muted,
-  body.theme-dark .text-secondary {
-    color: #cbd5e1 !important;
-  }
-
   body.theme-dark input,
   body.theme-dark select,
   body.theme-dark textarea {
     background-color: #0f172a !important;
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* === FIX SEARCH BAR VISIBILITY === */
+  body.theme-dark .input-group-text {
+    background-color: #0f172a !important;
+    border-color: rgba(255,255,255,0.15) !important;
+    color: #cbd5e1 !important;
+  }
+  body.theme-dark ::placeholder {
+    color: #a0aec0 !important; 
+    opacity: 1;
+  }
+
+  /* === STRICT TEXT VISIBILITY OVERRIDES FOR DARK MODE === */
+  body.theme-dark .text-black,
+  body.theme-dark .text-dark,
+  body.theme-dark .text-body,
+  body.theme-dark h1, 
+  body.theme-dark h2, 
+  body.theme-dark h3, 
+  body.theme-dark h4, 
+  body.theme-dark h5, 
+  body.theme-dark h6,
+  body.theme-dark .fw-bold.text-dark {
+    color: #ffffff !important;
+  }
+
+  body.theme-dark .text-black-50,
+  body.theme-dark .text-muted,
+  body.theme-dark .text-secondary,
+  body.theme-dark .exp-text {
+    color: #cbd5e1 !important;
+  }
+
+  /* 2. TABLE VISIBILITY FIX (Force Dark Background on Cells) */
+  body.theme-dark td {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+  }
+  body.theme-dark th {
+    background-color: #374151 !important;
+  }
+
+  /* 3. BUTTONS FIX (.btn-light in dark mode) */
+  body.theme-dark .btn-light {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    border-color: #4b5563 !important;
+  }
+
+  /* 4. PAGINATION FIX */
+  body.theme-dark .page-link {
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+    color: #e5e7eb !important;
+  }
+  body.theme-dark .page-item.active .page-link {
+    background-color: var(--accent) !important;
+    color: #102e35 !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* 5. SPECIALIZATION BADGE FIX FOR DARK MODE */
+  body.theme-dark .badge.bg-light,
+  body.theme-dark .spec-badge {
+    background-color: #374151 !important; /* Dark Gray bg */
+    color: #ffffff !important; /* White text */
+    border-color: #4b5563 !important; /* Visible border */
+  }
+
+  /* === TOAST NOTIFICATION DARK MODE FIX === */
+  body.theme-dark .toast {
+    background-color: #1f2937 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  body.theme-dark .toast-body {
+    color: #ffffff !important;
   }
 
   /* ========================= REDUCED MOTION ========================= */
@@ -219,16 +294,12 @@
   footer a:hover { color: #198754; }
   .social-icon-btn { font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block; }
   .social-icon-btn:hover { transform: translateY(-4px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-
-  .hidden-section { display: none !important; }
-  .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
-  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; border: 1px solid #f0f0f0; }
-  .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
-
-  /* Interactive Stars */
-  .star-rating { font-size: 2rem; color: #e0e0e0; cursor: pointer; transition: color 0.2s; }
-  .star-rating.active { color: #ffc107; }
-  .star-rating:hover { color: #ffdb58; }
+  
+  body.theme-dark footer {
+    background-color: #111827 !important;
+    color: #ffffff !important;
+    border-top-color: rgba(255,255,255,0.1) !important;
+  }
 </style>
 
 <body onload="initPage()">
@@ -653,9 +724,9 @@
                       <div class="rating-box"><i class="bi bi-star-fill"></i> ${c.rating}</div>
                       <div class="small text-muted mt-2 mb-3"><i class="bi bi-clock me-1"></i> ${c.avail}</div>
                       <div class="d-flex justify-content-center gap-2">
-                         <button class="btn btn-green shadow-sm flex-grow-1" onclick="openRateModal('${c.name}')"><i class="bi bi-star"></i> Rate</button>
-                         <button class="btn btn-light border shadow-sm" onclick="openEditModal('${c.id}')"><i class="bi bi-pencil text-primary"></i></button>
-                         <button class="btn btn-light border shadow-sm" onclick="deleteCounselor('${c.id}')"><i class="bi bi-trash text-danger"></i></button>
+                          <button class="btn btn-green shadow-sm flex-grow-1" onclick="openRateModal('${c.name}')"><i class="bi bi-star"></i> Rate</button>
+                          <button class="btn btn-light border shadow-sm" onclick="openEditModal('${c.id}')"><i class="bi bi-pencil text-primary"></i></button>
+                          <button class="btn btn-light border shadow-sm" onclick="deleteCounselor('${c.id}')"><i class="bi bi-trash text-danger"></i></button>
                       </div>
                   </div>
                </div>
