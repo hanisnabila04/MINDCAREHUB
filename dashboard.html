@@ -449,8 +449,8 @@ data-bs-toggle="dropdown">
 
 <div class="row g-3 mb-3">
 <div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-0">TOTAL CLIENTS</p><h3 class="fw-bold mb-0" id="totalClientsDash">0</h3></div><div class="icon-box bg-soft-blue"><i class="bi bi-people-fill"></i></div></div></div>
-<div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-0">TODAY'S APPT</p><h3 class="fw-bold mb-0">12</h3></div><div class="icon-box bg-soft-green"><i class="bi bi-calendar-check-fill"></i></div></div></div>
-<div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-0">PENDING</p><h3 class="fw-bold mb-0">6</h3></div><div class="icon-box bg-soft-orange"><i class="bi bi-clock-history"></i></div></div></div>
+<div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-0">TODAY'S APPT</p><h3 class="fw-bold mb-0" id="statTodayAppt">0</h3></div><div class="icon-box bg-soft-green"><i class="bi bi-calendar-check-fill"></i></div></div></div>
+<div class="col-md-4"><div class="stat-card"><div><p class="text-secondary small fw-bold mb-0">PENDING</p><h3 class="fw-bold mb-0" id="statPendingAppt">0</h3></div><div class="icon-box bg-soft-orange"><i class="bi bi-clock-history"></i></div></div></div>
 </div>
 
 <div class="row g-3">
@@ -603,6 +603,17 @@ function initDashboard() {
   if(document.getElementById('completedSessions')) document.getElementById('completedSessions').innerText = completedS;
   if(document.getElementById('pendingSessions')) document.getElementById('pendingSessions').innerText = pendingS;
   if(document.getElementById('cancelledSessions')) document.getElementById('cancelledSessions').innerText = cancelledS;
+
+  // === APPOINTMENT TALLY LOGIC (ADDED FOR DASHBOARD) ===
+  const apptData = JSON.parse(localStorage.getItem('mindcare_appointments_data')) || [];
+  const today = new Date().toISOString().split('T')[0];
+  
+  // Update Appointment Stats on Dashboard
+  const todayCount = apptData.filter(a => a.date === today).length;
+  const pendingApptCount = apptData.filter(a => a.status === 'Pending').length;
+
+  if(document.getElementById('statTodayAppt')) document.getElementById('statTodayAppt').innerText = todayCount;
+  if(document.getElementById('statPendingAppt')) document.getElementById('statPendingAppt').innerText = pendingApptCount;
 
   renderChart(); 
 }
