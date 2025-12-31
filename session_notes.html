@@ -303,7 +303,7 @@
                   <tbody id="tableBody"></tbody>
                 </table>
              </div>
-             <div class="d-flex justify-content-between align-items-center p-3 bg-white border-top">
+             <div class="d-flex justify-content-between align-items-center p-2 bg-white border-top">
                 <span class="small text-secondary" id="showingText">Showing 1 to 10 entries</span>
                 <nav><ul class="pagination pagination-sm mb-0" id="paginationControls"></ul></nav>
              </div>
@@ -314,12 +314,15 @@
         <section id="profileSection" class="hidden-section mb-5">
           <h2 class="fw-bold text-dark">User Profile</h2>
           <div class="profile-grid">
-            <div class="profile-card profile-left-content">
-              <div class="d-flex align-items-center w-100 mb-4"><div class="avatar-large" id="profileAvatarFallback">HH</div><div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="badge bg-info bg-opacity-25 text-info rounded-pill">Super Admin</span></div></div>
-              <div class="d-flex gap-2 w-100"><button class="btn btn-green flex-grow-1">Change Avatar</button><button class="btn btn-outline-custom flex-grow-1" id="resetPassBtn">Reset Password</button></div>
+            <div class="profile-card d-flex flex-column align-items-center text-center">
+              <div class="avatar-large mb-3">HH</div>
+              <h4 class="fw-bold mb-0">Hanis Heidi</h4>
+              <span class="badge bg-info bg-opacity-10 text-info rounded-pill mb-3">Super Admin</span>
+              <button class="btn btn-outline-secondary w-100 mb-2">Change Avatar</button>
+              <button class="btn btn-outline-secondary w-100" id="backToMainBtn">Back</button>
             </div>
-            <div class="profile-card form-card">
-              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
+            <div class="profile-card">
+              <h5>Account Details</h5>
               <form id="profileForm">
                 <div class="row g-3 mb-3"><div class="col-md-6"><label class="form-label">First Name</label><input type="text" class="form-control" id="firstName" value="Hanis"></div><div class="col-md-6"><label class="form-label">Last Name</label><input type="text" class="form-control" id="lastName" value="Heidi"></div></div>
                 <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" id="email" value="hanis@mindcare.com"></div>
@@ -334,9 +337,9 @@
       <footer>
         <div class="container-fluid px-5">
           <div class="row align-items-center text-center text-md-start">
-            <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
-            <div class="col-md-4 mb-3 mb-md-0 text-center">
-              <div class="d-flex justify-content-center mb-2">
+            <div class="col-md-4 mb-2 mb-md-0"><h2 class="brand-rgb" style="font-size:1.5rem; margin-bottom:0;">MindCareHub</h2></div>
+            <div class="col-md-4 mb-2 mb-md-0 text-center">
+              <div class="d-flex justify-content-center mb-1">
                 <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
                 <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
@@ -345,7 +348,7 @@
               <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted small" style="text-decoration:none;">mindcarehub@gmail.com</a>
             </div>
             <div class="col-md-4 text-center text-md-end">
-              <div class="footer-links mb-2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
+              <div class="footer-links mb-1"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
               <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
             </div>
           </div>
@@ -450,7 +453,7 @@
     let clientList = JSON.parse(localStorage.getItem(KEY_CLIENTS)) || [];
     let counselorList = JSON.parse(localStorage.getItem(KEY_COUNSELORS)) || [];
 
-    // Fallback if local storage is empty (using the extended lists from other pages)
+    // Fallback if local storage is empty
     if (clientList.length === 0) {
         const distinctNames = ["Ahmad Faiz", "Li Wei", "Arul Kumar", "Nur Aisyah", "Zhang Wei", "Siti Hawa", "Rajesh Kumar", "Muhammad Amir", "Tan Li", "Devi Subramaniam", "Mohd Hafiz", "Mei Ling"];
         clientList = distinctNames.map(name => ({name: name}));
@@ -460,23 +463,48 @@
         counselorList = counselorNames.map(name => ({name: name}));
     }
 
+    // Force regeneration if data has incorrect status logic (all completed despite low progress)
+    // This runs once per session to fix the user's local storage data.
+    if (!sessionStorage.getItem('data_logic_fixed')) {
+        localStorage.removeItem(KEY_SESSIONS);
+        sessionStorage.setItem('data_logic_fixed', 'true');
+        sessionData = []; // Clear in-memory array to force regeneration below
+    }
+
     // Data Gen if Empty
-    const needsRefresh = sessionData.length === 0 || (sessionData.length > 0 && !counselorList.some(c => c.name === sessionData[0].counselor));
-    if(needsRefresh) {
-        sessionData = [];
+    if(sessionData.length === 0) {
         const tagsPool = ["Anxiety", "Career", "Family", "Trauma"];
         for(let i=0; i<85; i++) {
             const client = clientList[Math.floor(Math.random() * clientList.length)];
             const counselor = counselorList[Math.floor(Math.random() * counselorList.length)];
             const tag = tagsPool[Math.floor(Math.random() * tagsPool.length)];
+            
+            // CORRECTED LOGIC: Mix of statuses
+            let progress, status;
+            
+            const rand = Math.random();
+            if (rand > 0.4) {
+                // Completed case (60% chance)
+                progress = 100;
+                status = "Completed";
+            } else if (rand > 0.1) {
+                // Pending case (30% chance)
+                progress = Math.floor(Math.random() * 99); // 0 to 99
+                status = "Pending";
+            } else {
+                // Cancelled case (10% chance)
+                progress = 0;
+                status = "Cancelled";
+            }
+
             sessionData.push({
                 id: `S${(1000+i).toString()}`,
                 clientName: client.name,
                 counselor: counselor.name,
                 date: `2025-01-${String(Math.floor(Math.random()*28)+1).padStart(2,'0')}`,
                 type: "Follow-up",
-                status: "Completed",
-                progress: Math.floor(Math.random() * 100),
+                status: status,
+                progress: progress,
                 notes: `Session focused on ${tag.toLowerCase()}.`,
                 tags: [tag]
             });
@@ -510,7 +538,6 @@
         modalSelect.innerHTML = '';
         clientSelect.innerHTML = '';
 
-        // Sort names alphabetically for better UX
         counselorList.sort((a, b) => a.name.localeCompare(b.name));
         clientList.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -551,7 +578,10 @@
         if(totalItems === 0) { tbody.innerHTML = `<tr><td colspan="9" class="text-center py-4">No sessions found.</td></tr>`; return; }
 
         currentItems.forEach(item => {
-            const badgeClass = item.status === 'Completed' ? 'bg-success' : 'bg-warning text-dark';
+            let badgeClass = 'bg-warning text-dark';
+            if (item.status === 'Completed') badgeClass = 'bg-success text-white';
+            if (item.status === 'Cancelled') badgeClass = 'bg-danger text-white';
+
             let color = 'tag-blue';
             if(item.tags[0] === 'Anxiety') color = 'tag-purple';
 
@@ -599,7 +629,6 @@
 
     function openAddModal() {
         document.getElementById('sessionForm').reset();
-        // Set date to today by default
         document.getElementById('sDate').valueAsDate = new Date();
         new bootstrap.Modal(document.getElementById('sessionModal')).show();
     }
@@ -615,10 +644,14 @@
     document.getElementById('sessionForm').addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Generate new ID (Find Max ID + 1)
         const ids = sessionData.map(s => parseInt(s.id.substring(1)));
         const maxId = ids.length > 0 ? Math.max(...ids) : 999;
         const newId = `S${(maxId + 1).toString()}`;
+
+        // LOGIC FIX: Auto-set Status based on Progress for manual entry
+        const progressVal = parseInt(document.getElementById('sProgress').value);
+        let statusVal = "Pending";
+        if (progressVal === 100) statusVal = "Completed";
 
         const newSession = {
             id: newId,
@@ -628,14 +661,11 @@
             type: document.getElementById('sType').value,
             notes: document.getElementById('sNotes').value,
             tags: [document.getElementById('sTags').value || "General"],
-            progress: document.getElementById('sProgress').value,
-            status: "Pending" 
+            progress: progressVal,
+            status: statusVal 
         };
         
-        // Add new session to top of list
         sessionData.push(newSession);
-        
-        // Sort by Date Descending (Newest First) so it appears at top
         sessionData.sort((a,b) => new Date(b.date) - new Date(a.date));
         
         localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
@@ -733,4 +763,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
