@@ -492,10 +492,11 @@
     let clientList = JSON.parse(localStorage.getItem(KEY_CLIENTS)) || [];
     let counselorList = JSON.parse(localStorage.getItem(KEY_COUNSELORS)) || [];
 
-    // UPDATED CLIENT LIST LOGIC HERE
+    // === UPDATED CLIENT LIST HERE (FULL LIST FROM CLIENTS.HTML) ===
     if(clientList.length === 0) {
-        const clientNames = ["Nur Aina", "Jason Lim", "Siti Mariam", "Daniel Wong", "Amira Sofea", "Kelvin Tan", "Ali Khairul", "Rachel Tan", "Amirul Hakim", "Hana Rafiq", "John Lim", "Wei Li", "Cindy Lim", "Khairul Raziq", "Zainab Shah"];
-        clientList = clientNames.map(name => ({name: name}));
+        const fullClientNames = ["Nur Aina", "Jason Lim", "Siti Mariam", "Daniel Wong", "Amira Sofea", "Kelvin Tan", "Ali Khairul", "Rachel Tan", "Amirul Hakim", "Hana Rafiq", "John Lim", "Wei Li", "Cindy Lim", "Khairul Raziq", "Zainab Shah"];
+        // Convert array of strings to array of objects {name: "..."}
+        clientList = fullClientNames.map(n => ({name: n}));
     }
     
     if(counselorList.length === 0) counselorList = [{name:"Dr. Farah Ahmad"}, {name:"Mr. Hafiz Rahman"}, {name:"Ms. Priya Nair"}];
@@ -850,4 +851,4 @@
     </div>
   </div>
 </body>
-</html> 
+</html>
