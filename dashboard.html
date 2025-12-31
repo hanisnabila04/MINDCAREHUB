@@ -444,9 +444,9 @@ data-bs-toggle="dropdown">
 <a href="session_notes.html" class="btn btn-outline-secondary btn-sm">View Notes</a>
 </div>
 <div class="row g-2 mb-3">
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-primary mb-0" id="totalSessions">85</h5><p class="small text-muted mb-0">Total Sessions</p></div></div>
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-success mb-0" id="completedSessions">68</h5><p class="small text-muted mb-0">Completed</p></div></div>
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-warning mb-0" id="pendingSessions">17</h5><p class="small text-muted mb-0">Pending</p></div></div>
+<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-primary mb-0" id="totalSessions">0</h5><p class="small text-muted mb-0">Total Sessions</p></div></div>
+<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-success mb-0" id="completedSessions">0</h5><p class="small text-muted mb-0">Completed</p></div></div>
+<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-warning mb-0" id="pendingSessions">0</h5><p class="small text-muted mb-0">Pending</p></div></div>
 </div>
 <div class="small text-muted">Common Tags: <span class="badge bg-primary bg-opacity-25 text-primary me-1">Anxiety</span><span class="badge bg-info bg-opacity-25 text-info me-1">Career</span><span class="badge bg-secondary bg-opacity-25 text-secondary">Family</span></div>
 </div>
@@ -528,19 +528,25 @@ Change Avatar
 function initDashboard() { 
   document.getElementById('yearSpan').textContent = new Date().getFullYear(); 
   
-  // === TALLY LOGIC FOR DASHBOARD ===
-  // 1. Get client data from Local Storage (same key as clients.html)
+  // === CLIENT TALLY LOGIC ===
   const clientData = JSON.parse(localStorage.getItem('mindcare_clients_data')) || [];
-  
-  // 2. Count Total, Active, and Inactive
   const total = clientData.length;
   const active = clientData.filter(c => c.status === 'Active').length;
   const inactive = clientData.filter(c => c.status === 'Inactive').length;
 
-  // 3. Update the Dashboard HTML elements
-  document.getElementById('totalClientsDash').innerText = total;
-  document.getElementById('activeClients').innerText = active;
-  document.getElementById('inactiveClients').innerText = inactive;
+  if(document.getElementById('totalClientsDash')) document.getElementById('totalClientsDash').innerText = total;
+  if(document.getElementById('activeClients')) document.getElementById('activeClients').innerText = active;
+  if(document.getElementById('inactiveClients')) document.getElementById('inactiveClients').innerText = inactive;
+
+  // === SESSION NOTES TALLY LOGIC (ADDED) ===
+  const sessionData = JSON.parse(localStorage.getItem('mindcare_sessions_data')) || [];
+  const totalS = sessionData.length;
+  const completedS = sessionData.filter(s => s.status === 'Completed').length;
+  const pendingS = sessionData.filter(s => s.status === 'Pending').length;
+
+  if(document.getElementById('totalSessions')) document.getElementById('totalSessions').innerText = totalS;
+  if(document.getElementById('completedSessions')) document.getElementById('completedSessions').innerText = completedS;
+  if(document.getElementById('pendingSessions')) document.getElementById('pendingSessions').innerText = pendingS;
 
   renderChart(); 
 }
@@ -594,7 +600,7 @@ document.getElementById("displayRole").textContent = role;
 alert("Profile Saved!");
 });
 
-//  Avatar input functionality
+// Avatar input functionality
 document.getElementById("avatarInput").addEventListener("change", function () {
 const file = this.files[0];
 if (!file) return;
