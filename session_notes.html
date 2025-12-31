@@ -10,67 +10,55 @@
 </head>
 
 <style>
-  /* ========================= STANDARD STYLES (LIGHT MODE DEFAULT) ========================= */
+  /* ========================= STANDARD STYLES (MATCHING ALL PAGES) ========================= */
   html { scroll-behavior: smooth; }
-  body { background-color: #f8f9fa; font-family: 'Roboto', sans-serif; color: #333; overflow-x: hidden; font-size: 0.9rem; transition: background-color 0.3s, color 0.3s; }
+  body { background-color: #f8f9fa; font-family: 'Roboto', sans-serif; color: #333; overflow-x: hidden; }
 
-  /* SIDEBAR (Light Mode = Dark Teal) */
-  .sidebar { 
-    background-color: #102e35; 
-    width: 250px; 
-    min-height: 100vh; 
-    transition: width 0.25s ease, background-color 0.3s; 
-    display: flex; flex-direction: column; z-index: 100; position: relative; 
-  }
-  .sidebar.collapsed { width: 60px; padding: 0 10px; text-align: center; }
-  .sidebar.collapsed .label, .sidebar.collapsed .text-center, .sidebar.collapsed .profile-icons, .sidebar.collapsed .nav-header { display: none !important; }
+  /* SIDEBAR */
+  .sidebar { background-color: #FFFFFF; border-right: 1px solid #f1f1f1; width: 250px; transition: width 0.25s ease, padding 0.25s ease; position: relative; min-height: 100vh; display: flex; flex-direction: column; z-index: 100; }
+  .sidebar.collapsed { width: 60px; padding-left: 0.75rem; padding-right: 0.75rem; text-align: center; }
+  .sidebar .label { display: inline-block; vertical-align: middle; margin-left: 8px; }
+  .sidebar.collapsed .label { display: none; }
+  .sidebar.collapsed .profile-icons { display: none; }
   
-  .sidebar-toggle-btn { 
-    position: absolute; right: -15px; top: 20px; width: 30px; height: 30px; border-radius: 50%; 
-    background: white; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; 
-    cursor: pointer; z-index: 101; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #333;
-  }
+  .sidebar-toggle-btn { position: absolute; right: -18px; top: 20px; width: 36px; height: 36px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.12); z-index: 20; }
 
-  .sidebar .nav-link { color: #b0c4c9; font-weight: 500; padding: 10px 15px; margin-bottom: 4px; border-radius: 6px; }
-  .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+  .profile-icons { display: flex; justify-content: center; align-items: center; }
+  .profile-icons .profile-icon { width: 64px; height: 64px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #f1f1f1; color: #333; font-size: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.08); line-height: 0; }
+  .profile-icons .profile-icon:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sidebar.collapsed .text-center h6, .sidebar.collapsed .text-center h5, .sidebar.collapsed .text-secondary { display: none; }
+  .sidebar.collapsed .nav { align-items: center; }
+  .sidebar.collapsed .nav-link { justify-content: center; padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+  .sidebar.collapsed .sidebar-toggle-btn { top: 12px; transform: none; right: -18px; }
+
+  .sidebar .nav-link { font-weight: bold; color: #f9f8f8; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
+  .sidebar .nav-link:hover { color: var(--accent); background-color: rgba(255,255,255,0.1); }
   .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
-  .profile-icon { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; margin: 0 auto; }
-
-  /* Nav Header Text */
-  .sidebar .nav-header { color: #6c757d !important; padding-left: 10px; }
-  .sidebar h6 { color: rgba(255,255,255,0.5) !important; }
-  .sidebar h5 { color: white !important; }
+  .sidebar .nav-link i { font-size: 1.1rem; width: 28px; text-align: center; }
 
   /* CONTENT & NAVBAR */
-  .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; transition: background-color 0.3s; }
-  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 8px 20px; transition: background-color 0.3s, border-color 0.3s; }
-  .brand-rgb { font-weight: 800; background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rgbMove 4s ease-in-out infinite; font-size: 1.25rem; }
+  .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
+  .navbar { background-color: #FFFFFF; border-bottom: 1px solid #e0e0e0; padding: 10px 20px; }
+  .brand-rgb { font-weight: 800; background: linear-gradient(90deg, #22c55e, #10b981, #3b82f6, #f59e0b, #f43f5e, #22c55e); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rgbMove 4s ease-in-out infinite; }
   @keyframes rgbMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
   /* FOOTER */
-  footer { background-color: #FFFFFF; color: #333; padding: 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; font-size: 0.85rem; transition: background-color 0.3s; }
+  footer { background-color: #FFFFFF; color: #333; padding: 40px 0 20px 0; margin-top: auto; border-top: 1px solid #e0e0e0; }
   footer a:hover { color: #198754; }
-  .social-icon-btn { font-size: 1.2rem; margin: 0 8px; color: #444; transition: all 0.3s ease; display: inline-block; }
-  .social-icon-btn:hover { transform: translateY(-2px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  .footer-links a { margin: 0 8px; font-weight: 500; text-decoration: none; color: #555; }
+  .social-icon-btn { font-size: 1.5rem; margin: 0 12px; color: #444; transition: all 0.3s ease; display: inline-block; }
+  .social-icon-btn:hover { transform: translateY(-4px); background: linear-gradient(90deg, #22c55e, #3b82f6, #f43f5e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
   /* UTILS */
   .hidden-section { display: none !important; }
-  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; padding: 4px 12px; font-size: 0.9rem; }
-  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; font-size: 0.9rem; }
+  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
+  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
   
   /* PROFILE SECTION */
-  .profile-grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; margin-top: 15px; }
-  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; height: 100%; transition: background-color 0.3s; }
-  .avatar-large { width: 80px; height: 80px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 1.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
+  .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; height: 100%; }
+  .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
 
   /* === SESSION NOTE SPECIFIC STYLES === */
-  .stat-card-mini { background: white; border-radius: 10px; padding: 12px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s, transform 0.2s; }
-  .stat-card-mini:hover { transform: translateY(-3px); }
-  .stat-card-mini h2 { font-size: 1.4rem; margin-bottom: 0; }
-  .stat-card-mini p { font-size: 0.75rem; margin-bottom: 0; }
-  .icon-square { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-  
   /* Carousel Cards */
   .highlight-card { 
     background: white; border-radius: 12px; padding: 15px; 
@@ -80,15 +68,11 @@
   .highlight-card:hover { transform: translateY(-3px); border-color: #bddeb1; }
   .h-icon { width: 35px; height: 35px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 10px; }
   
-  .carousel-control-prev, .carousel-control-next { width: 30px; height: 30px; background-color: #102e35; border-radius: 50%; top: 50%; transform: translateY(-50%); opacity: 0.8; }
-  .carousel-control-prev { left: -15px; } 
-  .carousel-control-next { right: -15px; }
-
   /* Table */
-  .table-card { background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; transition: background-color 0.3s; }
+  .table-card { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); overflow: hidden; }
   table { width: 100%; border-collapse: separate; border-spacing: 0; }
-  th { background-color: #bddeb1; color: #102e35; padding: 10px 12px; font-weight: 800; border:none; font-size: 0.85rem; }
-  td { background-color: #FFFFFF; padding: 8px 12px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; font-size: 0.85rem; transition: background-color 0.3s; }
+  th { background-color: #bddeb1; color: #102e35; padding: 15px; font-weight: 800; border:none; font-size: 0.85rem; }
+  td { background-color: #FFFFFF; padding: 15px; border-bottom: 1px solid #f1f1f1; vertical-align: middle; font-size: 0.85rem; }
   
   .counselor-pill { display: flex; align-items: center; gap: 8px; }
   .c-avatar-small { width: 28px; height: 28px; border-radius: 50%; background: #e0f2f1; color: #00695c; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
@@ -115,74 +99,21 @@
   .profile-icons .profile-icon:focus { outline-color: var(--accent) !important; }
   body { font-size: var(--base-font-size); }
 
-  /* ========================= DARK MODE FIXES (ROBUST) ========================= */
-  
-  /* 1. Base Dark Theme */
-  body.theme-dark { background-color: #0b1220 !important; color: #f3f4f6 !important; }
-
-  /* 2. Container Overrides */
-  body.theme-dark .navbar,
-  body.theme-dark .sidebar,
-  body.theme-dark .profile-card,
-  body.theme-dark .stat-card-mini,
-  body.theme-dark .highlight-card,
-  body.theme-dark .table-card,
-  body.theme-dark footer {
-    background-color: #1f2937 !important; /* Dark Gray */
-    color: #ffffff !important;
-    border-color: rgba(255,255,255,0.1) !important;
+  /* ========================= DARK MODE FIXES ========================= */
+  body.theme-dark { background-color: #0b1220 !important; color: #ffffff !important; }
+  body.theme-dark .navbar, body.theme-dark .sidebar, body.theme-dark .profile-card, body.theme-dark .highlight-card, body.theme-dark .table-card, body.theme-dark footer {
+    background-color: #111827 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.1) !important;
   }
-
-  /* 3. Sidebar in Dark Mode (Changes from Teal to Dark Gray) */
-  body.theme-dark .sidebar { background-color: #111827 !important; border-right-color: rgba(255,255,255,0.1) !important; }
-  body.theme-dark .sidebar .nav-link { color: #d1d5db !important; }
-  body.theme-dark .sidebar .nav-link:hover { background-color: rgba(255,255,255,0.1) !important; color: #fff !important; }
-  body.theme-dark .sidebar .nav-link.active { background-color: var(--accent) !important; color: #102e35 !important; }
-  body.theme-dark .sidebar-toggle-btn { background-color: #374151; border-color: rgba(255,255,255,0.1); color: white; }
+  body.theme-dark .sidebar { border-right-color: rgba(255,255,255,0.1) !important; }
   body.theme-dark .profile-icons .profile-icon { background: #374151 !important; color: #ffffff !important; }
-  body.theme-dark .sidebar h6 { color: #9ca3af !important; }
-  body.theme-dark .sidebar h5 { color: #ffffff !important; }
-
-  /* 4. Text Color Inversions */
-  body.theme-dark .text-dark, 
-  body.theme-dark .fw-bold.text-dark,
-  body.theme-dark .text-black, 
-  body.theme-dark h6.fw-bold,
-  body.theme-dark p.small.text-muted { color: #ffffff !important; }
-  
-  body.theme-dark .text-secondary, 
-  body.theme-dark .text-muted, 
-  body.theme-dark .small.text-muted.mb-0,
-  body.theme-dark small { color: #9ca3af !important; }
-
-  /* 5. Table Fixes */
-  body.theme-dark table th { background-color: #374151 !important; color: #ffffff !important; }
-  body.theme-dark table td { background-color: #1f2937 !important; color: #e5e7eb !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
-  
-  /* 6. Button & Input Fixes */
-  body.theme-dark .btn-light { background-color: #374151 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.2) !important; }
-  body.theme-dark .view-btn { background-color: #1f2937; color: #d1d5db; border-color: rgba(255,255,255,0.2); }
-  
-  body.theme-dark input, body.theme-dark select, body.theme-dark textarea, body.theme-dark .input-group-text {
-    background-color: #111827 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important;
+  body.theme-dark .text-black, body.theme-dark .text-dark, body.theme-dark .text-body { color: #ffffff !important; }
+  body.theme-dark .text-black-50, body.theme-dark .text-muted, body.theme-dark .text-secondary { color: #cbd5e1 !important; }
+  body.theme-dark input, body.theme-dark select, body.theme-dark textarea {
+    background-color: #0f172a !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important;
   }
-  body.theme-dark ::placeholder { color: #6b7280 !important; }
-  
-  /* 7. Dropdown & Modal Fixes */
-  body.theme-dark .dropdown-menu { background-color: #1f2937 !important; border-color: rgba(255,255,255,0.1); }
-  body.theme-dark .dropdown-item { color: #e2e8f0 !important; }
-  body.theme-dark .dropdown-item:hover { background-color: rgba(255,255,255,0.1) !important; }
-  body.theme-dark .modal-content { background-color: #1f2937 !important; color: white !important; border: 1px solid rgba(255,255,255,0.1); }
-  body.theme-dark .modal-header { border-bottom-color: rgba(255,255,255,0.1) !important; }
-  body.theme-dark .btn-close { filter: invert(1); }
-  
-  /* 8. Badge Fixes */
-  body.theme-dark .badge.bg-light.text-dark { background-color: #374151 !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
-  body.theme-dark .tag-blue { background-color: rgba(2, 132, 199, 0.2); color: #38bdf8; }
-  body.theme-dark .tag-purple { background-color: rgba(126, 34, 206, 0.2); color: #c084fc; }
-  body.theme-dark .tag-orange { background-color: rgba(194, 65, 12, 0.2); color: #fb923c; }
-
-  body.theme-dark footer { border-top-color: rgba(255,255,255,0.1) !important; }
+  body.theme-dark th { background-color: #374151 !important; }
+  body.theme-dark .modal-content { background-color: #f7f8f9 !important; color: #ffffff !important; }
+  body.theme-dark .modal-header { background-color: var(--accent) !important; color: #ffffff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
   body.reduce-motion * { transition: none !important; animation: none !important; }
 </style>
 
@@ -191,32 +122,82 @@
   <div class="d-flex">
     
     <div id="sidebarWrapper" class="sidebar p-3">
-      <button id="sidebarToggleBtn" class="sidebar-toggle-btn"><i id="sidebarToggleIcon" class="bi bi-list"></i></button>
-      <div class="profile-icons d-flex justify-content-center mb-3"><div class="profile-icon"><i class="bi bi-person-circle"></i></div></div>
-      <div class="text-center mb-3"><h6 class="text-white-50 mb-0 small">WELCOME</h6><h5 class="text-white fw-bold">ADMIN</h5></div>
-      <p class="text-secondary small mt-2 fw-bold nav-header" style="padding-left: 10px; font-size:0.75rem;">NAVIGATION</p>
+      <button id="sidebarToggleBtn" class="btn btn-light sidebar-toggle-btn" aria-label="Toggle sidebar menu">
+        <i id="sidebarToggleIcon" class="bi bi-list"></i>
+      </button>
+
+      <div class="profile-icons d-flex justify-content-center mb-3">
+        <button class="profile-icon btn p-0" aria-label="User profile" title="User profile">
+          <i class="bi bi-person-circle"></i>
+        </button>
+      </div>
+
+      <div class="text-center mb-4">
+        <h6 class="text-white mb-0">WELCOME</h6>
+        <h5 class="text-white fw-bold">ADMIN</h5>
+      </div>
+
+      <p class="text-secondary small mt-4">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i><span class="label">Dashboard</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="appointments.html"><i class="bi bi-calendar-check me-2"></i><span class="label">Appointments</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="clients.html"><i class="bi bi-people me-2"></i><span class="label">Clients</span></a></li>
-        <li class="nav-item"><a class="nav-link d-flex align-items-center" href="counselors.html"><i class="bi bi-person-badge me-2"></i><span class="label">Counselors</span></a></li>
-        <li class="nav-item"><a class="nav-link active d-flex align-items-center" href="session_notes.html"><i class="bi bi-file-earmark-text me-2"></i><span class="label">Session Notes</span></a></li>
-        <li class="nav-item mt-3"><a class="nav-link text-danger d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#logoutConfirmModal"><i class="bi bi-box-arrow-right me-2"></i><span class="label">Logout</span></a></li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-speedometer2"></i>
+            <span class="label">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="appointments.html">
+            <i class="bi bi-calendar-check"></i>
+            <span class="label">Appointments</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="clients.html">
+            <i class="bi bi-people"></i>
+            <span class="label">Clients</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="counselors.html">
+            <i class="bi bi-person-badge"></i>
+            <span class="label">Counselors</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active d-flex align-items-center" href="session_notes.html">
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="label">Session Notes</span>
+          </a>
+        </li>
+        <li class="nav-item mt-4">
+          <a class="nav-link text-danger d-flex align-items-center" href="#" onclick="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="label">Logout</span>
+          </a>
+        </li>
       </ul>
     </div>
 
     <div class="content flex-grow-1">
 
-      <nav class="navbar navbar-expand-lg">
-        <button class="btn btn-outline-secondary d-lg-none me-2" id="toggleSidebar"><i class="bi bi-list"></i></button>
-        <a class="navbar-brand brand-rgb fs-5" href="#">MINDCAREHUB</a>
+      <nav class="navbar navbar-expand-lg navbar-dark top-navbar px-4">
+        <button class="btn btn-outline-light d-lg-none me-2" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <a class="navbar-brand fw-bold brand-rgb" href="#">MINDCAREHUB</a>
+
         <div class="ms-auto d-flex align-items-center gap-3">
+          <span class="text-black small d-none d-md-block"></span>
+
           <div class="dropdown">
-            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border-0 bg-transparent" href="#" role="button" data-bs-toggle="dropdown">
-              <span class="badge rounded-circle bg-primary text-white p-2" id="topUserBadge">HH</span>
-              <span class="fw-bold text-dark small" id="topUserName">Hanis Heidi</span>
+            <a class="btn btn-light dropdown-toggle d-flex align-items-center gap-2" href="#" role="button"
+              data-bs-toggle="dropdown">
+              <span class="user-badge" id="topUserBadge">HH</span>
+              <span class="fw-semibold" id="topUserName">Hanis Heidi</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+
+            <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#" id="menuProfile"><i class="bi bi-person me-2"></i> Profile</a></li>
               <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i> Settings</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -226,7 +207,7 @@
         </div>
       </nav>
 
-      <div class="container-fluid p-3 flex-grow-1">
+      <div class="container-fluid p-4 flex-grow-1">
 
         <div id="mainContent">
           
@@ -322,7 +303,7 @@
                   <tbody id="tableBody"></tbody>
                 </table>
              </div>
-             <div class="d-flex justify-content-between align-items-center p-2 bg-white border-top">
+             <div class="d-flex justify-content-between align-items-center p-3 bg-white border-top">
                 <span class="small text-secondary" id="showingText">Showing 1 to 10 entries</span>
                 <nav><ul class="pagination pagination-sm mb-0" id="paginationControls"></ul></nav>
              </div>
@@ -333,15 +314,12 @@
         <section id="profileSection" class="hidden-section mb-5">
           <h2 class="fw-bold text-dark">User Profile</h2>
           <div class="profile-grid">
-            <div class="profile-card d-flex flex-column align-items-center text-center">
-              <div class="avatar-large mb-3">HH</div>
-              <h4 class="fw-bold mb-0">Hanis Heidi</h4>
-              <span class="badge bg-info bg-opacity-10 text-info rounded-pill mb-3">Super Admin</span>
-              <button class="btn btn-outline-secondary w-100 mb-2">Change Avatar</button>
-              <button class="btn btn-outline-secondary w-100" id="backToMainBtn">Back</button>
+            <div class="profile-card profile-left-content">
+              <div class="d-flex align-items-center w-100 mb-4"><div class="avatar-large" id="profileAvatarFallback">HH</div><div class="ms-3 text-start"><h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4><span class="badge bg-info bg-opacity-25 text-info rounded-pill">Super Admin</span></div></div>
+              <div class="d-flex gap-2 w-100"><button class="btn btn-green flex-grow-1">Change Avatar</button><button class="btn btn-outline-custom flex-grow-1" id="resetPassBtn">Reset Password</button></div>
             </div>
-            <div class="profile-card">
-              <h5>Account Details</h5>
+            <div class="profile-card form-card">
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
                 <div class="row g-3 mb-3"><div class="col-md-6"><label class="form-label">First Name</label><input type="text" class="form-control" id="firstName" value="Hanis"></div><div class="col-md-6"><label class="form-label">Last Name</label><input type="text" class="form-control" id="lastName" value="Heidi"></div></div>
                 <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" id="email" value="hanis@mindcare.com"></div>
@@ -356,9 +334,9 @@
       <footer>
         <div class="container-fluid px-5">
           <div class="row align-items-center text-center text-md-start">
-            <div class="col-md-4 mb-2 mb-md-0"><h2 class="brand-rgb" style="font-size:1.5rem; margin-bottom:0;">MindCareHub</h2></div>
-            <div class="col-md-4 mb-2 mb-md-0 text-center">
-              <div class="d-flex justify-content-center mb-1">
+            <div class="col-md-4 mb-3 mb-md-0"><h2 class="brand-rgb">MindCareHub</h2></div>
+            <div class="col-md-4 mb-3 mb-md-0 text-center">
+              <div class="d-flex justify-content-center mb-2">
                 <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a> 
                 <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
@@ -367,7 +345,7 @@
               <a href="mailto:mindcarehub@gmail.com" class="fw-bold text-muted small" style="text-decoration:none;">mindcarehub@gmail.com</a>
             </div>
             <div class="col-md-4 text-center text-md-end">
-              <div class="footer-links mb-1"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
+              <div class="footer-links mb-2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Help</a></div>
               <p class="mb-0 small text-muted">&copy; <span id="yearSpan"></span> MindCareHub. All rights reserved.</p>
             </div>
           </div>
@@ -432,15 +410,32 @@
     </div>
   </div>
 
-  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" style="background-color:var(--accent);">
           <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body"><p>Are you sure want to logout?</p></div>
-        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button type="button" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button></div>
+        <div class="modal-body">
+          <p>Are you sure want to logout and return to the login page?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="confirmLogoutBtn" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header" style="background-color: #bddeb1; color: #102e35;">
+        <strong class="me-auto">Notification</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="toastMessage">
+        Action successful.
       </div>
     </div>
   </div>
@@ -455,8 +450,15 @@
     let clientList = JSON.parse(localStorage.getItem(KEY_CLIENTS)) || [];
     let counselorList = JSON.parse(localStorage.getItem(KEY_COUNSELORS)) || [];
 
-    if (clientList.length === 0) clientList = [{name: "Nur Aina"}]; 
-    if (counselorList.length === 0) counselorList = [{name: "Dr. Farah Ahmad"}];
+    // Fallback if local storage is empty (using the extended lists from other pages)
+    if (clientList.length === 0) {
+        const distinctNames = ["Ahmad Faiz", "Li Wei", "Arul Kumar", "Nur Aisyah", "Zhang Wei", "Siti Hawa", "Rajesh Kumar", "Muhammad Amir", "Tan Li", "Devi Subramaniam", "Mohd Hafiz", "Mei Ling"];
+        clientList = distinctNames.map(name => ({name: name}));
+    }
+    if (counselorList.length === 0) {
+        const counselorNames = ["Dr. Farah Ahmad", "Mr. Hafiz Rahman", "Ms. Priya Nair", "Mr. Tan Wei Ming", "Ms. Sarah Lee"];
+        counselorList = counselorNames.map(name => ({name: name}));
+    }
 
     // Data Gen if Empty
     const needsRefresh = sessionData.length === 0 || (sessionData.length > 0 && !counselorList.some(c => c.name === sessionData[0].counselor));
@@ -479,6 +481,7 @@
                 tags: [tag]
             });
         }
+        // Initial Sort by Date
         sessionData.sort((a,b) => new Date(b.date) - new Date(a.date));
         localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
     }
@@ -506,6 +509,10 @@
         filterSelect.innerHTML = '<option value="All">All Counselors</option>';
         modalSelect.innerHTML = '';
         clientSelect.innerHTML = '';
+
+        // Sort names alphabetically for better UX
+        counselorList.sort((a, b) => a.name.localeCompare(b.name));
+        clientList.sort((a, b) => a.name.localeCompare(b.name));
 
         counselorList.forEach(c => {
             filterSelect.innerHTML += `<option value="${c.name}">${c.name}</option>`;
@@ -569,7 +576,7 @@
                 </td>
             </tr>`;
         });
-        document.getElementById("showingText").innerText = `Showing ${startIndex + 1} to ${Math.min(startIndex + itemsPerPage, totalItems)} entries`;
+        document.getElementById("showingText").innerText = `Showing ${startIndex + 1} to ${Math.min(startIndex + itemsPerPage, totalItems)} of ${totalItems} entries`;
         renderPagination(totalPages);
     }
 
@@ -592,13 +599,29 @@
 
     function openAddModal() {
         document.getElementById('sessionForm').reset();
+        // Set date to today by default
+        document.getElementById('sDate').valueAsDate = new Date();
         new bootstrap.Modal(document.getElementById('sessionModal')).show();
+    }
+
+    // === TOAST HELPER ===
+    function showToast(message) {
+        document.getElementById('toastMessage').innerText = message;
+        const toastEl = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
     }
 
     document.getElementById('sessionForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        // Generate new ID (Find Max ID + 1)
+        const ids = sessionData.map(s => parseInt(s.id.substring(1)));
+        const maxId = ids.length > 0 ? Math.max(...ids) : 999;
+        const newId = `S${(maxId + 1).toString()}`;
+
         const newSession = {
-            id: `S${Date.now().toString().slice(-4)}`,
+            id: newId,
             clientName: document.getElementById('sClient').value,
             counselor: document.getElementById('sCounselor').value,
             date: document.getElementById('sDate').value,
@@ -608,10 +631,17 @@
             progress: document.getElementById('sProgress').value,
             status: "Pending" 
         };
-        sessionData.unshift(newSession);
+        
+        // Add new session to top of list
+        sessionData.push(newSession);
+        
+        // Sort by Date Descending (Newest First) so it appears at top
+        sessionData.sort((a,b) => new Date(b.date) - new Date(a.date));
+        
         localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
         handleSearch();
         bootstrap.Modal.getInstance(document.getElementById('sessionModal')).hide();
+        showToast("Session note added successfully.");
     });
 
     function deleteSession(id) {
@@ -619,6 +649,7 @@
             sessionData = sessionData.filter(s => s.id !== id);
             localStorage.setItem(KEY_SESSIONS, JSON.stringify(sessionData));
             handleSearch();
+            showToast("Session note deleted.");
         }
     }
 
@@ -687,9 +718,19 @@
       sessionStorage.clear();
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("isLoggedIn");
-      localStorage.clear();
-      window.location.href = "login.html";
+      // REMOVED localStorage.clear() so data persists
+      window.location.href = "index.html";
     }
+    
+    // Add logout modal functionality
+    document.addEventListener("DOMContentLoaded", function () {
+      const confirmLogoutBtn = document.getElementById("confirmLogoutBtn");
+      if (confirmLogoutBtn) {
+        confirmLogoutBtn.addEventListener("click", function () {
+          confirmLogout();
+        });
+      }
+    });
   </script>
 </body>
 </html>
