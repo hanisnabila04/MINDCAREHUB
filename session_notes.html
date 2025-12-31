@@ -101,17 +101,68 @@
 
   /* ========================= DARK MODE FIXES ========================= */
   body.theme-dark { background-color: #0b1220 !important; color: #ffffff !important; }
-  body.theme-dark .navbar, body.theme-dark .sidebar, body.theme-dark .profile-card, body.theme-dark .highlight-card, body.theme-dark .table-card, body.theme-dark footer {
+  
+  body.theme-dark .navbar, 
+  body.theme-dark .sidebar, 
+  body.theme-dark .profile-card, 
+  body.theme-dark .table-card, 
+  body.theme-dark footer {
     background-color: #111827 !important; color: #ffffff !important; border-color: rgba(255,255,255,0.1) !important;
   }
+
+  /* 1. CAROUSEL CARD FIX */
+  body.theme-dark .highlight-card {
+    background-color: #1f2937 !important; /* Dark Gray */
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+
   body.theme-dark .sidebar { border-right-color: rgba(255,255,255,0.1) !important; }
   body.theme-dark .profile-icons .profile-icon { background: #374151 !important; color: #ffffff !important; }
+  
+  /* 2. TEXT CONTRAST FIXES */
   body.theme-dark .text-black, body.theme-dark .text-dark, body.theme-dark .text-body { color: #ffffff !important; }
   body.theme-dark .text-black-50, body.theme-dark .text-muted, body.theme-dark .text-secondary { color: #cbd5e1 !important; }
+  
+  /* 3. FIX SEARCH BAR VISIBILITY */
   body.theme-dark input, body.theme-dark select, body.theme-dark textarea {
     background-color: #0f172a !important; color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important;
   }
+  body.theme-dark ::placeholder {
+    color: #a0aec0 !important; 
+  }
+  
   body.theme-dark th { background-color: #374151 !important; }
+  
+  /* 4. TABLE VISIBILITY FIX */
+  body.theme-dark td {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+  }
+  
+  /* 5. FIX TYPE TEXT VISIBILITY */
+  body.theme-dark .badge.bg-light {
+      color: #212529 !important;
+  }
+
+  /* 6. BUTTONS FIX */
+  body.theme-dark .view-btn, 
+  body.theme-dark .btn-outline-secondary {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    border-color: #4b5563 !important;
+  }
+
+  /* 7. TOAST NOTIFICATION FIX */
+  body.theme-dark .toast {
+    background-color: #1f2937 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  body.theme-dark .toast-body {
+    color: #ffffff !important;
+  }
+
   body.theme-dark .modal-content { background-color: #f7f8f9 !important; color: #ffffff !important; }
   body.theme-dark .modal-header { background-color: var(--accent) !important; color: #ffffff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
   body.reduce-motion * { transition: none !important; animation: none !important; }
@@ -397,16 +448,16 @@
         <div class="modal-body">
            <ul class="nav nav-tabs mb-3"><li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-overview">Overview</a></li><li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-notes">Detailed Notes</a></li></ul>
            <div class="tab-content">
-              <div class="tab-pane fade show active" id="tab-overview">
-                  <p><strong>Client:</strong> <span id="vClient"></span></p>
-                  <p><strong>Counselor:</strong> <span id="vCounselor"></span></p>
-                  <p><strong>Date:</strong> <span id="vDate"></span></p>
-                  <p><strong>Status:</strong> <span id="vStatus"></span></p>
-                  <div class="progress" style="height:10px;"><div class="progress-bar bg-success" id="vProgBar" style="width:0%"></div></div>
-              </div>
-              <div class="tab-pane fade" id="tab-notes">
-                  <h6 class="fw-bold">Summary</h6><p class="text-muted" id="vNotesText"></p>
-              </div>
+             <div class="tab-pane fade show active" id="tab-overview">
+                 <p><strong>Client:</strong> <span id="vClient"></span></p>
+                 <p><strong>Counselor:</strong> <span id="vCounselor"></span></p>
+                 <p><strong>Date:</strong> <span id="vDate"></span></p>
+                 <p><strong>Status:</strong> <span id="vStatus"></span></p>
+                 <div class="progress" style="height:10px;"><div class="progress-bar bg-success" id="vProgBar" style="width:0%"></div></div>
+             </div>
+             <div class="tab-pane fade" id="tab-notes">
+                 <h6 class="fw-bold">Summary</h6><p class="text-muted" id="vNotesText"></p>
+             </div>
            </div>
         </div>
       </div>
@@ -763,4 +814,4 @@
     });
   </script>
 </body>
-</html> 
+</html>
