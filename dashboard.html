@@ -236,12 +236,14 @@ body.theme-dark .stat-card h3 {
 color: #ffffff !important;
 }
 
+/* IMPORTANT FIX: ADDED .chart-card TO THIS LIST SO HEADINGS TURN WHITE */
 body.theme-dark .navbar,
 body.theme-dark .sidebar,
 body.theme-dark .profile-card,
 body.theme-dark .card,
 body.theme-dark .stat-card,
-body.theme-dark .welcome-card {
+body.theme-dark .welcome-card,
+body.theme-dark .chart-card {
 background-color: #111827 !important;
 color: #ffffff !important;
 border-color: rgba(255,255,255,0.1) !important;
@@ -265,15 +267,63 @@ color: #ffffff !important;
 body.theme-dark .text-black-50,
 body.theme-dark .text-muted,
 body.theme-dark .text-secondary {
-color: #cbd5e1 !important;
+color: #cbd5e1 !important; /* Lighter Gray for dark backgrounds */
 }
 
+/* === DARK MODE VISIBILITY FIXES (Added Strict Overrides) === */
+
+/* 1. Fix inner boxes (Active Clients, Total Sessions, etc) */
+body.theme-dark .bg-light {
+background-color: #1f2937 !important; /* Dark Gray */
+border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 2. Force text inside those boxes to be visible */
+body.theme-dark .bg-light p.text-muted,
+body.theme-dark .bg-light small.text-muted {
+color: #d1d5db !important; /* Very light gray */
+}
+
+/* 3. Fix Marquee in Dark Mode */
+body.theme-dark .marquee-container {
+background-color: #374151 !important;
+border-color: #4b5563 !important;
+color: #ffffff !important;
+}
+body.theme-dark .marquee-content {
+color: #e5e7eb !important;
+}
+
+/* 4. Fix Input/Selects */
 body.theme-dark input,
 body.theme-dark select,
 body.theme-dark textarea {
-background-color: #0f172a !important;
+background-color: #1f2937 !important;
 color: #ffffff !important;
 border-color: rgba(255,255,255,0.15) !important;
+}
+
+/* 5. Fix Buttons (View All/View Notes) */
+body.theme-dark .btn-outline-secondary {
+color: #e5e7eb !important;
+border-color: #6b7280 !important;
+}
+body.theme-dark .btn-outline-secondary:hover {
+background-color: #374151 !important;
+color: #ffffff !important;
+}
+
+/* 6. Explicitly Force Headings inside Chart Cards to White in Dark Mode */
+body.theme-dark .chart-card h6, 
+body.theme-dark .chart-card h5, 
+body.theme-dark .chart-card h4,
+body.theme-dark .chart-card h3 {
+color: #ffffff !important;
+}
+
+/* 7. Fix Progress Circle Center in Dark Mode (Donut Hole) */
+body.theme-dark .circle-text {
+    background-color: #111827 !important; /* Match card background so text pops */
 }
 
 body.theme-dark footer {
@@ -444,9 +494,10 @@ data-bs-toggle="dropdown">
 <a href="session_notes.html" class="btn btn-outline-secondary btn-sm">View Notes</a>
 </div>
 <div class="row g-2 mb-3">
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-primary mb-0" id="totalSessions">0</h5><p class="small text-muted mb-0">Total Sessions</p></div></div>
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-success mb-0" id="completedSessions">0</h5><p class="small text-muted mb-0">Completed</p></div></div>
-<div class="col-4"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-warning mb-0" id="pendingSessions">0</h5><p class="small text-muted mb-0">Pending</p></div></div>
+<div class="col-3"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-primary mb-0" id="totalSessions">0</h5><p class="small text-muted mb-0" style="font-size:0.75rem">Total</p></div></div>
+<div class="col-3"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-success mb-0" id="completedSessions">0</h5><p class="small text-muted mb-0" style="font-size:0.75rem">Done</p></div></div>
+<div class="col-3"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-warning mb-0" id="pendingSessions">0</h5><p class="small text-muted mb-0" style="font-size:0.75rem">Pending</p></div></div>
+<div class="col-3"><div class="text-center p-2 bg-light rounded"><h5 class="fw-bold text-danger mb-0" id="cancelledSessions">0</h5><p class="small text-muted mb-0" style="font-size:0.75rem">Cancel</p></div></div>
 </div>
 <div class="small text-muted">Common Tags: <span class="badge bg-primary bg-opacity-25 text-primary me-1">Anxiety</span><span class="badge bg-info bg-opacity-25 text-info me-1">Career</span><span class="badge bg-secondary bg-opacity-25 text-secondary">Family</span></div>
 </div>
@@ -526,7 +577,10 @@ Change Avatar
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 function initDashboard() { 
-  document.getElementById('yearSpan').textContent = new Date().getFullYear(); 
+  // 1. Load Settings FIRST so Dark Mode class is active before chart draws
+  loadSettings();
+
+  document.getElementById('yearSpan').textContent = new Date().getFullYear();
   
   // === CLIENT TALLY LOGIC ===
   const clientData = JSON.parse(localStorage.getItem('mindcare_clients_data')) || [];
@@ -538,15 +592,17 @@ function initDashboard() {
   if(document.getElementById('activeClients')) document.getElementById('activeClients').innerText = active;
   if(document.getElementById('inactiveClients')) document.getElementById('inactiveClients').innerText = inactive;
 
-  // === SESSION NOTES TALLY LOGIC (ADDED) ===
+  // === SESSION NOTES TALLY LOGIC ===
   const sessionData = JSON.parse(localStorage.getItem('mindcare_sessions_data')) || [];
   const totalS = sessionData.length;
   const completedS = sessionData.filter(s => s.status === 'Completed').length;
   const pendingS = sessionData.filter(s => s.status === 'Pending').length;
+  const cancelledS = sessionData.filter(s => s.status === 'Cancelled').length;
 
   if(document.getElementById('totalSessions')) document.getElementById('totalSessions').innerText = totalS;
   if(document.getElementById('completedSessions')) document.getElementById('completedSessions').innerText = completedS;
   if(document.getElementById('pendingSessions')) document.getElementById('pendingSessions').innerText = pendingS;
+  if(document.getElementById('cancelledSessions')) document.getElementById('cancelledSessions').innerText = cancelledS;
 
   renderChart(); 
 }
@@ -679,7 +735,8 @@ sidebarWrapper.classList.toggle("collapsed", isOn);
 
 // Initialize settings on page load
 document.addEventListener("DOMContentLoaded", function () {
-loadSettings();
+// Removed call here because we now call it explicitly in initDashboard to fix Chart race condition
+// loadSettings(); 
 });
 
 // Update theme when system preference changes (for auto mode)
@@ -702,7 +759,7 @@ function confirmLogout() {
 sessionStorage.clear();
 localStorage.removeItem("loggedInUser");
 localStorage.removeItem("isLoggedIn");
-// REMOVED localStorage.clear() so data persists
+// REMOVED localStorage.clear() so your session note data is NOT deleted on logout
 window.location.href = "index.html";
 }
 
@@ -716,7 +773,48 @@ confirmLogout();
 }
 });
 
-function renderChart() { const ctx = document.getElementById('appointmentsChart').getContext('2d'); new Chart(ctx, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Appointments', data: [12, 19, 15, 25, 22, 30], borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false } }); }
+function renderChart() { 
+  const ctx = document.getElementById('appointmentsChart').getContext('2d'); 
+  
+  // Detect if dark mode is active specifically to fix the chart text visibility
+  const isDark = document.body.classList.contains('theme-dark');
+  const textColor = isDark ? '#e5e7eb' : '#666';
+  const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+  new Chart(ctx, { 
+    type: 'line', 
+    data: { 
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], 
+      datasets: [{ 
+        label: 'Appointments', 
+        data: [12, 19, 15, 25, 22, 30], 
+        borderColor: '#198754', 
+        backgroundColor: 'rgba(25, 135, 84, 0.1)', 
+        tension: 0.4, 
+        fill: true 
+      }] 
+    }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: textColor }
+        }
+      }
+    } 
+  }); 
+}
 </script>
 </body>
 </html>
