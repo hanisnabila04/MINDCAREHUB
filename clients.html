@@ -101,6 +101,7 @@
     color: #ffffff !important;
   }
 
+  /* General Dark Mode Styles */
   body.theme-dark .navbar,
   body.theme-dark .sidebar,
   body.theme-dark .profile-card,
@@ -121,24 +122,26 @@
     color: #ffffff !important;
   }
 
-  body.theme-dark .text-black,
-  body.theme-dark .text-dark,
-  body.theme-dark .text-body {
-    color: #ffffff !important;
-  }
-
-  body.theme-dark .text-black-50,
-  body.theme-dark .text-muted,
-  body.theme-dark .text-secondary {
-    color: #cbd5e1 !important;
-  }
-
   body.theme-dark input,
   body.theme-dark select,
   body.theme-dark textarea {
     background-color: #0f172a !important;
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* === FIX SEARCH BAR VISIBILITY === */
+  /* Fix the icon container on the left */
+  body.theme-dark .input-group-text {
+    background-color: #0f172a !important;
+    border-color: rgba(255,255,255,0.15) !important;
+    color: #cbd5e1 !important;
+  }
+
+  /* Fix the placeholder text color */
+  body.theme-dark ::placeholder {
+    color: #a0aec0 !important; /* Lighter Gray for placeholder */
+    opacity: 1; /* Firefox fix */
   }
 
   body.theme-dark th {
@@ -149,6 +152,78 @@
     background-color: #111827 !important;
     color: #ffffff !important;
     border-top-color: rgba(255,255,255,0.1) !important;
+  }
+
+  /* === STRICT TEXT VISIBILITY OVERRIDES FOR DARK MODE === */
+  
+  /* Force Headers and Standard text to White */
+  body.theme-dark .text-black,
+  body.theme-dark .text-dark,
+  body.theme-dark .text-body,
+  body.theme-dark h1, 
+  body.theme-dark h2, 
+  body.theme-dark h3, 
+  body.theme-dark h4, 
+  body.theme-dark h5, 
+  body.theme-dark h6,
+  body.theme-dark .fw-bold.text-dark {
+    color: #ffffff !important;
+  }
+
+  /* Force Muted/Secondary text to Light Gray so it's visible */
+  body.theme-dark .text-black-50,
+  body.theme-dark .text-muted,
+  body.theme-dark .text-secondary {
+    color: #cbd5e1 !important;
+  }
+
+  /* Fix Table Cells Background & Text */
+  body.theme-dark td {
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+  }
+  
+  /* Fix Avatar in Table */
+  body.theme-dark .avatar-table {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    border-color: #4b5563 !important;
+  }
+
+  /* Fix Action Buttons (Edit/Delete) in Table */
+  body.theme-dark .btn-light {
+    background-color: #374151 !important;
+    color: #ffffff !important;
+    border-color: #4b5563 !important;
+  }
+
+  /* Fix Pagination */
+  body.theme-dark .page-link {
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+    color: #e5e7eb !important;
+  }
+  body.theme-dark .page-item.active .page-link {
+    background-color: var(--accent) !important;
+    color: #102e35 !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* Fix Outline Buttons */
+  body.theme-dark .btn-outline-custom {
+    color: #e5e7eb !important;
+    border-color: #6b7280 !important;
+    background: transparent;
+  }
+
+  /* ========================= TOAST NOTIFICATION DARK MODE FIX ========================= */
+  body.theme-dark .toast {
+    background-color: #1f2937 !important; /* Dark background */
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+  body.theme-dark .toast-body {
+    color: #ffffff !important; /* Visible White Text */
   }
 
   /* ========================= MODAL THEME FIX ========================= */
@@ -172,7 +247,8 @@
     color: #ffffff !important;
   }
 
-  body.theme-dark .modal-body p {
+  body.theme-dark .modal-body p,
+  body.theme-dark .modal-body label {
     color: #ffffff !important;
   }
 
@@ -681,23 +757,5 @@
       }
     });
   </script>
-
-  <div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color:var(--accent);">
-          <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure want to logout and return to the login page?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" id="confirmLogoutBtn" onclick="confirmLogout()" class="btn" style="background-color:var(--accent); color:#0b0b0b;">Logout</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
