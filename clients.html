@@ -38,17 +38,19 @@
     background-color: white; border: 1px solid #dee2e6; color: #333;
   }
   
-  /* Profile Icon - FORCE WHITE */
+  /* === PROFILE ICON (FORCE WHITE) === */
   .profile-icons { display: flex; justify-content: center; align-items: center; }
   .profile-icons .profile-icon { 
     width: 64px; height: 64px; 
     display: inline-flex; align-items: center; justify-content: center; 
     border-radius: 50%; 
-    background: rgba(255,255,255,0.1); /* Slight transparent background */
+    background: rgba(255,255,255,0.1); 
     color: #ffffff !important; /* Force White Icon */
     font-size: 2rem; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08); line-height: 0; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08); 
+    line-height: 0; 
   }
+  .profile-icons .profile-icon i { color: #ffffff !important; }
   .profile-icons .profile-icon:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
   
   .sidebar.collapsed .text-center h6, .sidebar.collapsed .text-center h5, .sidebar.collapsed .text-secondary { display: none; }
@@ -56,16 +58,16 @@
   .sidebar.collapsed .nav-link { justify-content: center; padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
   .sidebar.collapsed .sidebar-toggle-btn { top: 12px; transform: none; right: -18px; }
   
-  /* Sidebar Links - WHITE TEXT */
-  .sidebar .nav-link { font-weight: bold; color: #ffffff; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
-  .sidebar .nav-link:hover { color: var(--accent); background-color: rgba(255,255,255,0.1); }
-  .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35; font-weight: bold; }
+  /* Sidebar Links - White Text */
+  .sidebar .nav-link { font-weight: bold; color: #b0c4c9; padding: 12px 15px; margin-bottom: 5px; border-radius: 6px; white-space: nowrap; overflow: hidden; }
+  .sidebar .nav-link:hover { color: #ffffff !important; background-color: rgba(255,255,255,0.1); }
+  .sidebar .nav-link.active { background-color: #bddeb1; color: #102e35 !important; font-weight: bold; }
   .sidebar .nav-link i { font-size: 1.1rem; width: 28px; text-align: center; }
   
   /* Sidebar Headers - FORCE WHITE */
-  .sidebar h6 { color: rgba(255,255,255,0.7) !important; } /* Welcome Text */
-  .sidebar h5 { color: #ffffff !important; } /* ADMIN Text */
-  .sidebar .text-secondary { color: rgba(255,255,255,0.6) !important; } /* Navigation Label */
+  .sidebar h6 { color: #ffffff !important; opacity: 0.9; } /* WELCOME */
+  .sidebar h5 { color: #ffffff !important; font-weight: bold; } /* ADMIN */
+  .sidebar .nav-header { color: rgba(255,255,255,0.5) !important; font-weight: bold; padding-left: 10px; font-size: 0.75rem; }
 
   /* CONTENT & NAVBAR */
   .content { display: flex; flex-direction: column; min-height: 100vh; width: 100%; transition: background-color 0.3s; }
@@ -124,7 +126,8 @@
 
   body.theme-dark .sidebar { border-right-color: rgba(255,255,255,0.1) !important; background-color: #111827 !important; }
   body.theme-dark .sidebar-toggle-btn { background-color: #374151; border-color: rgba(255,255,255,0.1); color: white; }
-  body.theme-dark .profile-icons .profile-icon { background: #374151 !important; color: #ffffff !important; }
+  
+  /* Sidebar Links Dark Mode */
   body.theme-dark .sidebar .nav-link { color: #d1d5db !important; }
   body.theme-dark .sidebar .nav-link:hover { background-color: rgba(255,255,255,0.1) !important; color: #fff !important; }
   body.theme-dark .sidebar .nav-link.active { background-color: var(--accent) !important; color: #102e35 !important; }
@@ -146,8 +149,8 @@
   body.theme-dark .dropdown-menu { background-color: #1f2937 !important; border-color: rgba(255,255,255,0.1); }
   body.theme-dark .dropdown-item { color: #e2e8f0 !important; }
   body.theme-dark .dropdown-item:hover { background-color: rgba(255,255,255,0.1) !important; }
+
   body.theme-dark footer { border-top-color: rgba(255,255,255,0.1) !important; }
-  
   body.reduce-motion * { transition: none !important; animation: none !important; }
 </style>
 
@@ -164,11 +167,11 @@
       </div>
 
       <div class="text-center mb-4">
-        <h6 class="mb-0 small" style="color: rgba(255,255,255,0.7);">WELCOME</h6>
+        <h6 class="mb-0 small text-white">WELCOME</h6>
         <h5 class="fw-bold text-white">ADMIN</h5>
       </div>
 
-      <p class="text-secondary small mt-4">NAVIGATION</p>
+      <p class="text-secondary small mt-4 nav-header">NAVIGATION</p>
       <ul class="nav flex-column gap-1">
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="dashboard.html">
@@ -544,4 +547,4 @@
     }
   </script>
 </body>
-</html> 
+</html>
