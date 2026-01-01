@@ -87,14 +87,191 @@
   .icon-square { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
   .view-btn { border: 1px solid #dee2e6; background: white; color: #555; }
   .view-btn.active { background: #102e35; color: white; border-color: #102e35; }
-  .btn-green { background-color: #bddeb1; color: #102e35; font-weight: bold; border: none; }
-  .btn-green:hover { background-color: #a8d697; color: #000; }
+  .btn-green { background-color: #198754; color: white; border: none; font-weight: 500; }
+  .btn-green:hover { background-color: #157347; color: white; }
 
   /* PROFILE SECTION */
   .hidden-section { display: none !important; }
   .profile-grid { display: grid; grid-template-columns: 350px 1fr; gap: 24px; margin-top: 20px; }
   .profile-card { background: #FFFFFF; border-radius: 12px; padding: 30px; border: 1px solid #f0f0f0; }
   .avatar-large { width: 100px; height: 100px; border-radius: 50%; background-color: #eef2ff; color: #102e35; font-size: 2rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; border: 3px solid #fff; box-shadow: 0 0 0 2px #e0e7ff; }
+
+  /* ================= PROFILE SECTION STYLES (MATCHING PROFILE.HTML) ================= */
+  #profileSection {
+    margin-top: 20px;
+  }
+
+  .profile-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .profile-header p {
+    margin-top: 6px;
+    color: #6b7280;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .profile-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .profile-card {
+    background: black;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+  }
+
+  .profile-avatar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    background: #eef2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid #dbeafe;
+    color: #102e35;
+  }
+
+  .avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .role-tag {
+    margin-top: 6px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #ecfeff;
+    color: #155e75;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .profile-actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .form-card h3 {
+    margin: 0 0 14px 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .form-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  /* Header form card text always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
+
+  /* Profile display name white in dark/auto mode */
+  body.theme-dark #profileDisplayName {
+    color: #ffffff !important;
+  }
+
+  /* Form cards with green background stay green in all themes */
+  .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-light .profile-card.form-card[style*="background-color: #c5e2c5"] {
+    background-color: #c5e2c5 !important;
+  }
+
+  /* Profile cards white in light mode, dark in dark mode */
+  body.theme-light .profile-card[style*="background-color: #111827"] {
+    background-color: #ffffff !important;
+  }
+
+  /* Text in green form cards always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
+
+  /* Avatar text always black */
+  .avatar-circle,
+  .avatar-circle span,
+  body.theme-dark .avatar-circle,
+  body.theme-dark .avatar-circle span {
+    color: #102e35 !important;
+  }
+
+  .btn-outline-custom { border: 1px solid #dee2e6; color: #555; background: white; font-weight: 500; }
 
   /* Interactive Stars */
   .star-rating { font-size: 2rem; color: #e0e0e0; cursor: pointer; transition: color 0.2s; }
@@ -472,18 +649,66 @@
         </div>
 
         <section id="profileSection" class="hidden-section mb-5">
-          <h2 class="fw-bold text-dark">User Profile</h2>
-          <div class="profile-grid">
-            <div class="profile-card d-flex flex-column align-items-center text-center">
-              <div class="avatar-large mb-3">HH</div>
-              <h4 class="fw-bold mb-0">Hanis Heidi</h4>
-              <span class="badge bg-info bg-opacity-10 text-info rounded-pill mb-3">Super Admin</span>
-              <button class="btn btn-outline-secondary w-100 mb-2">Change Avatar</button>
-              <button class="btn btn-outline-secondary w-100" id="backToMainBtn">Back</button>
+          <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
+            <div class="profile-header">
+              <h2>User Profile</h2>
+              <p>Update your personal information and account details.</p>
             </div>
-            <div class="profile-card">
-                <h5>Account Details</h5>
-                <p class="text-muted">Managed via Dashboard.</p>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card profile-left-content" style="background-color: #111827;">
+              <div class="d-flex align-items-center w-100 mb-4">
+                <div class="avatar-large" id="profileAvatarFallback">HH</div>
+                <div class="ms-3 text-start">
+                  <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
+                  <span class="badge bg-info bg-opacity-25 text-info rounded-pill" id="displayRole">Super Admin</span>
+                </div>
+              </div>
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">
+                  Change Avatar
+                  <input type="file" id="avatarInput" accept="image/*" hidden>
+                </label>
+                <button class="btn btn-outline-custom flex-grow-1" type="button" id="resetPassBtn">Reset Password</button>
+              </div>
+            </div>
+
+            <div class="profile-card form-card" style="background-color: #111827;">
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
+              <form id="profileForm">
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" value="Hanis" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" value="Heidi" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" value="hanis@mindcare.com" required>
+                </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Role</label>
+                    <select class="form-control" id="role">
+                      <option value="Admin">Admin</option>
+                      <option value="Super Admin" selected>Super Admin</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" value="+60 12-345 6789">
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-outline-custom px-4" id="backToCounselorsBtn">Back</button>
+                  <button type="submit" class="btn btn-green px-4">Save</button>
+                </div>
+              </form>
             </div>
           </div>
         </section>
@@ -850,9 +1075,78 @@
         document.getElementById("mainContent").classList.add("hidden-section");
         document.getElementById("profileSection").classList.remove("hidden-section");
     });
-    document.getElementById("backToMainBtn").addEventListener("click", () => {
+    document.getElementById("backToCounselorsBtn").addEventListener("click", () => {
         document.getElementById("profileSection").classList.add("hidden-section");
         document.getElementById("mainContent").classList.remove("hidden-section");
+    });
+
+    // Profile form functionality - matching profile.html exactly
+    function getInitials(fn, ln) {
+        if (ln) {
+            return (fn?.charAt(0) || "H").toUpperCase() + (ln?.charAt(0) || "H").toUpperCase();
+        }
+        return fn.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    }
+
+    function loadProfileData() {
+        const currentUser = {
+            firstName: "Hanis",
+            lastName: "Heidi",
+            email: "hanis@mindcare.com",
+            role: "Super Admin",
+            phone: "+60 12-345 6789"
+        };
+
+        document.getElementById("firstName").value = currentUser.firstName;
+        document.getElementById("lastName").value = currentUser.lastName;
+        document.getElementById("email").value = currentUser.email;
+        document.getElementById("role").value = currentUser.role;
+        document.getElementById("phone").value = currentUser.phone;
+
+        document.getElementById("profileDisplayName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+        document.getElementById("displayRole").textContent = currentUser.role;
+        document.getElementById("topUserName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+        document.getElementById("topUserBadge").textContent = getInitials(currentUser.firstName, currentUser.lastName);
+        document.getElementById("profileAvatarFallback").textContent = getInitials(currentUser.firstName, currentUser.lastName);
+    }
+
+    document.getElementById("profileForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const currentUser = {
+            firstName: document.getElementById("firstName").value.trim(),
+            lastName: document.getElementById("lastName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            role: document.getElementById("role").value,
+            phone: document.getElementById("phone").value.trim()
+        };
+
+        // Update all displays
+        document.getElementById("profileDisplayName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+        document.getElementById("displayRole").textContent = currentUser.role;
+        document.getElementById("topUserName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+        document.getElementById("topUserBadge").textContent = getInitials(currentUser.firstName, currentUser.lastName);
+        document.getElementById("profileAvatarFallback").textContent = getInitials(currentUser.firstName, currentUser.lastName);
+
+        alert("Profile Saved!");
+    });
+
+    // Reset Password button functionality
+    document.getElementById("resetPassBtn").addEventListener("click", function () {
+        alert("Reset password clicked ✅ (demo)");
+    });
+
+    // Avatar input functionality
+    document.getElementById("avatarInput").addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+        // Avatar functionality can be implemented here
+        alert("Avatar change functionality would be implemented here");
+    });
+
+    // Initialize profile data
+    document.addEventListener("DOMContentLoaded", function () {
+        loadProfileData();
     });
 
     // ========================= SETTINGS FUNCTIONALITY ========================= //
