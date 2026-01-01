@@ -165,6 +165,31 @@
 
   body.theme-dark .modal-content { background-color: #f7f8f9 !important; color: #ffffff !important; }
   body.theme-dark .modal-header { background-color: var(--accent) !important; color: #ffffff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
+
+  /* Form cards with green background stay green in all themes */
+  .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"],
+  body.theme-light .profile-card.form-card[style*="background-color: #c5e2c5"] {
+    background-color: #c5e2c5 !important;
+  }
+
+  /* Text in green form cards always black */
+  .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] h5,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] label,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header h2,
+  body.theme-dark .profile-card.form-card[style*="background-color: #c5e2c5"] .profile-header p {
+    color: #000000 !important;
+  }
+
+  /* Profile display name white in dark mode */
+  body.theme-dark #profileDisplayName {
+    color: #ffffff !important;
+  }
+
   body.reduce-motion * { transition: none !important; animation: none !important; }
 </style>
 
@@ -363,21 +388,65 @@
         </div>
 
         <section id="profileSection" class="hidden-section mb-5">
-          <h2 class="fw-bold text-dark">User Profile</h2>
-          <div class="profile-grid">
-            <div class="profile-card d-flex flex-column align-items-center text-center">
-              <div class="avatar-large mb-3">HH</div>
-              <h4 class="fw-bold mb-0">Hanis Heidi</h4>
-              <span class="badge bg-info bg-opacity-10 text-info rounded-pill mb-3">Super Admin</span>
-              <button class="btn btn-outline-secondary w-100 mb-2">Change Avatar</button>
-              <button class="btn btn-outline-secondary w-100" id="backToMainBtn">Back</button>
+          <div class="profile-card form-card" style="background-color: #c5e2c5; margin-bottom: 20px;">
+            <div class="profile-header">
+              <h2 class="fw-bold text-dark">User Profile</h2>
+              <p>Update your personal information and account details.</p>
             </div>
-            <div class="profile-card">
-              <h5>Account Details</h5>
+          </div>
+
+          <div class="profile-grid">
+            <div class="profile-card profile-left-content">
+              <div class="d-flex align-items-center w-100 mb-4">
+                <div class="avatar-large" id="profileAvatarFallback">HH</div>
+                <div class="ms-3 text-start">
+                  <h4 class="fw-bold mb-0" id="profileDisplayName">Hanis Heidi</h4>
+                  <span class="badge bg-info bg-opacity-25 text-info rounded-pill" id="displayRole">Super Admin</span>
+                </div>
+              </div>
+              <div class="d-flex gap-2 w-100">
+                <label class="btn btn-green flex-grow-1">
+                  Change Avatar
+                  <input type="file" id="avatarInput" accept="image/*" hidden>
+                </label>
+                <button class="btn btn-outline-custom flex-grow-1" type="button" id="resetPassBtn">Reset Password</button>
+              </div>
+            </div>
+
+            <div class="profile-card form-card">
+              <h5 class="fw-bold mb-3 border-bottom pb-2">Account Details</h5>
               <form id="profileForm">
-                <div class="row g-3 mb-3"><div class="col-md-6"><label class="form-label">First Name</label><input type="text" class="form-control" id="firstName" value="Hanis"></div><div class="col-md-6"><label class="form-label">Last Name</label><input type="text" class="form-control" id="lastName" value="Heidi"></div></div>
-                <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" id="email" value="hanis@mindcare.com"></div>
-                <div class="d-flex justify-content-end gap-2"><button type="button" class="btn btn-outline-custom px-4" id="backToMainBtn">Back</button><button type="submit" class="btn btn-green px-4">Save</button></div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" value="Hanis" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" value="Heidi" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" value="hanis@mindcare.com" required>
+                </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Role</label>
+                    <select class="form-select" id="role">
+                      <option value="Super Admin" selected>Super Admin</option>
+                      <option value="Admin">Admin</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" value="+60 12-345 6789">
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-outline-custom px-4" id="backToMainBtn">Back</button>
+                  <button type="submit" class="btn btn-green px-4">Save</button>
+                </div>
               </form>
             </div>
           </div>
@@ -756,7 +825,65 @@
     document.getElementById("menuProfile").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("mainContent").classList.add("hidden-section"); document.getElementById("profileSection").classList.remove("hidden-section"); });
     document.getElementById("backToMainBtn").addEventListener("click", () => { document.getElementById("profileSection").classList.add("hidden-section"); document.getElementById("mainContent").classList.remove("hidden-section"); });
     
-    document.getElementById("profileForm").addEventListener("submit", (e) => { e.preventDefault(); document.getElementById("topUserName").textContent = document.getElementById("firstName").value + " " + document.getElementById("lastName").value; document.getElementById("topUserBadge").textContent = getInitials(document.getElementById("topUserName").textContent); document.getElementById("profileDisplayName").textContent = document.getElementById("topUserName").textContent; document.getElementById("profileAvatarFallback").textContent = document.getElementById("topUserBadge").textContent; alert("Profile Saved!"); });
+    // ✅ PROFILE FUNCTIONALITY
+    const currentUser = {
+      firstName: "Hanis",
+      lastName: "Heidi", 
+      email: "hanis@mindcare.com",
+      role: "Super Admin",
+      phone: "+60 12-345 6789"
+    };
+
+    function getProfileInitials(fn, ln) {
+      return (fn?.charAt(0) || "H").toUpperCase() + (ln?.charAt(0) || "H").toUpperCase();
+    }
+
+    function loadProfileData() {
+      document.getElementById("firstName").value = currentUser.firstName;
+      document.getElementById("lastName").value = currentUser.lastName;
+      document.getElementById("email").value = currentUser.email;
+      document.getElementById("role").value = currentUser.role;
+      document.getElementById("phone").value = currentUser.phone;
+
+      document.getElementById("profileDisplayName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("displayRole").textContent = currentUser.role;
+      
+      document.getElementById("topUserName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("topUserBadge").textContent = getProfileInitials(currentUser.firstName, currentUser.lastName);
+      document.getElementById("profileAvatarFallback").textContent = getProfileInitials(currentUser.firstName, currentUser.lastName);
+    }
+
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      currentUser.firstName = document.getElementById("firstName").value.trim();
+      currentUser.lastName = document.getElementById("lastName").value.trim();
+      currentUser.email = document.getElementById("email").value.trim();
+      currentUser.role = document.getElementById("role").value;
+      currentUser.phone = document.getElementById("phone").value.trim();
+
+      // Update all displays
+      document.getElementById("profileDisplayName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("displayRole").textContent = currentUser.role;
+      document.getElementById("topUserName").textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+      document.getElementById("topUserBadge").textContent = getProfileInitials(currentUser.firstName, currentUser.lastName);
+      document.getElementById("profileAvatarFallback").textContent = getProfileInitials(currentUser.firstName, currentUser.lastName);
+
+      alert("Profile Saved!");
+    });
+
+    document.getElementById("avatarInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      alert("Avatar change functionality would be implemented here");
+    });
+
+    document.getElementById("resetPassBtn").addEventListener("click", function () {
+      alert("Reset password clicked ✅ (demo)");
+    });
+
+    // Load profile data when page loads
+    window.addEventListener("DOMContentLoaded", loadProfileData);
 
     // ========================= SETTINGS THEME LOADER ========================= //
     function loadSettings() {
