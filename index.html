@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login | Counselling Appointment System</title>
 
-  <!-- ✅ Bootstrap CSS -->
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- ✅ Bootstrap Icons -->
+  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- ✅ Your CSS -->
+  <!-- Your CSS -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- ✅ ADDED ONLY: Green-focused moving RGB gradient (warm tones included) -->
+  <!-- ADDED ONLY: Green-focused moving RGB gradient (warm tones included) -->
   <style>
-    /* ✅ RGB gradient text focused on green + warm tones */
+    /* RGB gradient text focused on green + warm tones */
     .brand-rgb {
       font-weight: 800;
       background: linear-gradient(
@@ -37,14 +37,14 @@
       animation: rgbMove 4s ease-in-out infinite;
     }
 
-    /* ✅ Gradient movement animation */
+    /* Gradient movement animation */
     @keyframes rgbMove {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* ✅ Optional: soft glow effect (very light, counselling-friendly) */
+    /* Optional: soft glow effect (very light, counselling-friendly) */
     .brand-rgb {
       filter: drop-shadow(0px 4px 10px rgba(16, 185, 129, 0.20));
     }
@@ -91,13 +91,13 @@
 
 <body class="bg-soft">
 
-  <!-- ✅ Bootstrap layout wrapper -->
+  <!-- Bootstrap layout wrapper -->
   <div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
 
-    <!-- ✅ Bootstrap Row -->
+    <!-- Bootstrap Row -->
     <div class="row w-100 justify-content-center align-items-center g-4" style="max-width: 900px;">
 
-      <!-- ✅ LEFT: Counseling intro panel -->
+      <!-- LEFT: Counseling intro panel -->
       <div class="col-lg-6 d-none d-lg-block order-2 order-lg-2">
         <div class="p-4 p-xl-5 text-dark rounded-4 shadow-sm bg-white border">
           <div class="d-flex align-items-center mb-3">
@@ -133,11 +133,11 @@
         </div>
       </div>
 
-      <!-- ✅ RIGHT: Login Card -->
+      <!-- RIGHT: Login Card -->
       <div class="col-lg-6 col-md-8 col-sm-10 order-1 order-lg-1">
         <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
 
-          <!-- ✅ Header -->
+          <!-- Header -->
           <div class="text-center mb-4">
             <div class="mx-auto mb-3 login-icon">
               <i class="bi bi-person-heart"></i>
@@ -147,7 +147,7 @@
             <p class="text-muted mb-0">Counselling Appointment System</p>
           </div>
 
-          <!-- ✅ Login Form -->
+          <!-- Login Form -->
           <form id="loginForm" novalidate>
 
             <div class="mb-3">
@@ -208,11 +208,11 @@
     </div>
   </div>
 
-  <!-- ✅ Bootstrap JS -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
 
-  <!-- ✅ Login validation logic -->
+  <!-- Login validation logic -->
   <script>
     const form = document.getElementById("loginForm");
 
@@ -234,7 +234,7 @@
     });
   </script>
 
-  <!-- ✅ Show/Hide Password Script -->
+  <!-- Show/Hide Password Script -->
   <script>
     const togglePass = document.getElementById("togglePass");
     const passwordInput = document.getElementById("password");
