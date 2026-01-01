@@ -96,6 +96,21 @@
   
   .kanban-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
   @media(max-width: 992px) { .kanban-container { grid-template-columns: 1fr; } }
+
+  /* ========================= MOBILE RESPONSIVE DESIGN ========================= */
+  @media (max-width: 768px) {
+    .profile-grid { grid-template-columns: 1fr; gap: 15px; }
+    .profile-card { padding: 15px; }
+    .avatar-large { width: 60px; height: 60px; font-size: 1.4rem; }
+    .container-fluid { padding: 15px; }
+    .kanban-col { padding: 8px; }
+    .kanban-card { padding: 8px; font-size: 0.8rem; }
+  }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .d-flex.gap-2 { flex-direction: column; gap: 8px; }
+  }
   .kanban-col { background: #eef2f5; border-radius: 10px; padding: 10px; height: 100%; border: 1px solid #dee2e6; }
   .kanban-card { background: white; border-radius: 8px; padding: 10px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); border-left: 3px solid #102e35; transition: transform 0.2s; font-size: 0.9rem; }
   

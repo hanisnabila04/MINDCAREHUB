@@ -99,6 +99,23 @@
   .profile-icons .profile-icon:focus { outline-color: var(--accent) !important; }
   body { font-size: var(--base-font-size); }
 
+  /* ========================= MOBILE RESPONSIVE DESIGN ========================= */
+  @media (max-width: 768px) {
+    .profile-grid { grid-template-columns: 1fr; gap: 15px; }
+    .profile-card { padding: 15px; }
+    .avatar-large { width: 60px; height: 60px; font-size: 1.4rem; }
+    .container-fluid { padding: 15px; }
+    .highlight-card { padding: 12px; }
+    .table-card { overflow-x: auto; }
+    th, td { padding: 10px; font-size: 0.8rem; }
+  }
+
+  @media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .d-flex.gap-2 { flex-direction: column; gap: 8px; }
+    .h-icon { width: 30px; height: 30px; }
+  }
+
   /* ========================= DARK MODE FIXES ========================= */
   body.theme-dark { background-color: #0b1220 !important; color: #ffffff !important; }
   
