@@ -60,7 +60,7 @@ MindCareHub is a comprehensive web-based mental health management system designe
 1. **Setup**: Open `index.html` in a web browser
 2. **Login**: Use the login interface to access the system
    - **Username**: `admin`
-   - **Password**: `1234`
+   - **Password**: `12345`
    - Click "Login" button to access the dashboard
 3. **Navigation**: Use the sidebar navigation to access different modules
 4. **Responsive**: The system works on desktop, tablet, and mobile devices
@@ -68,7 +68,7 @@ MindCareHub is a comprehensive web-based mental health management system designe
 ### Test Credentials
 For testing purposes, use the following login credentials:
 - **Username**: `admin`
-- **Password**: `1234`
+- **Password**: `12345`
 
 > **Note**: These are demo credentials for testing the system functionality.
 
